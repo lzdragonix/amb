@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="cf3f3f3">#f3f3f3</color>
+    <color name="ce9e9e9">#E9E9E9</color>
+    <color name="cffffff">#ffffff</color>
+    <color name="cf1f1f1">#f1f1f1</color>
+    <color name="ceaeaea">#EAEAEA</color>
+    <color name="cb4b3b4">#B4B3B4</color>
+    <color name="c000000">#000000</color>
+    <color name="c7f7f7f">#7F7F7F</color>
+    <color name="ce5e6e8">#E5E6E8</color>
+    <color name="c6c6c6c">#6c6c6c</color>
+    <color name="c7b7a7b">#7b7a7b</color>
+    <color name="c595757">#595757</color>
+    <color name="c9f9fa0">#9f9fa0</color>
+    <color name="c898989">#898989</color>
+    <color name="cd9d9db">#D9D9DB</color>
+    <color name="cdcdddd">#DCDDDD</color>
+    <color name="c385487">#385487</color>
+    <color name="c005D97">#005D97</color>
+    <color name="cadaeb2">#ADAEB2</color>
+    <color name="cf4f4f4">#F4F4F4</color>
+    <color name="cff0000">#FF0000</color>
+    <color name="cbcbcbc">#bcbcbc</color>
+    <color name="cf8f8f8">#f8f8f8</color>
+    <color name="c888888">#888888</color>
+    <color name="cfdf7b8">#fdf7b8</color>
+    <color name="cf2f2f2">#f2f2f2</color>
+    <color name="ce0e0e0">#e0e0e0</color>
+    <color name="c0b81a2">#0b81a2</color>
+    <color name="c999999">#999999</color>
+    <color name="cd8d8d8">#d8d8d8</color>
+    <color name="c464646">#464646</color>
+    <color name="c00a9d9">#00a9d9</color>
+    <color name="c70b437">#70b437</color>
+    <color name="cf7b52c">#f7b52c</color>
+    <color name="cb9b9b9">#b7b7b7</color>
+    <color name="cfbfdfa">#fbfdfa</color>
+    <color name="cbbbbbb">#bbbbbb</color>
+    <color name="c8f8f8f">#8f8f8f</color>
+    <color name="c70b439">#70b439</color>
+    <color name="cf79831">#f79831</color>
+    <color name="c077dc1">#077dc1</color>
+    <color name="c00aad9">#00aad9</color>
+    <color name="cf8b62b">#f8b62b</color>
+    <color name="ce5e5e5">#e5e5e5</color>
+    <color name="caaaaaa">#aaaaaa</color>
+    <color name="ce9fcf8">#e9fcf8</color>
+    <color name="c808080">#808080</color>
+    <color name="ceeeeee">#eeeeee</color>
+
+</resources>
