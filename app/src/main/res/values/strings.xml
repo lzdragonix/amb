@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Amb</string>
     <string name="action_settings">Settings</string>
+    <string name="txt_recommend">推荐</string>
+    <string name="txt_livelihood">生活服务</string>
+    <string name="txt_finance">社区金融</string>
+    <string name="txt_mine">我的</string>
 </resources>

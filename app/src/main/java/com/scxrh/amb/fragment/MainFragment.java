@@ -44,10 +44,10 @@ public class MainFragment extends BaseFragment implements TabHost.OnTabChangeLis
         ((ImageView)layoutFinance.findViewById(R.id.ivIcon)).setImageResource(R.mipmap.icon_8);
         ((ImageView)layoutSetting.findViewById(R.id.ivIcon)).setImageResource(R.mipmap.icon_9);
         TextView tv = (TextView)layoutHome.findViewById(R.id.txtName);
-        tv.setText("推荐");
-        ((TextView)layoutLoan.findViewById(R.id.txtName)).setText(getString(R.string.app_name));
-        ((TextView)layoutFinance.findViewById(R.id.txtName)).setText(getString(R.string.app_name));
-        ((TextView)layoutSetting.findViewById(R.id.txtName)).setText(getString(R.string.app_name));
+        tv.setText(getString(R.string.txt_recommend));
+        ((TextView)layoutLoan.findViewById(R.id.txtName)).setText(getString(R.string.txt_livelihood));
+        ((TextView)layoutFinance.findViewById(R.id.txtName)).setText(getString(R.string.txt_finance));
+        ((TextView)layoutSetting.findViewById(R.id.txtName)).setText(getString(R.string.txt_mine));
         tabhost.addTab(tabhost.newTabSpec(TAB_HOME).setIndicator(layoutHome), RecommendFragment.class, null);
         tabhost.addTab(tabhost.newTabSpec(TAB_LOAN).setIndicator(layoutLoan), RecommendFragment.class, null);
         tabhost.addTab(tabhost.newTabSpec(TAB_FINANCE).setIndicator(layoutFinance), RecommendFragment.class, null);
