@@ -18,7 +18,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     {
         mUiThread = Thread.currentThread();
         mLayout = genView(inflater, container);
-        initView();
+        initView(inflater);
         return mLayout;
     }
 
@@ -56,7 +56,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    protected void initView()
+    protected void initView(LayoutInflater inflater)
     { }
 
     @Override

@@ -50,4 +50,8 @@
     <color name="c808080">#808080</color>
     <color name="ceeeeee">#eeeeee</color>
 
+    <!-- amb -->
+    <color name="c09455f">#09455f</color>
+    <color name="cf8bf04">#f8bf04</color>
+
 </resources>

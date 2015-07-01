@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -173,6 +174,27 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
                 mToast.setDuration(Toast.LENGTH_LONG);
                 mToast.setGravity(gravity, 0, 0);
                 mToast.show();
+            }
+        });
+    }
+
+    protected void replaceFragment(final int containerId, final Fragment fragment, final String tag)
+    {
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                if (TextUtils.isEmpty(tag))
+                {
+                    fragmentTransaction.replace(containerId, fragment);
+                }
+                else
+                {
+                    fragmentTransaction.replace(containerId, fragment, tag);
+                }
+                fragmentTransaction.commitAllowingStateLoss();
             }
         });
     }
