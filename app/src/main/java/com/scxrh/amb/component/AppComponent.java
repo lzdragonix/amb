@@ -1,15 +1,15 @@
 package com.scxrh.amb.component;
 
-import android.app.Application;
+import com.scxrh.amb.App;
+import com.scxrh.amb.module.AppModule;
 
 import javax.inject.Singleton;
 
+import dagger.Component;
+
 @Singleton
-//@Component(modules = {AppModule.class, ApiServiceModule.class, AppServiceModule.class})
+@Component(modules = AppModule.class)
 public interface AppComponent
 {
-    Application getApplication();
-    //    ApiService getService();
-    //
-    //    User getUser();
+    void inject(App app);
 }
