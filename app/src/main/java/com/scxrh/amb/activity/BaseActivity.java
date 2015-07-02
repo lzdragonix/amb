@@ -10,22 +10,21 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
-import com.scxrh.amb.component.ActivityComponent;
-import com.scxrh.amb.component.DaggerActivityComponent;
-import com.scxrh.amb.module.ActivityModule;
+import com.scxrh.amb.ToastHelper;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener
 {
     protected Context mContext;
-    private Toast mToast;
+    @Inject
+    ToastHelper mToastHelper;
     private ProgressDialog mProgressDialog;
-    private ActivityComponent component;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent)
@@ -48,9 +47,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         setContentView(getLayoutId());
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mContext = this;
-        component = DaggerActivityComponent.builder().appComponent(App.get(this).getComponent())
-                                           .activityModule(new ActivityModule(this)).build();
-        component.inject(this);
+        App.get(this).getComponent().inject(this);
         initProgressDialog();
     }
 
@@ -83,6 +80,19 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     @Override
     public void onClick(View v)
     { }
+
+    public final void toast(final String msg, final int gravity)
+    {
+        if (TextUtils.isEmpty(msg)) { return; }
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mToastHelper.toast(mContext, msg, gravity);
+            }
+        });
+    }
 
     protected abstract int getLayoutId();
 

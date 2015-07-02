@@ -9,15 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.scxrh.amb.App;
-import com.scxrh.amb.component.AppComponent;
+import com.scxrh.amb.activity.BaseActivity;
 
 public abstract class BaseFragment extends Fragment implements View.OnClickListener
 {
     private View mLayout;
     private Handler mHandler = new Handler();
     private Thread mUiThread;
-    private AppComponent appComponent;
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -26,12 +24,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         mLayout = genView(inflater, container);
         initView(inflater);
         return mLayout;
-    }
-
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        appComponent = App.get(getActivity()).getComponent();
     }
 
     protected final View getLayout()
@@ -73,17 +65,12 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         toast(msg, Gravity.CENTER);
     }
 
-    protected final void toast(final String msg, final int gravity)
+    protected final void toast(String msg, int gravity)
     {
-        if (TextUtils.isEmpty(msg)) { return; }
-        runOnUiThread(new Runnable()
+        if (isAdded() && !TextUtils.isEmpty(msg))
         {
-            @Override
-            public void run()
-            {
-                appComponent.getToastHelper().toast(getActivity(), msg, gravity);
-            }
-        });
+            ((BaseActivity)getActivity()).toast(msg, gravity);
+        }
     }
 
     protected void initView(LayoutInflater inflater)
