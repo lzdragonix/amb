@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.scxrh.amb.App;
+import com.scxrh.amb.component.AppComponent;
 
 public abstract class BaseFragment extends Fragment implements View.OnClickListener
 {
     private View mLayout;
     private Handler mHandler = new Handler();
     private Thread mUiThread;
+    private AppComponent appComponent;
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -24,6 +26,12 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         mLayout = genView(inflater, container);
         initView(inflater);
         return mLayout;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        appComponent = App.get(getActivity()).getComponent();
     }
 
     protected final View getLayout()
@@ -73,7 +81,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             @Override
             public void run()
             {
-                App.get(getActivity()).getComponent().getToastHelper().toast(getActivity(), msg, gravity);
+                appComponent.getToastHelper().toast(getActivity(), msg, gravity);
             }
         });
     }
