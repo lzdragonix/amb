@@ -2,6 +2,8 @@ package com.scxrh.amb.module;
 
 import android.app.Application;
 
+import com.scxrh.amb.ToastHelper;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -17,10 +19,17 @@ public class AppModule
         mApp = application;
     }
 
-    @Provides
     @Singleton
+    @Provides
     public Application provideApplication()
     {
         return mApp;
+    }
+
+    @Singleton
+    @Provides
+    public ToastHelper provideToastHelper()
+    {
+        return new ToastHelper();
     }
 }

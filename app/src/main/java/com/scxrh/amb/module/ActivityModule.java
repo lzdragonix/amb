@@ -2,8 +2,6 @@ package com.scxrh.amb.module;
 
 import android.app.Activity;
 
-import com.scxrh.amb.ToastHelper;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -21,11 +19,5 @@ public class ActivityModule
     public Activity provideActivity()
     {
         return mActivity;
-    }
-
-    @Provides
-    public ToastHelper provideToastHelper()
-    {
-        return new ToastHelper();
     }
 }

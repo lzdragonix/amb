@@ -10,7 +10,6 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.scxrh.amb.R;
-import com.scxrh.amb.activity.BaseActivity;
 import com.scxrh.amb.widget.FragmentTabHostState;
 
 public class MainFragment extends BaseFragment implements TabHost.OnTabChangeListener
@@ -21,12 +20,6 @@ public class MainFragment extends BaseFragment implements TabHost.OnTabChangeLis
     private static final String TAB_FINANCE = "TAB_FINANCE";
     private static final String TAB_SETTING = "TAB_SETTING";
     private View layoutHome, layoutLoan, layoutFinance, layoutSetting;
-
-    @Override
-    protected View genView(LayoutInflater inflater, ViewGroup container)
-    {
-        return inflater.inflate(R.layout.fragment_main, container, false);
-    }
 
     @SuppressLint("InflateParams")
     @Override
@@ -64,6 +57,12 @@ public class MainFragment extends BaseFragment implements TabHost.OnTabChangeLis
     @Override
     public void onClick(View v)
     {
-        ((BaseActivity)getActivity()).toast("cccccc");
+        toast("dfadfa");
+    }
+
+    @Override
+    protected View genView(LayoutInflater inflater, ViewGroup container)
+    {
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
 }

@@ -3,9 +3,13 @@ package com.scxrh.amb.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.scxrh.amb.App;
 
 public abstract class BaseFragment extends Fragment implements View.OnClickListener
 {
@@ -54,6 +58,24 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         {
             action.run();
         }
+    }
+
+    protected final void toast(String msg)
+    {
+        toast(msg, Gravity.CENTER);
+    }
+
+    protected final void toast(final String msg, final int gravity)
+    {
+        if (TextUtils.isEmpty(msg)) { return; }
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                App.get(getActivity()).getComponent().getToastHelper().toast(getActivity(), msg, gravity);
+            }
+        });
     }
 
     protected void initView(LayoutInflater inflater)

@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -156,24 +155,6 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     protected final void setEnabled(View v, boolean enable)
     {
         v.setEnabled(enable);
-    }
-
-    public final void toast(String msg)
-    {
-        toast(msg, Gravity.CENTER);
-    }
-
-    public final void toast(final String msg, final int gravity)
-    {
-        if (TextUtils.isEmpty(msg)) { return; }
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                component.getToastHelper().toast(mContext, msg, gravity);
-            }
-        });
     }
 
     protected void replaceFragment(final int containerId, final Fragment fragment, final String tag)
