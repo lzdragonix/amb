@@ -9,11 +9,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.scxrh.amb.App;
 import com.scxrh.amb.R;
+import com.scxrh.amb.component.ActivityComponent;
+import com.scxrh.amb.component.DaggerActivityComponent;
+import com.scxrh.amb.module.ActivityModule;
 
 import java.util.List;
 
@@ -22,6 +25,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     protected Context mContext;
     private Toast mToast;
     private ProgressDialog mProgressDialog;
+    private ActivityComponent component;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent)
@@ -44,6 +48,9 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         setContentView(getLayoutId());
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mContext = this;
+        component = DaggerActivityComponent.builder().appComponent(App.get(this).getComponent())
+                                           .activityModule(new ActivityModule(this)).build();
+        component.inject(this);
         initProgressDialog();
     }
 
@@ -152,7 +159,8 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 
     public final void toast(String msg)
     {
-        toast(msg, Gravity.CENTER);
+        component.getToastHelper().toast(this, msg);
+        //toast(msg, Gravity.CENTER);
     }
 
     public final void toast(final String msg, final int gravity)

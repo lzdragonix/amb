@@ -10,6 +10,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.scxrh.amb.R;
+import com.scxrh.amb.activity.BaseActivity;
 import com.scxrh.amb.widget.FragmentTabHostState;
 
 public class MainFragment extends BaseFragment implements TabHost.OnTabChangeListener
@@ -53,9 +54,16 @@ public class MainFragment extends BaseFragment implements TabHost.OnTabChangeLis
         tabhost.addTab(tabhost.newTabSpec(TAB_FINANCE).setIndicator(layoutFinance), RecommendFragment.class, null);
         tabhost.addTab(tabhost.newTabSpec(TAB_SETTING).setIndicator(layoutSetting), RecommendFragment.class, null);
         tabhost.setOnTabChangedListener(this);
+        setOnClickListener(R.id.img1);
     }
 
     @Override
     public void onTabChanged(String tabId)
     { }
+
+    @Override
+    public void onClick(View v)
+    {
+        ((BaseActivity)getActivity()).toast("cccccc");
+    }
 }
