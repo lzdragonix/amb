@@ -1,4 +1,4 @@
-package com.scxrh.amb;
+package com.scxrh.amb.feature;
 
 import android.content.Context;
 import android.widget.Toast;

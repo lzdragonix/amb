@@ -2,7 +2,7 @@ package com.scxrh.amb.module;
 
 import android.app.Application;
 
-import com.scxrh.amb.ToastHelper;
+import com.scxrh.amb.feature.ToastHelper;
 
 import javax.inject.Singleton;
 
