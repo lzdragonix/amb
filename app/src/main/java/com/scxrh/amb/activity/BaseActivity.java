@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -159,8 +160,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 
     public final void toast(String msg)
     {
-        component.getToastHelper().toast(this, msg);
-        //toast(msg, Gravity.CENTER);
+        toast(msg, Gravity.CENTER);
     }
 
     public final void toast(final String msg, final int gravity)
@@ -171,17 +171,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
             @Override
             public void run()
             {
-                if (mToast == null)
-                {
-                    mToast = Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_LONG);
-                }
-                else
-                {
-                    mToast.setText(msg);
-                }
-                mToast.setDuration(Toast.LENGTH_LONG);
-                mToast.setGravity(gravity, 0, 0);
-                mToast.show();
+                component.getToastHelper().toast(mContext, msg, gravity);
             }
         });
     }

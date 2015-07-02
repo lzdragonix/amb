@@ -5,21 +5,20 @@ import android.widget.Toast;
 
 public class ToastHelper
 {
-    Toast toast = null;
+    private Toast mToast = null;
 
-    public ToastHelper()
-    { }
-
-    public void toast(Context context, CharSequence text)
+    public void toast(Context context, String msg, int gravity)
     {
-        if (toast == null)
+        if (mToast == null)
         {
-            toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+            mToast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
         }
         else
         {
-            toast.setText(text);
+            mToast.setText(msg);
         }
-        toast.show();
+        mToast.setDuration(Toast.LENGTH_LONG);
+        mToast.setGravity(gravity, 0, 0);
+        mToast.show();
     }
 }
