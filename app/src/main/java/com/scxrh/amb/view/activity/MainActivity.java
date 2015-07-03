@@ -1,9 +1,9 @@
-package com.scxrh.amb.activity;
+package com.scxrh.amb.view.activity;
 
 import android.os.Bundle;
 
 import com.scxrh.amb.R;
-import com.scxrh.amb.fragment.MainFragment;
+import com.scxrh.amb.view.fragment.MainFragment;
 
 public class MainActivity extends BaseActivity
 {

@@ -1,4 +1,4 @@
-package com.scxrh.amb.activity;
+package com.scxrh.amb.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;

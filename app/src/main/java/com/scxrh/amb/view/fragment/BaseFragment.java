@@ -1,4 +1,4 @@
-package com.scxrh.amb.fragment;
+package com.scxrh.amb.view.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.scxrh.amb.activity.BaseActivity;
+import com.scxrh.amb.view.activity.BaseActivity;
+
+import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment implements View.OnClickListener
 {
@@ -22,8 +24,15 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     {
         mUiThread = Thread.currentThread();
         mLayout = genView(inflater, container);
-        initView(inflater);
+        ButterKnife.bind(this, getLayout());
         return mLayout;
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     protected final View getLayout()
@@ -72,9 +81,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             ((BaseActivity)getActivity()).toast(msg, gravity);
         }
     }
-
-    protected void initView(LayoutInflater inflater)
-    { }
 
     @Override
     public void onClick(View v)

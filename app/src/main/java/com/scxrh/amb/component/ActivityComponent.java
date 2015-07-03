@@ -1,7 +1,8 @@
 package com.scxrh.amb.component;
 
+import android.app.Activity;
+
 import com.scxrh.amb.ActivityScope;
-import com.scxrh.amb.activity.BaseActivity;
 import com.scxrh.amb.module.ActivityModule;
 
 import dagger.Component;
@@ -10,5 +11,5 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent
 {
-    BaseActivity inject(BaseActivity activity);
+    void inject(Activity activity);
 }

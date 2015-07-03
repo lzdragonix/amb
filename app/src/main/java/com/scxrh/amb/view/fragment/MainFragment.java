@@ -1,4 +1,4 @@
-package com.scxrh.amb.fragment;
+package com.scxrh.amb.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,24 +9,59 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.scxrh.amb.App;
 import com.scxrh.amb.R;
+import com.scxrh.amb.component.DaggerMainComponent;
+import com.scxrh.amb.component.MainComponent;
+import com.scxrh.amb.module.MainModule;
+import com.scxrh.amb.presenter.MainPresenter;
+import com.scxrh.amb.view.MainView;
 import com.scxrh.amb.widget.FragmentTabHostState;
 
-public class MainFragment extends BaseFragment implements TabHost.OnTabChangeListener
+import javax.inject.Inject;
+
+import butterknife.Bind;
+
+public class MainFragment extends BaseFragment implements MainView, TabHost.OnTabChangeListener
 {
     public static final String TAG = MainFragment.class.getSimpleName();
     private static final String TAB_HOME = "TAB_HOME";
     private static final String TAB_LOAN = "TAB_LOAN";
     private static final String TAB_FINANCE = "TAB_FINANCE";
     private static final String TAB_SETTING = "TAB_SETTING";
+    @Inject
+    MainPresenter presenter;
+    @Bind(android.R.id.tabhost)
+    FragmentTabHostState tabhost;
     private View layoutHome, layoutLoan, layoutFinance, layoutSetting;
+    private MainComponent component;
 
     @SuppressLint("InflateParams")
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        FragmentTabHostState tabhost = (FragmentTabHostState)findViewById(android.R.id.tabhost);
+        component = DaggerMainComponent.builder().appComponent(App.get(getActivity()).getComponent())
+                                       .mainModule(new MainModule(this)).build();
+        component.inject(this);
+        presenter.initialize();
+    }
+
+    @Override
+    public void onTabChanged(String tabId)
+    {
+        presenter.changeTab(tabId);
+    }
+
+    @Override
+    protected View genView(LayoutInflater inflater, ViewGroup container)
+    {
+        return inflater.inflate(R.layout.fragment_main, container, false);
+    }
+
+    @Override
+    public void initTab()
+    {
         tabhost.setup(getActivity(), getChildFragmentManager(), R.id.content);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         layoutHome = inflater.inflate(R.layout.layout_tab_item, null);
@@ -47,22 +82,10 @@ public class MainFragment extends BaseFragment implements TabHost.OnTabChangeLis
         tabhost.addTab(tabhost.newTabSpec(TAB_FINANCE).setIndicator(layoutFinance), RecommendFragment.class, null);
         tabhost.addTab(tabhost.newTabSpec(TAB_SETTING).setIndicator(layoutSetting), RecommendFragment.class, null);
         tabhost.setOnTabChangedListener(this);
-        setOnClickListener(R.id.img1);
     }
 
     @Override
-    public void onTabChanged(String tabId)
-    { }
-
-    @Override
-    public void onClick(View v)
+    public void changeTab(String tab)
     {
-        toast("dfadfa");
-    }
-
-    @Override
-    protected View genView(LayoutInflater inflater, ViewGroup container)
-    {
-        return inflater.inflate(R.layout.fragment_main, container, false);
     }
 }

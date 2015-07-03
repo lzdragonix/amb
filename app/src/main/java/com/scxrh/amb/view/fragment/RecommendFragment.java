@@ -1,4 +1,4 @@
-package com.scxrh.amb.fragment;
+package com.scxrh.amb.view.fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
