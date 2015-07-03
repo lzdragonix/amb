@@ -1,16 +1,13 @@
 package com.scxrh.amb.common;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.util.TypedValue;
 
 public class Utils
 {
-    public static float dpToPx(Context mContext, float size)
+    public static int dpToPx(int dip)
     {
-        Resources r;
-        if (mContext == null) { r = Resources.getSystem(); }
-        else { r = mContext.getResources(); }
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, size, r.getDisplayMetrics());
+        Resources r = Resources.getSystem();
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
     }
 }

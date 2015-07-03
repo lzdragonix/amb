@@ -18,23 +18,29 @@ import com.scxrh.amb.presenter.MainPresenter;
 import com.scxrh.amb.view.MainView;
 import com.scxrh.amb.widget.FragmentTabHostState;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainFragment extends BaseFragment implements MainView, TabHost.OnTabChangeListener
 {
     public static final String TAG = MainFragment.class.getSimpleName();
-    private static final String TAB_HOME = "TAB_HOME";
-    private static final String TAB_LOAN = "TAB_LOAN";
+    private static final String TAB_RECOMM = "TAB_RECOMM";
+    private static final String TAB_LIVE = "TAB_LIVE";
     private static final String TAB_FINANCE = "TAB_FINANCE";
-    private static final String TAB_SETTING = "TAB_SETTING";
+    private static final String TAB_MINE = "TAB_MINE";
     @Inject
     MainPresenter presenter;
     @Bind(android.R.id.tabhost)
     FragmentTabHostState tabhost;
-    private View layoutHome, layoutLoan, layoutFinance, layoutSetting;
+    @Bind(R.id.txt_header)
+    TextView txtHeader;
     private MainComponent component;
+    private Map<String, TabHolder> tabs = new HashMap<>();
 
     @SuppressLint("InflateParams")
     @Override
@@ -45,6 +51,8 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
                                        .mainModule(new MainModule(this)).build();
         component.inject(this);
         presenter.initialize();
+        tabhost.setOnTabChangedListener(this);
+        presenter.changeTab(TAB_RECOMM);
     }
 
     @Override
@@ -63,29 +71,92 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     public void initTab()
     {
         tabhost.setup(getActivity(), getChildFragmentManager(), R.id.content);
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        layoutHome = inflater.inflate(R.layout.layout_tab_item, null);
-        layoutLoan = inflater.inflate(R.layout.layout_tab_item, null);
-        layoutFinance = inflater.inflate(R.layout.layout_tab_item, null);
-        layoutSetting = inflater.inflate(R.layout.layout_tab_item, null);
-        ((ImageView)layoutHome.findViewById(R.id.ivIcon)).setImageResource(R.mipmap.icon_6_on);
-        ((ImageView)layoutLoan.findViewById(R.id.ivIcon)).setImageResource(R.mipmap.icon_7);
-        ((ImageView)layoutFinance.findViewById(R.id.ivIcon)).setImageResource(R.mipmap.icon_8);
-        ((ImageView)layoutSetting.findViewById(R.id.ivIcon)).setImageResource(R.mipmap.icon_9);
-        TextView tv = (TextView)layoutHome.findViewById(R.id.txtName);
-        tv.setText(getString(R.string.txt_recommend));
-        ((TextView)layoutLoan.findViewById(R.id.txtName)).setText(getString(R.string.txt_livelihood));
-        ((TextView)layoutFinance.findViewById(R.id.txtName)).setText(getString(R.string.txt_finance));
-        ((TextView)layoutSetting.findViewById(R.id.txtName)).setText(getString(R.string.txt_mine));
-        tabhost.addTab(tabhost.newTabSpec(TAB_HOME).setIndicator(layoutHome), RecommendFragment.class, null);
-        tabhost.addTab(tabhost.newTabSpec(TAB_LOAN).setIndicator(layoutLoan), RecommendFragment.class, null);
-        tabhost.addTab(tabhost.newTabSpec(TAB_FINANCE).setIndicator(layoutFinance), RecommendFragment.class, null);
-        tabhost.addTab(tabhost.newTabSpec(TAB_SETTING).setIndicator(layoutSetting), RecommendFragment.class, null);
-        tabhost.setOnTabChangedListener(this);
+        // recommend
+        TabHolder tab = new TabHolder()
+                .init(R.mipmap.icon_6, R.mipmap.icon_6_on, R.color.cffffff, R.color.cf8bf04, R.string.txt_recommend);
+        tabs.put(TAB_RECOMM, tab);
+        // livelihood
+        tab = new TabHolder()
+                .init(R.mipmap.icon_7, R.mipmap.icon_7_on, R.color.cffffff, R.color.cf8bf04, R.string.txt_livelihood);
+        tabs.put(TAB_LIVE, tab);
+        // finance
+        tab = new TabHolder()
+                .init(R.mipmap.icon_8, R.mipmap.icon_8_on, R.color.cffffff, R.color.cf8bf04, R.string.txt_finance);
+        tabs.put(TAB_FINANCE, tab);
+        // mine
+        tab = new TabHolder()
+                .init(R.mipmap.icon_9, R.mipmap.icon_9_on, R.color.cffffff, R.color.cf8bf04, R.string.txt_mine);
+        tabs.put(TAB_MINE, tab);
+        // add tab
+        tabhost.addTab(tabhost.newTabSpec(TAB_RECOMM).setIndicator(tabs.get(TAB_RECOMM).root), RecommendFragment.class,
+                       null);
+        tabhost.addTab(tabhost.newTabSpec(TAB_LIVE).setIndicator(tabs.get(TAB_LIVE).root), RecommendFragment.class,
+                       null);
+        tabhost.addTab(tabhost.newTabSpec(TAB_FINANCE).setIndicator(tabs.get(TAB_FINANCE).root),
+                       RecommendFragment.class, null);
+        tabhost.addTab(tabhost.newTabSpec(TAB_MINE).setIndicator(tabs.get(TAB_MINE).root), RecommendFragment.class,
+                       null);
     }
 
     @Override
-    public void changeTab(String tab)
+    public void changeTab(String name)
     {
+        reset();
+        TabHolder tab = tabs.get(name);
+        if (tab == null) { return; }
+        tab.tap();
+        txtHeader.setText(tab.txt.getText());
+    }
+
+    private void reset()
+    {
+        for (TabHolder tab : tabs.values())
+        {
+            tab.untap();
+        }
+    }
+
+    class TabHolder
+    {
+        View root;
+        @Bind(R.id.ivIcon)
+        ImageView img;
+        @Bind(R.id.txtName)
+        TextView txt;
+        private int icon;
+        private int iconTap;
+        private int color;
+        private int colorTap;
+
+        @SuppressLint("InflateParams")
+        TabHolder()
+        {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            root = inflater.inflate(R.layout.layout_tab_item, null);
+            ButterKnife.bind(this, root);
+        }
+
+        TabHolder init(int icon, int iconTap, int color, int colorTap, int text)
+        {
+            this.icon = icon;
+            this.iconTap = iconTap;
+            this.color = color;
+            this.colorTap = colorTap;
+            untap();
+            txt.setText(text);
+            return this;
+        }
+
+        void tap()
+        {
+            img.setImageResource(iconTap);
+            txt.setTextColor(getResources().getColor(colorTap));
+        }
+
+        void untap()
+        {
+            img.setImageResource(icon);
+            txt.setTextColor(getResources().getColor(color));
+        }
     }
 }

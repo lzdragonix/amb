@@ -4,5 +4,5 @@ public interface MainView
 {
     void initTab();
 
-    void changeTab(String tab);
+    void changeTab(String name);
 }
