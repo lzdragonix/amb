@@ -39,7 +39,6 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     FragmentTabHostState tabhost;
     @Bind(R.id.txt_header)
     TextView txtHeader;
-    private MainComponent component;
     private Map<String, TabHolder> tabs = new HashMap<>();
 
     @SuppressLint("InflateParams")
@@ -47,8 +46,8 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        component = DaggerMainComponent.builder().appComponent(App.get(getActivity()).getComponent())
-                                       .mainModule(new MainModule(this)).build();
+        MainComponent component = DaggerMainComponent.builder().appComponent(App.get(getActivity()).getComponent())
+                                                     .mainModule(new MainModule(this)).build();
         component.inject(this);
         presenter.initialize();
         tabhost.setOnTabChangedListener(this);
