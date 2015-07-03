@@ -123,10 +123,7 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         ImageView img;
         @Bind(R.id.txtName)
         TextView txt;
-        private int icon;
-        private int iconTap;
-        private int color;
-        private int colorTap;
+        int icon, iconTap, color, colorTap;
 
         @SuppressLint("InflateParams")
         TabHolder()
