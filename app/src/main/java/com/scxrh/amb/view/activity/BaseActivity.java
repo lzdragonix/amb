@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener
 {
     protected Context mContext;
     @Inject

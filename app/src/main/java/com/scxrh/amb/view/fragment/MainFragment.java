@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -61,9 +60,9 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     }
 
     @Override
-    protected View genView(LayoutInflater inflater, ViewGroup container)
+    protected int getLayoutId()
     {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return R.layout.fragment_main;
     }
 
     @Override
