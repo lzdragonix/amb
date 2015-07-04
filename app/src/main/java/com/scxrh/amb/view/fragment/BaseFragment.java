@@ -42,6 +42,7 @@ public abstract class BaseFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+        injectDependencies();
         ButterKnife.bind(this, view);
     }
 
@@ -91,4 +92,12 @@ public abstract class BaseFragment extends Fragment
     { }
 
     protected abstract int getLayoutId();
+
+    /**
+     * This method will be called from {@link #onViewCreated(View, Bundle)} and this is the right place to
+     * inject
+     * dependencies (i.e. by using dagger)
+     */
+    protected void injectDependencies()
+    { }
 }

@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener
 {
     protected Context mContext;
@@ -41,17 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        mContext = this;
-        App.get(this).getComponent().inject(this);
-        initProgressDialog();
-    }
-
-    @Override
     public void startActivityForResult(Intent intent, int requestCode)
     {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
@@ -63,6 +54,32 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         super.startActivityFromFragment(fragment, intent, requestCode);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        injectDependencies();
+        setContentView(getLayoutId());
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        mContext = this;
+        App.get(this).getComponent().inject(this);
+        initProgressDialog();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        ButterKnife.unbind(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onContentChanged()
+    {
+        ButterKnife.bind(this);
+        super.onContentChanged();
     }
 
     protected final void setOnClickListener(View v)
@@ -187,4 +204,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             }
         });
     }
+
+    /**
+     * This method will be called from {@link #onCreate(Bundle)} and this is the right place to
+     * inject
+     * dependencies (i.e. by using dagger)
+     */
+    protected void injectDependencies()
+    { }
 }
