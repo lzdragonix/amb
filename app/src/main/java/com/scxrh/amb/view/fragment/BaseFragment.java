@@ -14,7 +14,7 @@ import com.scxrh.amb.view.activity.BaseActivity;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener
+public abstract class BaseFragment extends Fragment
 {
     private View mLayout;
     private Handler mHandler = new Handler();
@@ -24,16 +24,16 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         mUiThread = Thread.currentThread();
-        int layoutRes = getLayoutId();
-        if (layoutRes == 0)
+        int layoutId = getLayoutId();
+        if (layoutId == 0)
         {
             throw new IllegalArgumentException("getLayoutId() returned 0, which is not allowed. " +
-                                               "If you don't want to use getLayoutId() but implement your own view for this " +
-                                               "fragment manually, then you have to override onCreateView();");
+                                               "If you don't want to use getLayoutId() but implement your own view " +
+                                               "for this fragment manually, then you have to override onCreateView();");
         }
         else
         {
-            mLayout = inflater.inflate(layoutRes, container, false);
+            mLayout = inflater.inflate(layoutId, container, false);
             return mLayout;
         }
     }
@@ -62,18 +62,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         return mLayout != null ? mLayout.findViewById(id) : null;
     }
 
-    protected final void setOnClickListener(View v)
-    {
-        v.setOnClickListener(this);
-    }
-
-    protected final void setOnClickListener(int id)
-    {
-        View v = findViewById(id);
-        if (v == null) { return; }
-        setOnClickListener(v);
-    }
-
     protected final void runOnUiThread(Runnable action)
     {
         if (Thread.currentThread() != mUiThread)
@@ -98,10 +86,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             ((BaseActivity)getActivity()).toast(msg, gravity);
         }
     }
-
-    @Override
-    public void onClick(View v)
-    { }
 
     protected void beforeContentView()
     { }
