@@ -72,19 +72,19 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         tabhost.setup(getActivity(), getChildFragmentManager(), R.id.content);
         // recommend
         TabHolder tab = new TabHolder()
-                .init(R.mipmap.icon_6, R.mipmap.icon_6_on, R.color.cffffff, R.color.cf8bf04, R.string.txt_recommend);
+                .init(R.mipmap.icon_6, R.mipmap.icon_6_on, R.color.cffffff, R.color.cfbc000, R.string.txt_recommend);
         tabs.put(TAB_RECOMM, tab);
         // livelihood
         tab = new TabHolder()
-                .init(R.mipmap.icon_7, R.mipmap.icon_7_on, R.color.cffffff, R.color.cf8bf04, R.string.txt_livelihood);
+                .init(R.mipmap.icon_7, R.mipmap.icon_7_on, R.color.cffffff, R.color.cfbc000, R.string.txt_livelihood);
         tabs.put(TAB_LIVE, tab);
         // finance
         tab = new TabHolder()
-                .init(R.mipmap.icon_8, R.mipmap.icon_8_on, R.color.cffffff, R.color.cf8bf04, R.string.txt_finance);
+                .init(R.mipmap.icon_8, R.mipmap.icon_8_on, R.color.cffffff, R.color.cfbc000, R.string.txt_finance);
         tabs.put(TAB_FINANCE, tab);
         // mine
         tab = new TabHolder()
-                .init(R.mipmap.icon_9, R.mipmap.icon_9_on, R.color.cffffff, R.color.cf8bf04, R.string.txt_mine);
+                .init(R.mipmap.icon_9, R.mipmap.icon_9_on, R.color.cffffff, R.color.cfbc000, R.string.txt_mine);
         tabs.put(TAB_MINE, tab);
         // add tab
         tabhost.addTab(tabhost.newTabSpec(TAB_RECOMM).setIndicator(tabs.get(TAB_RECOMM).root), RecommendFragment.class,

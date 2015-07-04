@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:textSize="12sp"
-        android:textColor="@color/cf8bf04"
+        android:textColor="@color/cfbc000"
         android:id="@+id/txtName"/>
 
 </LinearLayout>

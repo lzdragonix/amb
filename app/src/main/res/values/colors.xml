@@ -52,6 +52,8 @@
 
     <!-- amb -->
     <color name="c09455f">#09455f</color>
-    <color name="cf8bf04">#f8bf04</color>
+    <color name="cfbc000">#fbc000</color>
+    <color name="cadadae">#adadae</color>
+    <color name="ce4e4e4">#e4e4e4</color>
 
 </resources>
