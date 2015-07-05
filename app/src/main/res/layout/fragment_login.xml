@@ -27,6 +27,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/txtUser"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:background="@null"
@@ -40,6 +41,7 @@
             android:background="@color/cadadae"/>
 
         <EditText
+            android:id="@+id/txtPwd"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:background="@null"
