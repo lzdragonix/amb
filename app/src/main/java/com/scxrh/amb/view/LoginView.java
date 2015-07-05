@@ -1,6 +1,6 @@
 package com.scxrh.amb.view;
 
-public interface LoginView extends MvpView
+public interface LoginView
 {
     void showLogining();
 

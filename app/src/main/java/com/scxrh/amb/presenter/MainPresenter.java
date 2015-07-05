@@ -1,8 +1,26 @@
 package com.scxrh.amb.presenter;
 
-public interface MainPresenter
-{
-    void initialize();
+import com.scxrh.amb.view.MainView;
 
-    void changeTab(String tab);
+import javax.inject.Inject;
+
+public class MainPresenter
+{
+    private MainView mainView;
+
+    @Inject
+    public MainPresenter(MainView mainView)
+    {
+        this.mainView = mainView;
+    }
+
+    public void initialize()
+    {
+        mainView.initTab();
+    }
+
+    public void changeTab(String tab)
+    {
+        mainView.changeTab(tab);
+    }
 }

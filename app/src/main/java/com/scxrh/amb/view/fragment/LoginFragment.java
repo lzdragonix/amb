@@ -7,15 +7,16 @@ import com.scxrh.amb.App;
 import com.scxrh.amb.R;
 import com.scxrh.amb.component.DaggerLoginComponent;
 import com.scxrh.amb.module.LoginModule;
-import com.scxrh.amb.mvp.MvpFragment;
-import com.scxrh.amb.presenter.impl.LoginPresenterImpl;
+import com.scxrh.amb.presenter.LoginPresenter;
 import com.scxrh.amb.view.LoginView;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 // 登录
-public class LoginFragment extends MvpFragment<LoginView, LoginPresenterImpl> implements LoginView
+public class LoginFragment extends BaseFragment implements LoginView
 {
     public static final String TAG = LoginFragment.class.getSimpleName();
     @Bind(R.id.txtUser)
@@ -24,6 +25,8 @@ public class LoginFragment extends MvpFragment<LoginView, LoginPresenterImpl> im
     TextView txtPwd;
     @Bind(R.id.btnLogin)
     View btnLogin;
+    @Inject
+    LoginPresenter presenter;
 
     @Override
     protected int getLayoutId()
@@ -35,13 +38,7 @@ public class LoginFragment extends MvpFragment<LoginView, LoginPresenterImpl> im
     protected void injectDependencies()
     {
         DaggerLoginComponent.builder().appComponent(App.get(getActivity()).getComponent())
-                            .loginModule(new LoginModule(getActivity())).build().inject(this);
-    }
-
-    @Override
-    public LoginPresenterImpl createPresenter()
-    {
-        return new LoginPresenterImpl();
+                            .loginModule(new LoginModule(this)).build().inject(this);
     }
 
     @OnClick(R.id.btnLogin)
