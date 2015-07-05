@@ -7,7 +7,7 @@ import com.scxrh.amb.view.fragment.LoginFragment;
 import dagger.Component;
 
 @ActivityScope
-@Component(modules = LoginModule.class)
+@Component(dependencies = AppComponent.class, modules = LoginModule.class)
 public interface LoginComponent
 {
     void inject(LoginFragment fragment);

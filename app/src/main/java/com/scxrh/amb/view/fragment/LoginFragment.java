@@ -3,6 +3,7 @@ package com.scxrh.amb.view.fragment;
 import android.view.View;
 import android.widget.TextView;
 
+import com.scxrh.amb.App;
 import com.scxrh.amb.R;
 import com.scxrh.amb.component.DaggerLoginComponent;
 import com.scxrh.amb.module.LoginModule;
@@ -33,7 +34,8 @@ public class LoginFragment extends MvpFragment<LoginView, LoginPresenterImpl> im
     @Override
     protected void injectDependencies()
     {
-        DaggerLoginComponent.builder().loginModule(new LoginModule(getActivity())).build().inject(this);
+        DaggerLoginComponent.builder().appComponent(App.get(getActivity()).getComponent())
+                            .loginModule(new LoginModule(getActivity())).build().inject(this);
     }
 
     @Override
