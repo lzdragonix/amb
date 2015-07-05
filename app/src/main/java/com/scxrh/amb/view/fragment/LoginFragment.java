@@ -36,6 +36,12 @@ public class LoginFragment extends MvpFragment<LoginView, LoginPresenterImpl> im
         DaggerLoginComponent.builder().loginModule(new LoginModule(getActivity())).build().inject(this);
     }
 
+    @Override
+    public LoginPresenterImpl createPresenter()
+    {
+        return new LoginPresenterImpl();
+    }
+
     @OnClick(R.id.btnLogin)
     void login()
     {
@@ -44,21 +50,15 @@ public class LoginFragment extends MvpFragment<LoginView, LoginPresenterImpl> im
     }
 
     @Override
-    public LoginPresenterImpl createPresenter()
+    public void showLogining()
     {
-        return new LoginPresenterImpl();
+        showProgressDialog("正在登录，请稍候…");
     }
 
     @Override
-    public void showProgress(String msg)
+    public void showError(int toast)
     {
-        showProgressDialog(msg);
-    }
-
-    @Override
-    public void showError(String error)
-    {
-        toast(error);
+        toast(toast);
         btnLogin.setEnabled(true);
         closeProgressDialog();
     }

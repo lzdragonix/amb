@@ -54,16 +54,16 @@ public abstract class BaseFragment extends Fragment
         return mLayout;
     }
 
-    protected final void toast(String msg)
+    protected final void toast(int toastId)
     {
-        toast(msg, Gravity.CENTER);
+        toast(toastId, Gravity.CENTER);
     }
 
-    protected final void toast(String msg, int gravity)
+    protected final void toast(int toastId, int gravity)
     {
-        if (isAdded() && !TextUtils.isEmpty(msg))
+        if (isAdded())
         {
-            ((BaseActivity)getActivity()).toast(msg, gravity);
+            ((BaseActivity)getActivity()).toast(toastId, gravity);
         }
     }
 

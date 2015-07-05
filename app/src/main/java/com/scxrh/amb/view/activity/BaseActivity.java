@@ -98,15 +98,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v)
     { }
 
-    public final void toast(final String msg, final int gravity)
+    public final void toast(final int toastId, final int gravity)
     {
-        if (TextUtils.isEmpty(msg)) { return; }
         runOnUiThread(new Runnable()
         {
             @Override
             public void run()
             {
-                mToastHelper.toast(mContext, msg, gravity);
+                mToastHelper.toast(mContext, toastId, gravity);
             }
         });
     }
