@@ -20,13 +20,12 @@ public class App extends Application
     public void onCreate()
     {
         super.onCreate();
-        setupGraph();
+        initializeInjector();
     }
 
-    private void setupGraph()
+    private void initializeInjector()
     {
         component = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
-        component.inject(this);
     }
 
     public AppComponent getComponent()

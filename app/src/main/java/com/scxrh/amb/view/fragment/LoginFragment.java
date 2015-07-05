@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
 import com.scxrh.amb.component.DaggerLoginComponent;
+import com.scxrh.amb.module.ActivityModule;
 import com.scxrh.amb.module.LoginModule;
 import com.scxrh.amb.presenter.LoginPresenter;
 import com.scxrh.amb.view.LoginView;
@@ -38,7 +39,8 @@ public class LoginFragment extends BaseFragment implements LoginView
     protected void injectDependencies()
     {
         DaggerLoginComponent.builder().appComponent(App.get(getActivity()).getComponent())
-                            .loginModule(new LoginModule(this)).build().inject(this);
+                            .activityModule(new ActivityModule(getActivity())).loginModule(new LoginModule(this))
+                            .build().inject(this);
     }
 
     @OnClick(R.id.btnLogin)
