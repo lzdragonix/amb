@@ -15,7 +15,6 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView>
     ToastHelper mToastHelper;
     public void login(String user, String pwd)
     {
-        mToastHelper.test();
         if (!isViewAttached()) { return; }
         getView().showLogining();
         if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pwd))
