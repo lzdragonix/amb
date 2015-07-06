@@ -2,7 +2,11 @@ package com.scxrh.amb.view.iview;
 
 public interface LoginView
 {
-    void showLogining();
+    void showProgress(String msg);
 
-    void showError(int toast);
+    void showMain();
+
+    void showError(String msg);
+
+    void loginFinished();
 }

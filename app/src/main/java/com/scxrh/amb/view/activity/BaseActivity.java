@@ -10,10 +10,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
-import com.scxrh.amb.common.ToastHelper;
 
 import java.util.List;
 
@@ -24,9 +24,8 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener
 {
     protected Context mContext;
-    @Inject
-    ToastHelper mToastHelper;
     private ProgressDialog mProgressDialog;
+    private Toast mToast;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent)
@@ -98,14 +97,25 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v)
     { }
 
-    public final void toast(final int toastId, final int gravity)
+    public void toast(final String msg, final int gravity)
     {
+        if (TextUtils.isEmpty(msg)) { return; }
         runOnUiThread(new Runnable()
         {
             @Override
             public void run()
             {
-                mToastHelper.toast(mContext, toastId, gravity);
+                if (mToast == null)
+                {
+                    mToast = Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_LONG);
+                }
+                else
+                {
+                    mToast.setText(msg);
+                }
+                mToast.setDuration(Toast.LENGTH_LONG);
+                mToast.setGravity(gravity, 0, 0);
+                mToast.show();
             }
         });
     }

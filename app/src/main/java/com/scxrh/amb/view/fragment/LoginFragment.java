@@ -62,16 +62,26 @@ public class LoginFragment extends BaseFragment implements LoginView
     }
 
     @Override
-    public void showLogining()
+    public void showProgress(String msg)
     {
-        showProgressDialog("正在登录，请稍候…");
+        showProgressDialog(msg);
     }
 
     @Override
-    public void showError(int toast)
+    public void showMain()
     {
-        toast(toast);
-        btnLogin.setEnabled(true);
+    }
+
+    @Override
+    public void showError(String msg)
+    {
+        toast(msg);
+    }
+
+    @Override
+    public void loginFinished()
+    {
         closeProgressDialog();
+        btnLogin.setEnabled(true);
     }
 }

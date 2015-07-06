@@ -1,7 +1,7 @@
 package com.scxrh.amb.module;
 
 import com.scxrh.amb.App;
-import com.scxrh.amb.common.ToastHelper;
+import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.net.http.HttpClient;
 
 import javax.inject.Singleton;
@@ -28,15 +28,15 @@ public class AppModule
 
     @Singleton
     @Provides
-    public ToastHelper provideToastHelper()
+    public HttpClient provideHttpClient()
     {
-        return new ToastHelper();
+        return new HttpClient(mApp);
     }
 
     @Singleton
     @Provides
-    public HttpClient provideHttpClient()
+    public MessageManager provideMessageManager()
     {
-        return new HttpClient(mApp);
+        return new MessageManager(mApp);
     }
 }

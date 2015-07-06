@@ -6,12 +6,9 @@ import android.util.Log;
 
 import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
-import com.scxrh.amb.R;
-import com.scxrh.amb.common.ToastHelper;
+import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
-import com.scxrh.amb.view.activity.BaseActivity;
-import com.scxrh.amb.view.fragment.MainFragment;
 import com.scxrh.amb.view.iview.LoginView;
 
 import org.json.JSONObject;
@@ -21,25 +18,23 @@ import javax.inject.Inject;
 public class LoginPresenter
 {
     private static final String TAG = LoginPresenter.class.getSimpleName();
-    private LoginView view;
-    private HttpClient client;
-    private Activity activity;
     @Inject
-    ToastHelper mToastHelper;
+    MessageManager messager;
+    @Inject
+    HttpClient client;
+    @Inject
+    LoginView view;
+    @Inject
+    Activity activity;
 
     @Inject
-    public LoginPresenter(LoginView view, HttpClient client, Activity activity)
-    {
-        this.view = view;
-        this.client = client;
-        this.activity = activity;
-    }
+    public LoginPresenter() { }
 
     public void login(String user, String pwd)
     {
         if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pwd))
         {
-            view.showError(Const.TOAST_EMPTY_USER_OR_PASSWORD);
+            view.showError(messager.getMessage(Const.MSG_EMPTY_USER_OR_PASSWORD));
         }
         RequestParams params = new RequestParams();
         params.put("userKey", user);
@@ -49,27 +44,29 @@ public class LoginPresenter
             @Override
             public void onHttpStart()
             {
-                view.showLogining();
+                Log.i(TAG, "onHttpStart");
+                view.showProgress(messager.getMessage(Const.MSG_LOGIN));
             }
 
             @Override
             public void onHttpSuccess(JSONObject response)
             {
                 Log.i(TAG, "onHttpSuccess");
-                ((BaseActivity)activity).replaceFragment(R.id.container, new MainFragment(), MainFragment.TAG);
+                view.showMain();
             }
 
             @Override
             public void onHttpFailure(JSONObject response)
             {
                 Log.i(TAG, "onHttpFailure");
+                view.showError(messager.getMessage(Const.MSG_SERVER_ERROR));
             }
 
             @Override
             public void onHttpFinish()
             {
                 Log.i(TAG, "onHttpFinish");
-                view.showError(Const.TOAST_EMPTY_USER_OR_PASSWORD);
+                view.loginFinished();
             }
         });
     }

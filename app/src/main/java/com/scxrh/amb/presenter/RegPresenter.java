@@ -33,7 +33,7 @@ public class RegPresenter
     {
         if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pwd))
         {
-            view.showError(Const.TOAST_EMPTY_USER_OR_PASSWORD);
+            view.showError(Const.MSG_EMPTY_USER_OR_PASSWORD);
         }
         RequestParams params = new RequestParams();
         params.put("telephone", user);
@@ -63,7 +63,7 @@ public class RegPresenter
             public void onHttpFinish()
             {
                 Log.i(TAG, "onHttpFinish");
-                view.showError(Const.TOAST_EMPTY_USER_OR_PASSWORD);
+                view.showError(Const.MSG_EMPTY_USER_OR_PASSWORD);
             }
         });
     }
@@ -72,7 +72,7 @@ public class RegPresenter
     {
         if (TextUtils.isEmpty(moblie))
         {
-            view.showError(Const.TOAST_EMPTY_USER_OR_PASSWORD);
+            view.showError(Const.MSG_EMPTY_USER_OR_PASSWORD);
         }
     }
 }

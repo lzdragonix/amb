@@ -46,16 +46,16 @@ public abstract class BaseFragment extends Fragment
         ButterKnife.unbind(this);
     }
 
-    protected final void toast(int toastId)
+    protected final void toast(String msg)
     {
-        toast(toastId, Gravity.CENTER);
+        toast(msg, Gravity.CENTER);
     }
 
-    protected final void toast(int toastId, int gravity)
+    protected final void toast(String msg, int gravity)
     {
         if (isAdded())
         {
-            ((BaseActivity)getActivity()).toast(toastId, gravity);
+            ((BaseActivity)getActivity()).toast(msg, gravity);
         }
     }
 
