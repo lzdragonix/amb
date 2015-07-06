@@ -5,7 +5,7 @@
                 android:background="@color/c0a465e">
 
     <ImageView
-        android:id="@+id/img1"
+        android:id="@+id/btnBack"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
@@ -14,7 +14,7 @@
         android:contentDescription="@string/app_name"/>
 
     <TextView
-        android:id="@+id/txt_header"
+        android:id="@+id/txtHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

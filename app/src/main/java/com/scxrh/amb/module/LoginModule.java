@@ -1,6 +1,6 @@
 package com.scxrh.amb.module;
 
-import com.scxrh.amb.view.LoginView;
+import com.scxrh.amb.view.iview.LoginView;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,15 +1,18 @@
 package com.scxrh.amb.view.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.scxrh.amb.App;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.component.DaggerLoginComponent;
 import com.scxrh.amb.module.ActivityModule;
 import com.scxrh.amb.module.LoginModule;
 import com.scxrh.amb.presenter.LoginPresenter;
-import com.scxrh.amb.view.LoginView;
+import com.scxrh.amb.view.activity.WindowActivity;
+import com.scxrh.amb.view.iview.LoginView;
 
 import javax.inject.Inject;
 
@@ -48,6 +51,14 @@ public class LoginFragment extends BaseFragment implements LoginView
     {
         btnLogin.setEnabled(false);
         presenter.login(txtUser.getText().toString(), txtPwd.getText().toString());
+    }
+
+    @OnClick(R.id.btnReg)
+    void openReg()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, RegFragment.class.getName());
+        startActivity(intent);
     }
 
     @Override

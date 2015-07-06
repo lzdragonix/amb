@@ -183,7 +183,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         v.setEnabled(enable);
     }
 
-    protected void replaceFragment(final int containerId, final Fragment fragment, final String tag)
+    public void replaceFragment(final int containerId, final Fragment fragment, final String tag)
     {
         runOnUiThread(new Runnable()
         {

@@ -14,7 +14,7 @@ import com.scxrh.amb.component.DaggerMainComponent;
 import com.scxrh.amb.component.MainComponent;
 import com.scxrh.amb.module.MainModule;
 import com.scxrh.amb.presenter.MainPresenter;
-import com.scxrh.amb.view.MainView;
+import com.scxrh.amb.view.iview.MainView;
 import com.scxrh.amb.widget.FragmentTabHostState;
 
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     MainPresenter presenter;
     @Bind(android.R.id.tabhost)
     FragmentTabHostState tabhost;
-    @Bind(R.id.txt_header)
+    @Bind(R.id.txtHeader)
     TextView txtHeader;
     private Map<String, TabHolder> tabs = new HashMap<>();
 

@@ -1,6 +1,6 @@
 package com.scxrh.amb.presenter;
 
-import com.scxrh.amb.view.MainView;
+import com.scxrh.amb.view.iview.MainView;
 
 import javax.inject.Inject;
 

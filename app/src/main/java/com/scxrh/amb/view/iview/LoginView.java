@@ -1,4 +1,4 @@
-package com.scxrh.amb.view;
+package com.scxrh.amb.view.iview;
 
 public interface LoginView
 {

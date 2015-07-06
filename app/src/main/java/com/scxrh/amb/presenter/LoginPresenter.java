@@ -8,7 +8,7 @@ import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
-import com.scxrh.amb.view.LoginView;
+import com.scxrh.amb.view.iview.LoginView;
 
 import org.json.JSONObject;
 
