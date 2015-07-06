@@ -1,4 +1,4 @@
-package com.scxrh.amb.feature;
+package com.scxrh.amb.common;
 
 import android.content.Context;
 import android.text.TextUtils;

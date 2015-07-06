@@ -1,7 +1,7 @@
 package com.scxrh.amb.component;
 
 import com.scxrh.amb.App;
-import com.scxrh.amb.feature.ToastHelper;
+import com.scxrh.amb.common.ToastHelper;
 import com.scxrh.amb.module.AppModule;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.view.activity.BaseActivity;

@@ -1,7 +1,7 @@
 package com.scxrh.amb.module;
 
 import com.scxrh.amb.App;
-import com.scxrh.amb.feature.ToastHelper;
+import com.scxrh.amb.common.ToastHelper;
 import com.scxrh.amb.net.http.HttpClient;
 
 import javax.inject.Singleton;

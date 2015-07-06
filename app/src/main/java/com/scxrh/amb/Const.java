@@ -11,4 +11,11 @@ public class Const
     public static final String URL_SMS_SEND = URL_BASE + "sms_send.action";
     //some key
     public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
+    public static final String KEY_CODE = "code";
+    public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
+    public static final String KEY_PASSWORD = "KEY_PASSWORD";
+    public static final String KEY_SERVER = "KEY_SERVER";
+    //rest returncode
+    public static final String RETURNCODE_0000 = "0000";
+    public static final String RETURNCODE_0001 = "0001";
 }

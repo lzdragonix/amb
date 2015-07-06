@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
-import com.scxrh.amb.feature.ToastHelper;
+import com.scxrh.amb.common.ToastHelper;
 
 import java.util.List;
 

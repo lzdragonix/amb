@@ -7,10 +7,10 @@ import android.util.Log;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.scxrh.amb.Const;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
-
 
 public class HttpTask implements Runnable
 {
@@ -67,7 +67,7 @@ public class HttpTask implements Runnable
     //login task或重登task 执行成功
     private void onLoginSuccess(String rc, final JSONObject response)
     {
-        if (HttpClient.RETURNCODE_0000.equals(rc))
+        if (Const.RETURNCODE_0000.equals(rc))
         {
             mClient.setLogin(true);
             if (mRunTask != null)
@@ -108,7 +108,7 @@ public class HttpTask implements Runnable
     {
         switch (rc)
         {
-            case HttpClient.RETURNCODE_0000:
+            case Const.RETURNCODE_0000:
                 //在主线程中执行子类的success(JSONObject response)方法
                 mHandler.post(new Runnable()
                 {
@@ -119,7 +119,7 @@ public class HttpTask implements Runnable
                     }
                 });
                 break;
-            case HttpClient.RETURNCODE_0001:
+            case Const.RETURNCODE_0001:
                 //未登录，重新登录
                 Log.i(TAG, "is not login, login again.");
                 mClient.setLogin(false);
@@ -180,7 +180,7 @@ public class HttpTask implements Runnable
         @Override
         public void onSuccess(int statusCode, Header[] headers, final JSONObject response)
         {
-            String rc = response.optString(HttpClient.KEY_RETURNCODE);
+            String rc = response.optString(Const.KEY_CODE);
             if (mLoginTask) { onLoginSuccess(rc, response); }
             else { onTaskSuccess(rc, response); }
         }
@@ -207,8 +207,7 @@ public class HttpTask implements Runnable
         {
             //如果是重新执行登录失败时的http task，则跳过
             if (mRunTask != null) { return; }
-            Log.e(TAG, "http task failure, statusCode:" + statusCode + "responseString:" + responseString,
-                        throwable);
+            Log.e(TAG, "http task failure, statusCode:" + statusCode + "responseString:" + responseString, throwable);
             //在主线程中执行failure()方法
             mHandler.post(new Runnable()
             {

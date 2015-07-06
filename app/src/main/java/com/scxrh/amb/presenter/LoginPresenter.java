@@ -7,6 +7,7 @@ import android.util.Log;
 import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
+import com.scxrh.amb.common.ToastHelper;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
 import com.scxrh.amb.view.activity.BaseActivity;
@@ -23,6 +24,8 @@ public class LoginPresenter
     private LoginView view;
     private HttpClient client;
     private Activity activity;
+    @Inject
+    ToastHelper mToastHelper;
 
     @Inject
     public LoginPresenter(LoginView view, HttpClient client, Activity activity)

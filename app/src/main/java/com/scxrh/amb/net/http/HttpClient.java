@@ -14,43 +14,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class HttpClient
 {
-    /**
-     * 成功
-     */
-    public static final String RETURNCODE_0000 = "0000";
-    /**
-     * 未登录
-     */
-    public static final String RETURNCODE_0001 = "0001";
-    /**
-     * 接口返回错误代码键
-     */
-    public static final String KEY_RETURNCODE = "code";
-    /**
-     * 登录账号
-     */
-    public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
-    /**
-     * 登录密码
-     */
-    public static final String KEY_PASSWORD = "KEY_PASSWORD";
-    /**
-     * 登录服务器地址 baseUrl
-     */
-    public static final String KEY_SERVER = "KEY_SERVER";
-    /**
-     * 登录web服务器接口
-     */
-    public static final String URL_LOGIN = "/interface/logincheck";
-    /**
-     * 数据源接口
-     */
-    public static final String URL_DATAACCESS = "/interface/dataaccess";
-    private static HttpClient sHttpClient;
-    private Context mContext;
     private SyncHttpClient sClient;
     private AsyncHttpClient aClient;
     private Handler sHandler;
@@ -60,7 +25,6 @@ public class HttpClient
 
     public HttpClient(Context context)
     {
-        mContext = context;
         sClient = new SyncHttpClient(true, 80, 443);
         aClient = new AsyncHttpClient(true, 80, 443);
         HandlerThread ht = new HandlerThread("http-task");
@@ -166,27 +130,27 @@ public class HttpClient
         if (isLogin) { post(task); }
         else
         {
-//            SettingsManager instance = SettingsManager.getInstance(mContext);
-//            String usr = instance.getString(KEY_ACCOUNT);
-//            String pwd = instance.getString(KEY_PASSWORD);
-//            pwd = DES.decrypt(pwd, DES.getKey());
-//            if (TextUtils.isEmpty(usr) || TextUtils.isEmpty(pwd))
-//            {
-//                throw new IllegalArgumentException("user account or password is null.");
-//            }
-//            String baseUrl = instance.getString(KEY_SERVER);
-//            String url = Utils.getAbsoluteUrl(baseUrl, URL_LOGIN);
-//            RequestParams params = new RequestParams();
-//            params.put("login_account", usr);
-//            params.put("password", pwd);
-//            params.put("comefrom", "01");
-//            params.put("datascope", "all");
-//            HttpTask loginTask = new HttpTask(url, params, mContext);
-//            loginTask.mWithoutLogin = mWithoutLoginUrl.contains(url);
-//            loginTask.mClient = this;
-//            loginTask.mLoginTask = true;
-//            loginTask.mRunTask = task;
-//            post(loginTask);
+            //            SettingsManager instance = SettingsManager.getInstance(mContext);
+            //            String usr = instance.getString(KEY_ACCOUNT);
+            //            String pwd = instance.getString(KEY_PASSWORD);
+            //            pwd = DES.decrypt(pwd, DES.getKey());
+            //            if (TextUtils.isEmpty(usr) || TextUtils.isEmpty(pwd))
+            //            {
+            //                throw new IllegalArgumentException("user account or password is null.");
+            //            }
+            //            String baseUrl = instance.getString(KEY_SERVER);
+            //            String url = Utils.getAbsoluteUrl(baseUrl, URL_LOGIN);
+            //            RequestParams params = new RequestParams();
+            //            params.put("login_account", usr);
+            //            params.put("password", pwd);
+            //            params.put("comefrom", "01");
+            //            params.put("datascope", "all");
+            //            HttpTask loginTask = new HttpTask(url, params, mContext);
+            //            loginTask.mWithoutLogin = mWithoutLoginUrl.contains(url);
+            //            loginTask.mClient = this;
+            //            loginTask.mLoginTask = true;
+            //            loginTask.mRunTask = task;
+            //            post(loginTask);
         }
     }
 }
