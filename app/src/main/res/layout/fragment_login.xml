@@ -32,6 +32,7 @@
             android:layout_height="49dp"
             android:background="@null"
             android:drawableLeft="@mipmap/login_user"
+            android:imeOptions="actionNext"
             android:drawablePadding="10dp"
             android:hint="用户名/手机号码"/>
 
@@ -46,6 +47,7 @@
             android:layout_height="49dp"
             android:background="@null"
             android:drawableLeft="@mipmap/login_pwd"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:drawablePadding="10dp"
             android:hint="请输入密码"/>

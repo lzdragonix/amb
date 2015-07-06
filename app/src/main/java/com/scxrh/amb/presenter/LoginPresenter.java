@@ -2,10 +2,10 @@ package com.scxrh.amb.presenter;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
+import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
@@ -35,6 +35,14 @@ public class LoginPresenter
         if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pwd))
         {
             view.showError(messager.getMessage(Const.MSG_EMPTY_USER_OR_PASSWORD));
+            view.loginFinished();
+            return;
+        }
+        if (!Utils.regex(user, Const.REGEX_MOBILE))
+        {
+            view.showError(messager.getMessage(Const.MSG_MOBILE_ILLEGAL));
+            view.loginFinished();
+            return;
         }
         RequestParams params = new RequestParams();
         params.put("userKey", user);
@@ -44,28 +52,25 @@ public class LoginPresenter
             @Override
             public void onHttpStart()
             {
-                Log.i(TAG, "onHttpStart");
                 view.showProgress(messager.getMessage(Const.MSG_LOGIN));
             }
 
             @Override
             public void onHttpSuccess(JSONObject response)
             {
-                Log.i(TAG, "onHttpSuccess");
                 view.showMain();
             }
 
             @Override
             public void onHttpFailure(JSONObject response)
             {
-                Log.i(TAG, "onHttpFailure");
                 view.showError(messager.getMessage(Const.MSG_SERVER_ERROR));
             }
 
             @Override
             public void onHttpFinish()
             {
-                Log.i(TAG, "onHttpFinish");
+                view.showMain();
                 view.loginFinished();
             }
         });

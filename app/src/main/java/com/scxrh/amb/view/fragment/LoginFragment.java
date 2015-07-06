@@ -1,6 +1,8 @@
 package com.scxrh.amb.view.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import com.scxrh.amb.component.DaggerLoginComponent;
 import com.scxrh.amb.module.ActivityModule;
 import com.scxrh.amb.module.LoginModule;
 import com.scxrh.amb.presenter.LoginPresenter;
+import com.scxrh.amb.view.activity.BaseActivity;
 import com.scxrh.amb.view.activity.WindowActivity;
 import com.scxrh.amb.view.iview.LoginView;
 
@@ -20,7 +23,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 // 登录
-public class LoginFragment extends BaseFragment implements LoginView
+public class LoginFragment extends BaseFragment implements LoginView, TextView.OnEditorActionListener
 {
     public static final String TAG = LoginFragment.class.getSimpleName();
     @Bind(R.id.txtUser)
@@ -44,6 +47,14 @@ public class LoginFragment extends BaseFragment implements LoginView
         DaggerLoginComponent.builder().appComponent(App.get(getActivity()).getComponent())
                             .activityModule(new ActivityModule(getActivity())).loginModule(new LoginModule(this))
                             .build().inject(this);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        txtUser.setOnEditorActionListener(this);
+        txtPwd.setOnEditorActionListener(this);
     }
 
     @OnClick(R.id.btnLogin)
@@ -70,6 +81,10 @@ public class LoginFragment extends BaseFragment implements LoginView
     @Override
     public void showMain()
     {
+        if (isAdded())
+        {
+            ((BaseActivity)getActivity()).replaceFragment(R.id.container, new MainFragment(), MainFragment.TAG);
+        }
     }
 
     @Override
@@ -83,5 +98,15 @@ public class LoginFragment extends BaseFragment implements LoginView
     {
         closeProgressDialog();
         btnLogin.setEnabled(true);
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+    {
+        if (v.getId() == R.id.txtPwd && btnLogin.isEnabled())
+        {
+            btnLogin.performClick();
+        }
+        return true;
     }
 }

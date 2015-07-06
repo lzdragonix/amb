@@ -19,6 +19,7 @@ public class MessageManager
         map.put(Const.MSG_SERVER_ERROR, r.getString(R.string.msg_server_error));
         map.put(Const.MSG_EMPTY_USER_OR_PASSWORD, r.getString(R.string.msg_empty_user_or_password));
         map.put(Const.MSG_LOGIN, r.getString(R.string.msg_login));
+        map.put(Const.MSG_MOBILE_ILLEGAL, r.getString(R.string.msg_mobile_illegal));
     }
 
     public String getMessage(int msgId)
