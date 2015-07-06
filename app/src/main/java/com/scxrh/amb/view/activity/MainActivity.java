@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.scxrh.amb.R;
 import com.scxrh.amb.view.fragment.LoginFragment;
+import com.scxrh.amb.view.fragment.MainFragment;
 
 public class MainActivity extends BaseActivity
 {
@@ -11,7 +12,7 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        replaceFragment(R.id.container, new LoginFragment(), LoginFragment.TAG);
+        replaceFragment(R.id.container, new MainFragment(), LoginFragment.TAG);
     }
 
     @Override
