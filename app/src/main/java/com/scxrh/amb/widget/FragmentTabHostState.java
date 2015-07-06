@@ -125,8 +125,6 @@ public class FragmentTabHostState extends TabHost implements TabHost.OnTabChange
         String currentTab = getCurrentTabTag();
         // Go through all tabs and make sure their fragments match
         // the correct state.
-        //modify 2015.7.6 when mTabs.size()==0 return this method.
-        if (mTabs.size() == 0) { return; }
         FragmentTransaction ft = null;
         for (int i = 0; i < mTabs.size(); i++)
         {
@@ -276,6 +274,8 @@ public class FragmentTabHostState extends TabHost implements TabHost.OnTabChange
 
     private FragmentTransaction doTabChanged(String tabId, FragmentTransaction ft)
     {
+        //modify 2015.7.6 when mTabs.size()==0 return this method.
+        if (mTabs.size() == 0) { return ft; }
         TabInfo newTab = null;
         for (int i = 0; i < mTabs.size(); i++)
         {

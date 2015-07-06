@@ -27,6 +27,7 @@ public abstract class BaseFragment extends Fragment
         }
         else
         {
+            beforeContentView();
             return inflater.inflate(layoutId, container, false);
         }
     }
