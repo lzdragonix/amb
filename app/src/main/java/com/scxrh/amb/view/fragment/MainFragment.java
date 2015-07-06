@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
 import com.scxrh.amb.component.DaggerMainComponent;
-import com.scxrh.amb.component.MainComponent;
 import com.scxrh.amb.module.MainModule;
 import com.scxrh.amb.presenter.MainPresenter;
 import com.scxrh.amb.view.iview.MainView;
@@ -45,9 +44,6 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        MainComponent component = DaggerMainComponent.builder().appComponent(App.get(getActivity()).getComponent())
-                                                     .mainModule(new MainModule(this)).build();
-        component.inject(this);
         presenter.initialize();
         tabhost.setOnTabChangedListener(this);
         presenter.changeTab(TAB_RECOMM);
@@ -63,6 +59,13 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     protected int getLayoutId()
     {
         return R.layout.fragment_main;
+    }
+
+    @Override
+    protected void injectDependencies()
+    {
+        DaggerMainComponent.builder().appComponent(App.get(getActivity()).getComponent())
+                           .mainModule(new MainModule(this)).build().inject(this);
     }
 
     @Override

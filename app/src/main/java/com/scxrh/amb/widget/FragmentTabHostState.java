@@ -38,14 +38,14 @@ import java.util.ArrayList;
  * its tab content.  When placing this in a view hierarchy, after inflating
  * the hierarchy you must call {@link #setup(android.content.Context, FragmentManager, int)}
  * to complete the initialization of the tab host.
- * <p>
+ * <p/>
  * <p>Here is a simple example of using a FragmentTabHost in an Activity:
- * <p>
+ * <p/>
  * {@sample development/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentTabs.java
  * complete}
- * <p>
+ * <p/>
  * <p>This can also be used inside of a fragment through fragment nesting:
- * <p>
+ * <p/>
  * {@sample development/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentTabsFragmentSupport.java
  * complete}
  */
@@ -125,6 +125,8 @@ public class FragmentTabHostState extends TabHost implements TabHost.OnTabChange
         String currentTab = getCurrentTabTag();
         // Go through all tabs and make sure their fragments match
         // the correct state.
+        //modify 2015.7.6 when mTabs.size()==0 return this method.
+        if (mTabs.size() == 0) { return; }
         FragmentTransaction ft = null;
         for (int i = 0; i < mTabs.size(); i++)
         {

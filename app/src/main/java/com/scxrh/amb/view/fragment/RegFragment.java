@@ -5,8 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.scxrh.amb.App;
 import com.scxrh.amb.R;
+import com.scxrh.amb.component.DaggerRegComponent;
+import com.scxrh.amb.module.ActivityModule;
+import com.scxrh.amb.module.RegModule;
+import com.scxrh.amb.presenter.RegPresenter;
 import com.scxrh.amb.view.iview.RegView;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -21,6 +28,8 @@ public class RegFragment extends BaseFragment implements RegView
     TextView txt1;
     @Bind(R.id.btnReg)
     View btnReg;
+    @Inject
+    RegPresenter presenter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
@@ -39,6 +48,9 @@ public class RegFragment extends BaseFragment implements RegView
     @Override
     protected void injectDependencies()
     {
+        DaggerRegComponent.builder().appComponent(App.get(getActivity()).getComponent())
+                          .activityModule(new ActivityModule(getActivity())).regModule(new RegModule(this)).build()
+                          .inject(this);
     }
 
     @OnClick(R.id.btnBack)
@@ -49,6 +61,17 @@ public class RegFragment extends BaseFragment implements RegView
 
     @OnClick(R.id.btnReg)
     void reg()
+    {
+        presenter.reg("","");
+    }
+
+    @Override
+    public void showReging()
+    {
+    }
+
+    @Override
+    public void showError(int toast)
     {
     }
 }

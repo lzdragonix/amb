@@ -15,8 +15,6 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment
 {
-    private View mLayout;
-
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -29,8 +27,7 @@ public abstract class BaseFragment extends Fragment
         }
         else
         {
-            mLayout = inflater.inflate(layoutId, container, false);
-            return mLayout;
+            return inflater.inflate(layoutId, container, false);
         }
     }
 
@@ -47,11 +44,6 @@ public abstract class BaseFragment extends Fragment
     {
         super.onDestroy();
         ButterKnife.unbind(this);
-    }
-
-    protected final View getLayout()
-    {
-        return mLayout;
     }
 
     protected final void toast(int toastId)
