@@ -5,7 +5,7 @@
               tools:context=".view.fragment.MainFragment"
               android:orientation="vertical">
 
-    <include layout="@layout/layout_default_header"/>
+    <include layout="@layout/layout_header_main"/>
 
     <View
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:background="@color/c09455f"
+                android:background="@color/c0a465e"
                 android:divider="@null"
                 android:layout_weight="0"/>
 
