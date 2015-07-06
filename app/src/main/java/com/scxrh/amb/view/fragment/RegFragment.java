@@ -28,6 +28,10 @@ public class RegFragment extends BaseFragment implements RegView
     TextView txt1;
     @Bind(R.id.btnReg)
     View btnReg;
+    @Bind(R.id.txtUser)
+    TextView txtUser;
+    @Bind(R.id.txtPwd)
+    TextView txtPwd;
     @Inject
     RegPresenter presenter;
 
@@ -62,7 +66,7 @@ public class RegFragment extends BaseFragment implements RegView
     @OnClick(R.id.btnReg)
     void reg()
     {
-        presenter.reg("","");
+        presenter.reg(txtUser.getText().toString(), txtPwd.getText().toString());
     }
 
     @Override

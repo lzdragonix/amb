@@ -39,7 +39,6 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     TextView txtHeader;
     private Map<String, TabHolder> tabs = new HashMap<>();
 
-    @SuppressLint("InflateParams")
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {

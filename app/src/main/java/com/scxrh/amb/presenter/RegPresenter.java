@@ -36,9 +36,10 @@ public class RegPresenter
             view.showError(Const.TOAST_EMPTY_USER_OR_PASSWORD);
         }
         RequestParams params = new RequestParams();
-        params.put("userKey", user);
+        params.put("telephone", user);
+        params.put("verifyNo", "1111");
         params.put("password", pwd);
-        client.post(activity, Const.URL_LOGIN, params, new IHttpResponse()
+        client.post(activity, Const.URL_USER_REGISTER, params, new IHttpResponse()
         {
             @Override
             public void onHttpStart()

@@ -14,6 +14,7 @@
         android:padding="10dp">
 
         <EditText
+            android:id="@+id/txtUser"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:paddingLeft="10dp"
@@ -47,6 +48,7 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/txtPwd"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:paddingLeft="10dp"

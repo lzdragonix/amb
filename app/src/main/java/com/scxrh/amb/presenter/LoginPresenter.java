@@ -53,6 +53,7 @@ public class LoginPresenter
             public void onHttpSuccess(JSONObject response)
             {
                 Log.i(TAG, "onHttpSuccess");
+                ((BaseActivity)activity).replaceFragment(R.id.container, new MainFragment(), MainFragment.TAG);
             }
 
             @Override
@@ -66,7 +67,6 @@ public class LoginPresenter
             {
                 Log.i(TAG, "onHttpFinish");
                 view.showError(Const.TOAST_EMPTY_USER_OR_PASSWORD);
-                ((BaseActivity)activity).replaceFragment(R.id.container, new MainFragment(), MainFragment.TAG);
             }
         });
     }

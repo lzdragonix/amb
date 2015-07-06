@@ -28,7 +28,7 @@ public class HttpClient
     /**
      * 接口返回错误代码键
      */
-    public static final String KEY_RETURNCODE = "returncode";
+    public static final String KEY_RETURNCODE = "code";
     /**
      * 登录账号
      */
