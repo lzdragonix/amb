@@ -10,6 +10,4 @@
     <string name="msg_empty_user_or_password">用户名或密码为空</string>
     <string name="msg_login">正在登录，请稍候</string>
     <string name="msg_mobile_illegal">请输入正确的手机号</string>
-
-
 </resources>

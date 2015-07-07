@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@mipmap/login_bg"
+              tools:context=".view.fragment.MineFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/login_img"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:textColor="@color/cf8f8f8"
+            android:textSize="20sp"
+            android:text="请登录您的账户"/>
+    </FrameLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="5"
+        android:background="@color/cffffff"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/my_grxx"/>
+
+        <View
+            android:layout_height="120dp"
+            android:layout_width="1dp"
+            android:background="@color/cadadae"/>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/my_sc"/>
+
+        <View
+            android:layout_height="120dp"
+            android:layout_width="1dp"
+            android:background="@color/cadadae"/>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/my_dd"/>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_columnSpan="5"
+            android:background="@color/cadadae"/>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/my_tsjy"/>
+
+        <View
+            android:layout_height="120dp"
+            android:layout_width="1dp"
+            android:background="@color/cadadae"/>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/my_jf"/>
+
+        <View
+            android:layout_height="120dp"
+            android:layout_width="1dp"
+            android:background="@color/cadadae"/>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_columnSpan="5"
+            android:background="@color/cadadae"/>
+    </GridLayout>
+</LinearLayout>

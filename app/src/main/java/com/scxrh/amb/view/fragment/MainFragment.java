@@ -93,7 +93,7 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         tabhost.addTab(tabhost.newTabSpec(TAB_LIVE).setIndicator(tabs.get(TAB_LIVE).root), LiveFragment.class, null);
         tabhost.addTab(tabhost.newTabSpec(TAB_FINANCE).setIndicator(tabs.get(TAB_FINANCE).root), FinanceFragment.class,
                        null);
-        tabhost.addTab(tabhost.newTabSpec(TAB_MINE).setIndicator(tabs.get(TAB_MINE).root), FinanceFragment.class, null);
+        tabhost.addTab(tabhost.newTabSpec(TAB_MINE).setIndicator(tabs.get(TAB_MINE).root), MineFragment.class, null);
     }
 
     @Override
