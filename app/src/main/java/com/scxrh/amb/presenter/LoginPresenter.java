@@ -70,7 +70,6 @@ public class LoginPresenter
             @Override
             public void onHttpFinish()
             {
-                view.showMain();
                 view.loginFinished();
             }
         });
