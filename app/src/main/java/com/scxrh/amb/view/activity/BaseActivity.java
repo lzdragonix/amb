@@ -17,8 +17,6 @@ import com.scxrh.amb.R;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener
