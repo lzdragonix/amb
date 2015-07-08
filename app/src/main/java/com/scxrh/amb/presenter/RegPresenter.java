@@ -89,5 +89,6 @@ public class RegPresenter
     }
 
     public void getSMS(String moblie)
-    { }
+    {
+    }
 }

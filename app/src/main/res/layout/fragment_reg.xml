@@ -37,12 +37,13 @@
                 android:background="@drawable/shape_reg_input"/>
 
             <TextView
+                android:id="@+id/btnGetVerify"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:text="获取验证码"
+                android:text="@string/txt_get_verify_code"
                 android:textColor="@color/cfbc000"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/shape_reg_input1"/>

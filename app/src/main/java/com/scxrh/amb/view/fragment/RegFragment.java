@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -40,8 +41,25 @@ public class RegFragment extends BaseFragment implements RegView
     TextView txtVerify;
     @Bind(R.id.ckxAgree)
     CheckBox ckxAgree;
+    @Bind(R.id.btnGetVerify)
+    TextView btnGetVerify;
     @Inject
     RegPresenter presenter;
+    private CountDownTimer timer = new CountDownTimer(30000, 1000)
+    {
+        @Override
+        public void onTick(long millisUntilFinished)
+        {
+            btnGetVerify.setText((millisUntilFinished / 1000) + getString(R.string.txt_resend_verify_code));
+        }
+
+        @Override
+        public void onFinish()
+        {
+            btnGetVerify.setEnabled(true);
+            btnGetVerify.setText(getString(R.string.txt_get_verify_code));
+        }
+    };
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
@@ -49,6 +67,13 @@ public class RegFragment extends BaseFragment implements RegView
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText(getString(R.string.txt_register));
         txt1.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        timer.cancel();
+        super.onDestroy();
     }
 
     @Override
@@ -78,6 +103,14 @@ public class RegFragment extends BaseFragment implements RegView
         btnReg.setEnabled(false);
         presenter.reg(txtUser.getText().toString(), txtPwd.getText().toString(), txtVerify.getText().toString(),
                       ckxAgree.isChecked());
+    }
+
+    @OnClick(R.id.btnGetVerify)
+    void getVerify()
+    {
+        btnGetVerify.setEnabled(false);
+        presenter.getSMS(txtUser.getText().toString());
+        timer.start();
     }
 
     @Override
