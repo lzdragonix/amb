@@ -54,6 +54,7 @@
             android:layout_height="45dp"
             android:paddingLeft="10dp"
             android:layout_marginTop="10dp"
+            android:inputType="textPassword"
             android:hint="请输入密码"
             android:background="@drawable/shape_reg_input"/>
 
@@ -63,6 +64,7 @@
             android:layout_marginTop="10dp">
 
             <CheckBox
+                android:id="@+id/ckxAgree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"

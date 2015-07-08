@@ -7,4 +7,6 @@ public interface RegView
     void showError(String msg);
 
     void finish();
+
+    void regSuccess();
 }

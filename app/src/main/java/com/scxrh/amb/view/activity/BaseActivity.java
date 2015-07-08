@@ -12,10 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.scxrh.amb.App;
 import com.scxrh.amb.R;
-
-import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -24,20 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected Context mContext;
     private ProgressDialog mProgressDialog;
     private Toast mToast;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent)
-    {
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments != null)
-        {
-            for (Fragment fragment : fragments)
-            {
-                fragment.onActivityResult(requestCode, resultCode, intent);
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, intent);
-    }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode)
@@ -61,7 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setContentView(getLayoutId());
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mContext = this;
-        App.get(this).getComponent().inject(this);
         initProgressDialog();
     }
 

@@ -15,6 +15,7 @@ import com.scxrh.amb.module.ActivityModule;
 import com.scxrh.amb.module.LoginModule;
 import com.scxrh.amb.presenter.LoginPresenter;
 import com.scxrh.amb.view.activity.BaseActivity;
+import com.scxrh.amb.view.activity.MainActivity;
 import com.scxrh.amb.view.activity.WindowActivity;
 import com.scxrh.amb.view.iview.LoginView;
 
@@ -57,6 +58,7 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
         txtUser.setOnEditorActionListener(this);
         txtPwd.setOnEditorActionListener(this);
         presenter.initialize();
+        ((MainActivity)getActivity()).setPresenter(presenter);
     }
 
     @Override
@@ -64,6 +66,13 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     {
         txtUser.setText(user);
         txtUser.setSelection(user.length());
+    }
+
+    @Override
+    public void initPwd(String pwd)
+    {
+        txtUser.setText(pwd);
+        txtUser.setSelection(pwd.length());
     }
 
     @Override
@@ -106,7 +115,7 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     {
         Intent intent = new Intent(getActivity(), WindowActivity.class);
         intent.putExtra(Const.KEY_FRAGMENT, RegFragment.class.getName());
-        startActivity(intent);
+        getActivity().startActivityForResult(intent, MainActivity.REQUESTCODE_REG);
     }
 
     @Override

@@ -30,11 +30,17 @@ public class RegPresenter
     @Inject
     public RegPresenter() { }
 
-    public void reg(String user, String pwd, String verify)
+    public void reg(String user, String pwd, String verify, boolean agree)
     {
         if (!Utils.regex(user, Const.REGEX_MOBILE))
         {
             view.showError(messager.getMessage(Const.MSG_MOBILE_ILLEGAL));
+            view.finish();
+            return;
+        }
+        if (TextUtils.isEmpty(verify))
+        {
+            view.showError(messager.getMessage(Const.MSG_INPUT_VERIFY_CODE));
             view.finish();
             return;
         }
@@ -44,9 +50,9 @@ public class RegPresenter
             view.finish();
             return;
         }
-        if (TextUtils.isEmpty(verify))
+        if (!agree)
         {
-            view.showError(messager.getMessage(Const.MSG_INPUT_VERIFY_CODE));
+            view.showError(messager.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
             view.finish();
             return;
         }
@@ -65,7 +71,7 @@ public class RegPresenter
             @Override
             public void onHttpSuccess(JSONObject response)
             {
-
+                view.regSuccess();
             }
 
             @Override

@@ -87,4 +87,14 @@ public class LoginPresenter
             }
         });
     }
+
+    public void inputUser(String user)
+    {
+        view.initUser(user);
+    }
+
+    public void inputPwd(String pwd)
+    {
+        view.initPwd(pwd);
+    }
 }

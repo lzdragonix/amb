@@ -1,11 +1,15 @@
 package com.scxrh.amb.view.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.scxrh.amb.App;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.component.DaggerRegComponent;
 import com.scxrh.amb.module.ActivityModule;
@@ -34,6 +38,8 @@ public class RegFragment extends BaseFragment implements RegView
     TextView txtPwd;
     @Bind(R.id.txtVerify)
     TextView txtVerify;
+    @Bind(R.id.ckxAgree)
+    CheckBox ckxAgree;
     @Inject
     RegPresenter presenter;
 
@@ -62,6 +68,7 @@ public class RegFragment extends BaseFragment implements RegView
     @OnClick(R.id.btnBack)
     void btnBack()
     {
+        getActivity().setResult(Activity.RESULT_CANCELED);
         getActivity().finish();
     }
 
@@ -69,7 +76,8 @@ public class RegFragment extends BaseFragment implements RegView
     void reg()
     {
         btnReg.setEnabled(false);
-        presenter.reg(txtUser.getText().toString(), txtPwd.getText().toString(), txtVerify.getText().toString());
+        presenter.reg(txtUser.getText().toString(), txtPwd.getText().toString(), txtVerify.getText().toString(),
+                      ckxAgree.isChecked());
     }
 
     @Override
@@ -89,5 +97,15 @@ public class RegFragment extends BaseFragment implements RegView
     {
         closeProgressDialog();
         btnReg.setEnabled(true);
+    }
+
+    @Override
+    public void regSuccess()
+    {
+        Intent intent = new Intent();
+        intent.putExtra(Const.KEY_ACCOUNT, txtUser.getText().toString());
+        intent.putExtra(Const.KEY_PASSWORD, txtPwd.getText().toString());
+        getActivity().setResult(Activity.RESULT_OK, intent);
+        getActivity().finish();
     }
 }

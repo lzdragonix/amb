@@ -15,5 +15,6 @@
     <string name="msg_pwd_is_short">密码小于6位</string>
     <string name="msg_reg_failed">注册失败</string>
     <string name="msg_input_verify_code">请输入验证码</string>
+    <string name="msg_agree_reg_protocol">请同意注册协议</string>
 
 </resources>

@@ -4,6 +4,8 @@ public interface LoginView
 {
     void initUser(String user);
 
+    void initPwd(String pwd);
+
     void showProgress(String msg);
 
     void showMain();

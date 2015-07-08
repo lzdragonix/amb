@@ -5,7 +5,6 @@ import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.module.AppModule;
 import com.scxrh.amb.net.http.HttpClient;
-import com.scxrh.amb.view.activity.BaseActivity;
 
 import javax.inject.Singleton;
 
@@ -15,8 +14,6 @@ import dagger.Component;
 @Component(modules = AppModule.class)
 public interface AppComponent
 {
-    void inject(BaseActivity activity);
-
     App getApp();
 
     HttpClient getHttpClient();
