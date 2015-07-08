@@ -5,8 +5,10 @@ import android.text.TextUtils;
 
 import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
+import com.scxrh.amb.common.DES;
 import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
+import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
 import com.scxrh.amb.view.iview.LoginView;
@@ -26,11 +28,20 @@ public class LoginPresenter
     LoginView view;
     @Inject
     Activity activity;
+    @Inject
+    SettingsManager settings;
 
     @Inject
     public LoginPresenter() { }
 
-    public void login(String user, String pwd)
+    public void initialize()
+    {
+        String user = settings.getString(Const.KEY_ACCOUNT);
+        if (TextUtils.isEmpty(user)) { return; }
+        view.initUser(user);
+    }
+
+    public void login(final String user, final String pwd)
     {
         if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pwd))
         {
@@ -58,6 +69,8 @@ public class LoginPresenter
             @Override
             public void onHttpSuccess(JSONObject response)
             {
+                settings.setValue(Const.KEY_ACCOUNT, user);
+                settings.setValue(Const.KEY_PASSWORD, DES.encrypt(pwd, DES.getKey()));
                 view.showMain();
             }
 

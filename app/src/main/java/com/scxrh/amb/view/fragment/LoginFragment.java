@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.scxrh.amb.App;
@@ -27,7 +28,7 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
 {
     public static final String TAG = LoginFragment.class.getSimpleName();
     @Bind(R.id.txtUser)
-    TextView txtUser;
+    EditText txtUser;
     @Bind(R.id.txtPwd)
     TextView txtPwd;
     @Bind(R.id.btnLogin)
@@ -55,21 +56,14 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
         super.onActivityCreated(savedInstanceState);
         txtUser.setOnEditorActionListener(this);
         txtPwd.setOnEditorActionListener(this);
+        presenter.initialize();
     }
 
-    @OnClick(R.id.btnLogin)
-    void login()
+    @Override
+    public void initUser(String user)
     {
-        btnLogin.setEnabled(false);
-        presenter.login(txtUser.getText().toString(), txtPwd.getText().toString());
-    }
-
-    @OnClick(R.id.btnReg)
-    void openReg()
-    {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, RegFragment.class.getName());
-        startActivity(intent);
+        txtUser.setText(user);
+        txtUser.setSelection(user.length());
     }
 
     @Override
@@ -98,6 +92,21 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     {
         closeProgressDialog();
         btnLogin.setEnabled(true);
+    }
+
+    @OnClick(R.id.btnLogin)
+    void login()
+    {
+        btnLogin.setEnabled(false);
+        presenter.login(txtUser.getText().toString(), txtPwd.getText().toString());
+    }
+
+    @OnClick(R.id.btnReg)
+    void openReg()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, RegFragment.class.getName());
+        startActivity(intent);
     }
 
     @Override
