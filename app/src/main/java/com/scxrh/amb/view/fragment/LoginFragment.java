@@ -118,6 +118,14 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
         getActivity().startActivityForResult(intent, MainActivity.REQUESTCODE_REG);
     }
 
+    @OnClick(R.id.btnRetPwd)
+    void retPwd()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, RetrievePwdFragment.class.getName());
+        startActivity(intent);
+    }
+
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
     {

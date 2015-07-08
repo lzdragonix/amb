@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".view.fragment.RetrievePwdFragment">
+
+    <include layout="@layout/layout_header_default"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/txtUser"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="10dp"
+            android:hint="请输入手机号"
+            android:background="@drawable/shape_reg_input"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txtVerify"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="2"
+                android:paddingLeft="10dp"
+                android:hint="请输入验证码"
+                android:background="@drawable/shape_reg_input"/>
+
+            <TextView
+                android:id="@+id/btnGetVerify"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/txt_get_verify_code"
+                android:textColor="@color/cfbc000"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_reg_input1"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/txtPwd"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:inputType="textPassword"
+            android:hint="请输入新密码"
+            android:background="@drawable/shape_reg_input"/>
+
+        <EditText
+            android:id="@+id/txtPwd1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:inputType="textPassword"
+            android:hint="请再次输入新密码"
+            android:background="@drawable/shape_reg_input"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <CheckBox
+                android:id="@+id/ckxAgree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="已阅读并同意"/>
+
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="隐私协议和服务条款"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/login_bt"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/cffffff"
+            android:text="@string/txt_submit"/>
+    </LinearLayout>
+</LinearLayout>
