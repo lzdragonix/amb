@@ -46,13 +46,13 @@ public class LoginPresenter
         if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pwd))
         {
             view.showError(messager.getMessage(Const.MSG_EMPTY_USER_OR_PASSWORD));
-            view.loginFinished();
+            view.finish();
             return;
         }
         if (!Utils.regex(user, Const.REGEX_MOBILE))
         {
             view.showError(messager.getMessage(Const.MSG_MOBILE_ILLEGAL));
-            view.loginFinished();
+            view.finish();
             return;
         }
         RequestParams params = new RequestParams();
@@ -83,7 +83,7 @@ public class LoginPresenter
             @Override
             public void onHttpFinish()
             {
-                view.loginFinished();
+                view.finish();
             }
         });
     }

@@ -10,5 +10,5 @@ public interface LoginView
 
     void showError(String msg);
 
-    void loginFinished();
+    void finish();
 }

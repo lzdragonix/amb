@@ -88,7 +88,7 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     }
 
     @Override
-    public void loginFinished()
+    public void finish()
     {
         closeProgressDialog();
         btnLogin.setEnabled(true);

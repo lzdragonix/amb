@@ -9,6 +9,10 @@ public class Const
     public static final int MSG_EMPTY_USER_OR_PASSWORD = MSG_SERVER_ERROR + 1;
     public static final int MSG_LOGIN = MSG_SERVER_ERROR + 2;
     public static final int MSG_MOBILE_ILLEGAL = MSG_SERVER_ERROR + 3;
+    public static final int MSG_SUBMITTING = MSG_SERVER_ERROR + 4;
+    public static final int MSG_PWD_IS_SHORT = MSG_SERVER_ERROR + 5;
+    public static final int MSG_REG_FAILED = MSG_SERVER_ERROR + 6;
+    public static final int MSG_INPUT_VERIFY_CODE = MSG_SERVER_ERROR + 7;
     //some url
     public static final String URL_BASE = "http://113.106.63.129:8489";
     public static final String URL_LOGIN = URL_BASE + "/windforce/m/mlogin.action";

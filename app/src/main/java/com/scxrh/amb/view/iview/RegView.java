@@ -2,7 +2,9 @@ package com.scxrh.amb.view.iview;
 
 public interface RegView
 {
-    void showReging();
+    void showProgress(String msg);
 
-    void showError(int toast);
+    void showError(String msg);
+
+    void finish();
 }

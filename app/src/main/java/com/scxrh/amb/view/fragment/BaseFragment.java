@@ -49,7 +49,7 @@ public abstract class BaseFragment extends Fragment
 
     protected final void toast(String msg)
     {
-        toast(msg, Gravity.CENTER);
+        toast(msg, Gravity.BOTTOM);
     }
 
     protected final void toast(String msg, int gravity)

@@ -32,6 +32,8 @@ public class RegFragment extends BaseFragment implements RegView
     TextView txtUser;
     @Bind(R.id.txtPwd)
     TextView txtPwd;
+    @Bind(R.id.txtVerify)
+    TextView txtVerify;
     @Inject
     RegPresenter presenter;
 
@@ -39,7 +41,7 @@ public class RegFragment extends BaseFragment implements RegView
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        txtHeader.setText("注册");
+        txtHeader.setText(getString(R.string.txt_register));
         txt1.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
@@ -66,16 +68,26 @@ public class RegFragment extends BaseFragment implements RegView
     @OnClick(R.id.btnReg)
     void reg()
     {
-        presenter.reg(txtUser.getText().toString(), txtPwd.getText().toString());
+        btnReg.setEnabled(false);
+        presenter.reg(txtUser.getText().toString(), txtPwd.getText().toString(), txtVerify.getText().toString());
     }
 
     @Override
-    public void showReging()
+    public void showProgress(String msg)
     {
+        showProgressDialog(msg);
     }
 
     @Override
-    public void showError(int toast)
+    public void showError(String msg)
     {
+        toast(msg);
+    }
+
+    @Override
+    public void finish()
+    {
+        closeProgressDialog();
+        btnReg.setEnabled(true);
     }
 }

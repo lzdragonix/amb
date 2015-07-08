@@ -5,9 +5,15 @@
     <string name="txt_livelihood">生活服务</string>
     <string name="txt_finance">社区金融</string>
     <string name="txt_mine">我的</string>
+    <string name="txt_register">注册</string>
 
     <string name="msg_server_error">服务器错误</string>
     <string name="msg_empty_user_or_password">用户名或密码为空</string>
     <string name="msg_login">正在登录，请稍候</string>
     <string name="msg_mobile_illegal">请输入正确的手机号</string>
+    <string name="msg_submitting">正在提交数据，请稍候</string>
+    <string name="msg_pwd_is_short">密码小于6位</string>
+    <string name="msg_reg_failed">注册失败</string>
+    <string name="msg_input_verify_code">请输入验证码</string>
+
 </resources>
