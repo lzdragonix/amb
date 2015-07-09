@@ -27,23 +27,58 @@ import butterknife.OnClick;
 public class SelCityFragment extends BaseFragment implements SelCityView
 {
     public static final String TAG = SelCityFragment.class.getSimpleName();
+    private static final int VIEWTYPE_CONTENT = 0;
+    private static final int VIEWTYPE_INDEX = 1;
     @Inject
     SelCityPresenter presenter;
+    @Bind(R.id.txtHeader)
+    TextView txtHeader;
     @Bind(R.id.rvList)
     RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<ViewHolder>()
+    private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_city_item, parent, false);
-            return new ViewHolder(view);
+            View view;
+            if (viewType == VIEWTYPE_INDEX)
+            {
+                view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_city_item_index, parent, false);
+                return new ViewHolderIndex(view);
+            }
+            else
+            {
+                view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_city_item, parent, false);
+                return new ViewHolderContent(view);
+            }
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position)
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            holder.name.setText(presenter.getItem(position).optString("name"));
+            if (holder instanceof ViewHolderIndex)
+            {
+                ((ViewHolderIndex)holder).index.setText(presenter.getItem(position).getName());
+            }
+            else if (holder instanceof ViewHolderContent)
+            {
+                int i = position + 1;
+                if (i < presenter.getCount() - 1 && "0".equals(presenter.getItem(i).getId()))
+                {
+                    ((ViewHolderContent)holder).divider.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    ((ViewHolderContent)holder).divider.setVisibility(View.VISIBLE);
+                }
+                ((ViewHolderContent)holder).name.setText(presenter.getItem(position).getName());
+            }
+        }
+
+        @Override
+        public int getItemViewType(int position)
+        {
+            return "0".equals(presenter.getItem(position).getId()) ? VIEWTYPE_INDEX : VIEWTYPE_CONTENT;
         }
 
         @Override
@@ -58,7 +93,9 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     {
         super.onActivityCreated(savedInstanceState);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //mRecyclerView.addItemDecoration(new DividerItemDecoration(LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
+        txtHeader.setText(getString(R.string.txt_select_city));
         presenter.loadData();
     }
 
@@ -107,12 +144,26 @@ public class SelCityFragment extends BaseFragment implements SelCityView
         closeProgressDialog();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
+    class ViewHolderContent extends RecyclerView.ViewHolder
     {
         @Bind(R.id.txtName)
         TextView name;
+        @Bind(R.id.divider)
+        View divider;
 
-        public ViewHolder(View view)
+        public ViewHolderContent(View view)
+        {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    class ViewHolderIndex extends RecyclerView.ViewHolder
+    {
+        @Bind(R.id.txtIndex)
+        TextView index;
+
+        public ViewHolderIndex(View view)
         {
             super(view);
             ButterKnife.bind(this, view);

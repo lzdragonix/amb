@@ -1,11 +1,14 @@
 package com.scxrh.amb.presenter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
-import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
+import com.scxrh.amb.model.City;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
 import com.scxrh.amb.view.iview.SelCityView;
@@ -13,6 +16,8 @@ import com.scxrh.amb.view.iview.SelCityView;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,7 +32,16 @@ public class SelCityPresenter
     Activity activity;
     @Inject
     MessageManager messager;
-    private List<JSONObject> mData = new ArrayList<>();
+    private List<City> mData = new ArrayList<>();
+    private List<String> pys = new ArrayList<>();
+    private Comparator<City> mComparator = new Comparator<City>()
+    {
+        @Override
+        public int compare(City lhs, City rhs)
+        {
+            return lhs.getPinyin().compareToIgnoreCase(rhs.getPinyin());
+        }
+    };
 
     @Inject
     public SelCityPresenter() { }
@@ -46,9 +60,17 @@ public class SelCityPresenter
             @Override
             public void onHttpSuccess(JSONObject response)
             {
-                mData.clear();
-                mData.addAll(Utils.toList(response.optJSONObject("data").optJSONArray("normal")));
-                view.showData();
+                Gson gson = new Gson();
+                List<City> data = gson.fromJson(response.optJSONObject("data").optJSONArray("normal").toString(),
+                                                new TypeToken<List<City>>()
+                                                { }.getType());
+                if (data != null)
+                {
+                    mData.clear();
+                    mData.addAll(data);
+                    prepareData();
+                    view.showData();
+                }
             }
 
             @Override
@@ -70,8 +92,31 @@ public class SelCityPresenter
         return mData.size();
     }
 
-    public JSONObject getItem(int index)
+    public City getItem(int index)
     {
         return mData.get(index);
+    }
+
+    private void prepareData()
+    {
+        pys.clear();
+        for (City city : mData)
+        {
+            if (!TextUtils.isEmpty(city.getPinyin()))
+            {
+                String py = city.getPinyin().substring(0, 1).toUpperCase();
+                if (!pys.contains(py)) { pys.add(py); }
+                city.setPy(py);
+            }
+        }
+        for (String py : pys)
+        {
+            City city = new City();
+            city.setId("0");
+            city.setPinyin(py);
+            city.setName(py);
+            mData.add(city);
+        }
+        Collections.sort(mData, mComparator);
     }
 }
