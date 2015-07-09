@@ -14,11 +14,14 @@ public class Const
     public static final int MSG_REG_FAILED = MSG_SERVER_ERROR + 6;
     public static final int MSG_INPUT_VERIFY_CODE = MSG_SERVER_ERROR + 7;
     public static final int MSG_AGREE_REG_PROTOCOL = MSG_SERVER_ERROR + 8;
+    public static final int MSG_LOADING = MSG_SERVER_ERROR + 9;
+    public static final int MSG_LOADING_FAILED = MSG_SERVER_ERROR + 10;
     //some url
     public static final String URL_BASE = "http://113.106.63.129:8489";
     public static final String URL_LOGIN = URL_BASE + "/windforce/m/mlogin.action";
     public static final String URL_USER_REGISTER = URL_BASE + "/windforce/m/user_register.action";
     public static final String URL_SMS_SEND = URL_BASE + "/windforce/m/sms_send.action";
+    public static final String URL_QUERY_CITY = URL_BASE + "/shopxx/m/area_queryCity.action";
     //some key
     public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
     public static final String KEY_CODE = "code";

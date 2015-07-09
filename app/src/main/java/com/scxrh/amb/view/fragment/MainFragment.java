@@ -1,6 +1,7 @@
 package com.scxrh.amb.view.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +10,12 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.scxrh.amb.App;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.component.DaggerMainComponent;
 import com.scxrh.amb.module.MainModule;
 import com.scxrh.amb.presenter.MainPresenter;
+import com.scxrh.amb.view.activity.WindowActivity;
 import com.scxrh.amb.view.iview.MainView;
 import com.scxrh.amb.widget.FragmentTabHostState;
 
@@ -23,6 +26,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainFragment extends BaseFragment implements MainView, TabHost.OnTabChangeListener
 {
@@ -37,6 +41,10 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     FragmentTabHostState tabhost;
     @Bind(R.id.txtHeader)
     TextView txtHeader;
+    @Bind(R.id.txtCommunity)
+    TextView txtCommunity;
+    @Bind(R.id.txtCity)
+    TextView txtCity;
     private Map<String, TabHolder> tabs = new HashMap<>();
 
     @Override
@@ -104,6 +112,14 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         if (tab == null) { return; }
         tab.tap();
         txtHeader.setText(tab.txt.getText());
+    }
+
+    @OnClick(R.id.txtCity)
+    void selCity()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, SelCityFragment.class.getName());
+        startActivity(intent);
     }
 
     private void reset()
