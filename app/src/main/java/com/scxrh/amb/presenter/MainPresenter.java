@@ -1,5 +1,7 @@
 package com.scxrh.amb.presenter;
 
+import android.util.Log;
+
 import com.scxrh.amb.view.iview.MainView;
 
 import javax.inject.Inject;
@@ -11,6 +13,7 @@ public class MainPresenter
     @Inject
     public MainPresenter(MainView mainView)
     {
+        Log.i("===============","MainPresenter create.");
         this.mainView = mainView;
     }
 

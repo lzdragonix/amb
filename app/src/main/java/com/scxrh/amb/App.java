@@ -9,11 +9,16 @@ import com.scxrh.amb.module.AppModule;
 
 public class App extends Application
 {
-    private AppComponent component;
+    private static AppComponent component;
 
     public static App get(Context context)
     {
         return (App)context.getApplicationContext();
+    }
+
+    public static AppComponent getAppComponent()
+    {
+        return component;
     }
 
     @Override
@@ -26,10 +31,5 @@ public class App extends Application
     private void initializeInjector()
     {
         component = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
-    }
-
-    public AppComponent getComponent()
-    {
-        return component;
     }
 }

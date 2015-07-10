@@ -37,6 +37,15 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
+        OnItemClickListener mOnItemClickListener = new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(View view, int position)
+            {
+                String a= presenter.getItem(position).getName();
+            }
+        };
+
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
@@ -54,8 +63,16 @@ public class SelCityFragment extends BaseFragment implements SelCityView
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
         {
+            holder.itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    mOnItemClickListener.onItemClick(v, position);
+                }
+            });
             if (holder instanceof ViewHolderIndex)
             {
                 ((ViewHolderIndex)holder).index.setText(presenter.getItem(position).getName());
@@ -108,7 +125,7 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     @Override
     protected void injectDependencies()
     {
-        DaggerSelCityComponent.builder().appComponent(App.get(getActivity()).getComponent())
+        DaggerSelCityComponent.builder().appComponent(App.getAppComponent())
                               .activityModule(new ActivityModule(getActivity())).selCityModule(new SelCityModule(this))
                               .build().inject(this);
     }
@@ -142,6 +159,11 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     public void finish()
     {
         closeProgressDialog();
+    }
+
+    interface OnItemClickListener
+    {
+        void onItemClick(View view, int position);
     }
 
     class ViewHolderContent extends RecyclerView.ViewHolder

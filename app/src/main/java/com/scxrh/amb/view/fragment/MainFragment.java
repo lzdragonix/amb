@@ -71,7 +71,7 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     @Override
     protected void injectDependencies()
     {
-        DaggerMainComponent.builder().appComponent(App.get(getActivity()).getComponent())
+        DaggerMainComponent.builder().appComponent(App.getAppComponent())
                            .mainModule(new MainModule(this)).build().inject(this);
     }
 

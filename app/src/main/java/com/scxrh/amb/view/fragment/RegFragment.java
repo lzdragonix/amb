@@ -85,7 +85,7 @@ public class RegFragment extends BaseFragment implements RegView
     @Override
     protected void injectDependencies()
     {
-        DaggerRegComponent.builder().appComponent(App.get(getActivity()).getComponent())
+        DaggerRegComponent.builder().appComponent(App.getAppComponent())
                           .activityModule(new ActivityModule(getActivity())).regModule(new RegModule(this)).build()
                           .inject(this);
     }

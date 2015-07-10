@@ -85,7 +85,7 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     @Override
     protected void injectDependencies()
     {
-        DaggerRetComponent.builder().appComponent(App.get(getActivity()).getComponent())
+        DaggerRetComponent.builder().appComponent(App.getAppComponent())
                           .activityModule(new ActivityModule(getActivity())).retModule(new RetModule(this)).build()
                           .inject(this);
     }
