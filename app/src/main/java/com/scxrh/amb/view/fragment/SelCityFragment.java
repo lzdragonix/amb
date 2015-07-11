@@ -37,13 +37,8 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
-        OnItemClickListener mOnItemClickListener = new OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(View view, int position)
-            {
-                String a= presenter.getItem(position).getName();
-            }
+        OnItemClickListener mOnItemClickListener = (view, position) -> {
+            String a = presenter.getItem(position).getName();
         };
 
         @Override
@@ -65,14 +60,7 @@ public class SelCityFragment extends BaseFragment implements SelCityView
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
         {
-            holder.itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    mOnItemClickListener.onItemClick(v, position);
-                }
-            });
+            holder.itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position));
             if (holder instanceof ViewHolderIndex)
             {
                 ((ViewHolderIndex)holder).index.setText(presenter.getItem(position).getName());

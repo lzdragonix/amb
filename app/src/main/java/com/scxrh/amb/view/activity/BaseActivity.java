@@ -80,23 +80,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void toast(final String msg, final int gravity)
     {
         if (TextUtils.isEmpty(msg)) { return; }
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
+        runOnUiThread(() -> {
+            if (mToast == null)
             {
-                if (mToast == null)
-                {
-                    mToast = Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_LONG);
-                }
-                else
-                {
-                    mToast.setText(msg);
-                }
-                mToast.setDuration(Toast.LENGTH_LONG);
-                mToast.setGravity(gravity, 0, 0);
-                mToast.show();
+                mToast = Toast.makeText(BaseActivity.this, msg, Toast.LENGTH_LONG);
             }
+            else
+            {
+                mToast.setText(msg);
+            }
+            mToast.setDuration(Toast.LENGTH_LONG);
+            mToast.setGravity(gravity, 0, 0);
+            mToast.show();
         });
     }
 
@@ -118,30 +113,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public void showProgressDialog(final String msg)
     {
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
+        runOnUiThread(() -> {
+            mProgressDialog.setMessage(msg);
+            if (!mProgressDialog.isShowing())
             {
-                mProgressDialog.setMessage(msg);
-                if (!mProgressDialog.isShowing())
-                {
-                    mProgressDialog.show();
-                }
+                mProgressDialog.show();
             }
         });
     }
 
     public void closeProgressDialog()
     {
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                mProgressDialog.dismiss();
-            }
-        });
+        runOnUiThread(() -> mProgressDialog.dismiss());
     }
 
     protected final boolean isVisible(View view)
@@ -175,22 +158,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public void replaceFragment(final int containerId, final Fragment fragment, final String tag)
     {
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
+        runOnUiThread(() -> {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            if (TextUtils.isEmpty(tag))
             {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                if (TextUtils.isEmpty(tag))
-                {
-                    fragmentTransaction.replace(containerId, fragment);
-                }
-                else
-                {
-                    fragmentTransaction.replace(containerId, fragment, tag);
-                }
-                fragmentTransaction.commitAllowingStateLoss();
+                fragmentTransaction.replace(containerId, fragment);
             }
+            else
+            {
+                fragmentTransaction.replace(containerId, fragment, tag);
+            }
+            fragmentTransaction.commitAllowingStateLoss();
         });
     }
 

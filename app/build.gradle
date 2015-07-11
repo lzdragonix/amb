@@ -31,13 +31,25 @@ android {
 }
 
 dependencies {
+    //local lib
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    //google support
     compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'com.google.code.gson:gson:2.3'
+
+    //dagger2
     compile 'com.google.dagger:dagger:2.0.1'
     apt 'com.google.dagger:dagger-compiler:2.0.1'
     compile 'org.glassfish:javax.annotation:10.0-b28'
+
+    //butterknife
     compile 'com.jakewharton:butterknife:7.0.1'
+
+    //http
     compile 'com.loopj.android:android-async-http:1.4.7'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
-    compile 'com.google.code.gson:gson:2.3'
+    
+    //rx java
+    compile 'io.reactivex:rxjava:1.0.0'
+    compile 'io.reactivex:rxandroid:0.24.0'
 }
