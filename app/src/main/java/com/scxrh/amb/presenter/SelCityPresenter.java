@@ -34,14 +34,7 @@ public class SelCityPresenter
     MessageManager messager;
     private List<City> mData = new ArrayList<>();
     private List<String> pys = new ArrayList<>();
-    private Comparator<City> mComparator = new Comparator<City>()
-    {
-        @Override
-        public int compare(City lhs, City rhs)
-        {
-            return lhs.getPinyin().compareToIgnoreCase(rhs.getPinyin());
-        }
-    };
+    private Comparator<City> mComparator = (lhs, rhs) -> lhs.getPinyin().compareToIgnoreCase(rhs.getPinyin());
 
     @Inject
     public SelCityPresenter() { }
@@ -82,6 +75,13 @@ public class SelCityPresenter
             @Override
             public void onHttpFinish()
             {
+                City c = new City();
+                c.setId("cccccc");
+                c.setName("cd");
+                c.setPinyin("cd");
+                c.setPy("cd");
+                mData.add(c);
+                view.showData();
                 view.finish();
             }
         });

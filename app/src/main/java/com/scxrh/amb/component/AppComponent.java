@@ -1,6 +1,7 @@
 package com.scxrh.amb.component;
 
 import com.scxrh.amb.App;
+import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.module.AppModule;
@@ -21,4 +22,6 @@ public interface AppComponent
     MessageManager getMessageManager();
 
     SettingsManager getSettingsManager();
+
+    RxBus getRxBus();
 }

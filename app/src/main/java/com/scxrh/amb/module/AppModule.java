@@ -1,6 +1,7 @@
 package com.scxrh.amb.module;
 
 import com.scxrh.amb.App;
+import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.net.http.HttpClient;
@@ -46,5 +47,12 @@ public class AppModule
     public SettingsManager provideSettingsManager()
     {
         return new SettingsManager(mApp);
+    }
+
+    @Singleton
+    @Provides
+    public RxBus provideRxBus()
+    {
+        return new RxBus();
     }
 }

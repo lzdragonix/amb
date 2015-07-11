@@ -13,6 +13,7 @@ import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.component.DaggerMainComponent;
+import com.scxrh.amb.model.City;
 import com.scxrh.amb.module.MainModule;
 import com.scxrh.amb.presenter.MainPresenter;
 import com.scxrh.amb.view.activity.WindowActivity;
@@ -71,8 +72,8 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     @Override
     protected void injectDependencies()
     {
-        DaggerMainComponent.builder().appComponent(App.getAppComponent())
-                           .mainModule(new MainModule(this)).build().inject(this);
+        DaggerMainComponent.builder().appComponent(App.getAppComponent()).mainModule(new MainModule(this)).build()
+                           .inject(this);
     }
 
     @Override
@@ -112,6 +113,12 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         if (tab == null) { return; }
         tab.tap();
         txtHeader.setText(tab.txt.getText());
+    }
+
+    @Override
+    public void changeCity(City city)
+    {
+        txtCity.setText(city.getName());
     }
 
     @OnClick(R.id.txtCity)

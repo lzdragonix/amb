@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
+import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.component.DaggerSelCityComponent;
 import com.scxrh.amb.module.ActivityModule;
 import com.scxrh.amb.module.SelCityModule;
@@ -31,6 +32,8 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     private static final int VIEWTYPE_INDEX = 1;
     @Inject
     SelCityPresenter presenter;
+    @Inject
+    RxBus rxBus;
     @Bind(R.id.txtHeader)
     TextView txtHeader;
     @Bind(R.id.rvList)
@@ -38,7 +41,8 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
         OnItemClickListener mOnItemClickListener = (view, position) -> {
-            String a = presenter.getItem(position).getName();
+            rxBus.post("city_change",presenter.getItem(position));
+            getActivity().finish();
         };
 
         @Override
