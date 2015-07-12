@@ -11,7 +11,7 @@ import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
-import com.scxrh.amb.view.iview.SelCityView;
+import com.scxrh.amb.views.view.SelCityView;
 
 import org.json.JSONObject;
 

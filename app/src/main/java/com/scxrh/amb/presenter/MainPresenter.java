@@ -2,7 +2,7 @@ package com.scxrh.amb.presenter;
 
 import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.model.City;
-import com.scxrh.amb.view.iview.MainView;
+import com.scxrh.amb.views.view.MainView;
 
 import javax.inject.Inject;
 

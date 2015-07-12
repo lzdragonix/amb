@@ -3,9 +3,9 @@ package com.scxrh.amb;
 import android.app.Application;
 import android.content.Context;
 
-import com.scxrh.amb.component.AppComponent;
-import com.scxrh.amb.component.DaggerAppComponent;
-import com.scxrh.amb.module.AppModule;
+import com.scxrh.amb.injector.component.AppComponent;
+import com.scxrh.amb.injector.component.DaggerAppComponent;
+import com.scxrh.amb.injector.module.AppModule;
 
 public class App extends Application
 {

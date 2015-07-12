@@ -11,7 +11,7 @@ import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
-import com.scxrh.amb.view.iview.LoginView;
+import com.scxrh.amb.views.view.LoginView;
 
 import org.json.JSONObject;
 

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import rx.Observable;
@@ -12,7 +13,7 @@ import rx.subjects.Subject;
 
 public class RxBus
 {
-    private ConcurrentHashMap<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
+    private Map<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
 
     @SuppressWarnings("unchecked")
     public <T> Observable<T> register(@NonNull Object tag, @NonNull Class<T> clazz)
@@ -31,9 +32,8 @@ public class RxBus
     public void unregister(@NonNull Object tag, @NonNull Observable observable)
     {
         List<Subject> subjects = subjectMapper.get(tag);
-        if (null != subjects)
+        if (subjects != null)
         {
-            subjects.remove((Subject)observable);
             subjectMapper.remove(tag);
         }
     }

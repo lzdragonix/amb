@@ -9,7 +9,7 @@ import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
-import com.scxrh.amb.view.iview.RetView;
+import com.scxrh.amb.views.view.RetView;
 
 import org.json.JSONObject;
 
