@@ -2,20 +2,13 @@ package com.scxrh.amb.presenter;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.net.http.HttpClient;
-import com.scxrh.amb.net.http.IHttpResponse;
 import com.scxrh.amb.rest.RestRepository;
 import com.scxrh.amb.views.view.SelCityView;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,71 +29,44 @@ public class SelCityPresenter
     Activity activity;
     @Inject
     MessageManager messager;
+    @Inject
+    RestRepository rest;
     private List<City> mData = new ArrayList<>();
     private List<String> pys = new ArrayList<>();
     private Comparator<City> mComparator = (lhs, rhs) -> lhs.getPinyin().compareToIgnoreCase(rhs.getPinyin());
 
     @Inject
-    RestRepository rest;
-    @Inject
     public SelCityPresenter() { }
 
     public void loadData()
     {
-        rest.getCities().subscribe(new Subscriber<List<City>>() {
+        view.showProgress(messager.getMessage(Const.MSG_LOADING));
+        rest.getCities().subscribe(new Subscriber<List<City>>()
+        {
             @Override
             public void onCompleted()
             {
+                view.finish();
             }
 
             @Override
             public void onError(Throwable e)
             {
+                view.showError(messager.getMessage(Const.MSG_LOADING_FAILED));
+                onCompleted();
+                e.printStackTrace();
             }
 
             @Override
             public void onNext(List<City> cities)
             {
-                Log.i("ssss", "cities size="+cities.size());
-            }
-        });
-        RequestParams params = new RequestParams();
-
-        client.post(activity, Const.URL_QUERY_CITY, params, new IHttpResponse()
-        {
-            @Override
-            public void onHttpStart()
-            {
-                view.showProgress(messager.getMessage(Const.MSG_LOADING));
-            }
-
-            @Override
-            public void onHttpSuccess(JSONObject response)
-            {
-                Gson gson = new Gson();
-                List<City> data = gson.fromJson(response.optJSONObject("data").optJSONArray("normal").toString(),
-                                                new TypeToken<List<City>>()
-                                                { }.getType());
-                if (data != null)
+                if (cities != null)
                 {
                     mData.clear();
-                    mData.addAll(data);
+                    mData.addAll(cities);
                     prepareData();
                     view.showData();
                 }
-            }
-
-            @Override
-            public void onHttpFailure(JSONObject response)
-            {
-                view.showError(messager.getMessage(Const.MSG_LOADING_FAILED));
-            }
-
-            @Override
-            public void onHttpFinish()
-            {
-                view.showData();
-                view.finish();
             }
         });
     }

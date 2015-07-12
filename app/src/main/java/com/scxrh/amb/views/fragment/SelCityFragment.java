@@ -117,9 +117,12 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     @Override
     protected void injectDependencies()
     {
-        DaggerSelCityComponent.builder().appComponent(App.getAppComponent())
-                              .activityModule(new ActivityModule(getActivity())).selCityModule(new SelCityModule(this))
-                              .build().inject(this);
+        DaggerSelCityComponent.builder()
+                              .appComponent(App.getAppComponent())
+                              .activityModule(new ActivityModule(getActivity()))
+                              .selCityModule(new SelCityModule(this))
+                              .build()
+                              .inject(this);
     }
 
     @OnClick(R.id.btnBack)
