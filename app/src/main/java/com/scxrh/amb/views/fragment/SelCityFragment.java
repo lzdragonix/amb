@@ -41,7 +41,7 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
         OnItemClickListener mOnItemClickListener = (view, position) -> {
-            rxBus.post("city_change",presenter.getItem(position));
+            rxBus.post("city_change", presenter.getItem(position));
             getActivity().finish();
         };
 

@@ -13,8 +13,8 @@ import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMainComponent;
-import com.scxrh.amb.model.City;
 import com.scxrh.amb.injector.module.MainModule;
+import com.scxrh.amb.model.City;
 import com.scxrh.amb.presenter.MainPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.MainView;
@@ -72,7 +72,10 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     @Override
     protected void injectDependencies()
     {
-        DaggerMainComponent.builder().appComponent(App.getAppComponent()).mainModule(new MainModule(this)).build()
+        DaggerMainComponent.builder()
+                           .appComponent(App.getAppComponent())
+                           .mainModule(new MainModule(this))
+                           .build()
                            .inject(this);
     }
 
@@ -81,20 +84,20 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     {
         tabhost.setup(getActivity(), getChildFragmentManager(), R.id.content);
         // recommend
-        TabHolder tab = new TabHolder()
-                .init(R.mipmap.icon_6, R.mipmap.icon_6_on, R.color.cffffff, R.color.cfbc000, R.string.txt_recommend);
+        TabHolder tab = new TabHolder().init(R.mipmap.icon_6, R.mipmap.icon_6_on, R.color.cffffff, R.color.cfbc000,
+                                             R.string.txt_recommend);
         tabs.put(TAB_RECOMM, tab);
         // livelihood
-        tab = new TabHolder()
-                .init(R.mipmap.icon_7, R.mipmap.icon_7_on, R.color.cffffff, R.color.cfbc000, R.string.txt_livelihood);
+        tab = new TabHolder().init(R.mipmap.icon_7, R.mipmap.icon_7_on, R.color.cffffff, R.color.cfbc000,
+                                   R.string.txt_livelihood);
         tabs.put(TAB_LIVE, tab);
         // finance
-        tab = new TabHolder()
-                .init(R.mipmap.icon_8, R.mipmap.icon_8_on, R.color.cffffff, R.color.cfbc000, R.string.txt_finance);
+        tab = new TabHolder().init(R.mipmap.icon_8, R.mipmap.icon_8_on, R.color.cffffff, R.color.cfbc000,
+                                   R.string.txt_finance);
         tabs.put(TAB_FINANCE, tab);
         // mine
-        tab = new TabHolder()
-                .init(R.mipmap.icon_9, R.mipmap.icon_9_on, R.color.cffffff, R.color.cfbc000, R.string.txt_mine);
+        tab = new TabHolder().init(R.mipmap.icon_9, R.mipmap.icon_9_on, R.color.cffffff, R.color.cfbc000,
+                                   R.string.txt_mine);
         tabs.put(TAB_MINE, tab);
         // add tab
         tabhost.addTab(tabhost.newTabSpec(TAB_RECOMM).setIndicator(tabs.get(TAB_RECOMM).root), RecommendFragment.class,

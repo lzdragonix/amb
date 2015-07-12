@@ -2,6 +2,7 @@ package com.scxrh.amb.presenter;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,6 +12,7 @@ import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
+import com.scxrh.amb.rest.RestRepository;
 import com.scxrh.amb.views.view.SelCityView;
 
 import org.json.JSONObject;
@@ -21,6 +23,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import rx.Subscriber;
 
 public class SelCityPresenter
 {
@@ -37,11 +41,31 @@ public class SelCityPresenter
     private Comparator<City> mComparator = (lhs, rhs) -> lhs.getPinyin().compareToIgnoreCase(rhs.getPinyin());
 
     @Inject
+    RestRepository rest;
+    @Inject
     public SelCityPresenter() { }
 
     public void loadData()
     {
+        rest.getCities().subscribe(new Subscriber<List<City>>() {
+            @Override
+            public void onCompleted()
+            {
+            }
+
+            @Override
+            public void onError(Throwable e)
+            {
+            }
+
+            @Override
+            public void onNext(List<City> cities)
+            {
+                Log.i("ssss", "cities size="+cities.size());
+            }
+        });
         RequestParams params = new RequestParams();
+
         client.post(activity, Const.URL_QUERY_CITY, params, new IHttpResponse()
         {
             @Override
@@ -75,12 +99,6 @@ public class SelCityPresenter
             @Override
             public void onHttpFinish()
             {
-                City c = new City();
-                c.setId("cccccc");
-                c.setName("cd");
-                c.setPinyin("cd");
-                c.setPy("cd");
-                mData.add(c);
                 view.showData();
                 view.finish();
             }

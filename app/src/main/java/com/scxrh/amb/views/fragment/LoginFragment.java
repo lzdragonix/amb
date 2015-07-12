@@ -46,9 +46,12 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     @Override
     protected void injectDependencies()
     {
-        DaggerLoginComponent.builder().appComponent(App.getAppComponent())
-                            .activityModule(new ActivityModule(getActivity())).loginModule(new LoginModule(this))
-                            .build().inject(this);
+        DaggerLoginComponent.builder()
+                            .appComponent(App.getAppComponent())
+                            .activityModule(new ActivityModule(getActivity()))
+                            .loginModule(new LoginModule(this))
+                            .build()
+                            .inject(this);
     }
 
     @Override
