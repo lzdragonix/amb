@@ -16,6 +16,7 @@ import com.scxrh.amb.injector.component.DaggerRetComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.RetModule;
 import com.scxrh.amb.presenter.RetPresenter;
+import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.RetView;
 
 import javax.inject.Inject;
@@ -29,8 +30,8 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     public static final String TAG = RetrievePwdFragment.class.getSimpleName();
     @Bind(R.id.txtHeader)
     TextView txtHeader;
-    @Bind(R.id.txt1)
-    TextView txt1;
+    @Bind(R.id.txtAgreement)
+    TextView txtAgreement;
     @Bind(R.id.btnReg)
     View btnReg;
     @Bind(R.id.txtUser)
@@ -66,7 +67,7 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     {
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText("找回密码");
-        txt1.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        txtAgreement.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override
@@ -85,8 +86,11 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     @Override
     protected void injectDependencies()
     {
-        DaggerRetComponent.builder().appComponent(App.getAppComponent())
-                          .activityModule(new ActivityModule(getActivity())).retModule(new RetModule(this)).build()
+        DaggerRetComponent.builder()
+                          .appComponent(App.getAppComponent())
+                          .activityModule(new ActivityModule(getActivity()))
+                          .retModule(new RetModule(this))
+                          .build()
                           .inject(this);
     }
 
@@ -102,6 +106,20 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     {
         btnGetVerify.setEnabled(false);
         timer.start();
+    }
+
+    @OnClick(R.id.txtAgreement)
+    void agreement()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, AgreementFragment.class.getName());
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btnSubmit)
+    void btnSubmit()
+    {
+
     }
 
     @Override

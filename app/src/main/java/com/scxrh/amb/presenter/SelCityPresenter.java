@@ -28,30 +28,36 @@ public class SelCityPresenter
     @Inject
     Activity activity;
     @Inject
-    MessageManager messager;
+    MessageManager message;
     @Inject
     RestRepository rest;
     private List<City> mData = new ArrayList<>();
     private List<String> pys = new ArrayList<>();
-    private Comparator<City> mComparator = (lhs, rhs) -> lhs.getPinyin().compareToIgnoreCase(rhs.getPinyin());
+    private Comparator<City> mComparator = (lhs, rhs) -> {
+        int i = lhs.getHot() - rhs.getHot();
+        if (i == 0)
+        {
+            return lhs.getPinyin().compareToIgnoreCase(rhs.getPinyin());
+        }
+        else { return -i; }
+    };
 
     @Inject
     public SelCityPresenter() { }
 
     public void loadData()
     {
-        view.showProgress(messager.getMessage(Const.MSG_LOADING));
-        rest.getCities().observeOn(AndroidSchedulers.mainThread()).subscribe(cities -> {
+        view.showProgress(message.getMessage(Const.MSG_LOADING));
+        rest.queryCities().observeOn(AndroidSchedulers.mainThread()).subscribe(cities -> {
             if (cities != null)
             {
                 mData.clear();
-                mData.addAll(cities);
-                prepareData();
+                mData.addAll(prepareData(cities));
                 view.showData();
                 view.finish();
             }
         }, e -> {
-            view.showError(messager.getMessage(Const.MSG_LOADING_FAILED));
+            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
             view.finish();
             e.printStackTrace();
         });
@@ -67,10 +73,13 @@ public class SelCityPresenter
         return mData.get(index);
     }
 
-    private void prepareData()
+    private List<City> prepareData(List<List<City>> cities)
     {
+        List<City> data = new ArrayList<>();
         pys.clear();
-        for (City city : mData)
+        //normal
+        List<City> normal = cities.get(1);
+        for (City city : normal)
         {
             if (!TextUtils.isEmpty(city.getPinyin()))
             {
@@ -87,6 +96,21 @@ public class SelCityPresenter
             city.setName(py);
             mData.add(city);
         }
+        mData.addAll(normal);
+        //hot
+        List<City> hot = cities.get(0);
+        for (City city : hot)
+        {
+            city.setHot(1);
+        }
+        mData.addAll(hot);
+        City city = new City();
+        city.setId("0");
+        city.setPinyin("a");
+        city.setName("热门城市");
+        city.setHot(1);
+        mData.add(city);
         Collections.sort(mData, mComparator);
+        return data;
     }
 }

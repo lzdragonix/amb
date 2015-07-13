@@ -32,7 +32,7 @@ public class AgreementFragment extends BaseFragment implements MvpView
     @Inject
     RestRepository rest;
     @Inject
-    MessageManager messager;
+    MessageManager message;
 
     @Override
     protected int getLayoutId()
@@ -57,12 +57,12 @@ public class AgreementFragment extends BaseFragment implements MvpView
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText("注册协议");
         txtAgreement.setMovementMethod(ScrollingMovementMethod.getInstance());
-        showProgressDialog(messager.getMessage(Const.MSG_LOADING));
+        showProgressDialog(message.getMessage(Const.MSG_LOADING));
         rest.queryAgreement().observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
             txtAgreement.setText(Html.fromHtml(response.get("data").getAsString()));
             closeProgressDialog();
         }, throwable -> {
-            toast(messager.getMessage(Const.MSG_LOADING_FAILED));
+            toast(message.getMessage(Const.MSG_LOADING_FAILED));
             closeProgressDialog();
         });
     }

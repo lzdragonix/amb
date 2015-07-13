@@ -6,6 +6,17 @@ public class City
     private String name;
     private String pinyin;
     private String py;
+    private int hot;
+
+    public int getHot()
+    {
+        return hot;
+    }
+
+    public void setHot(int hot)
+    {
+        this.hot = hot;
+    }
 
     public String getId()
     {

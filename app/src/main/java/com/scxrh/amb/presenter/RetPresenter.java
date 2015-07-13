@@ -9,6 +9,7 @@ import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.net.http.IHttpResponse;
+import com.scxrh.amb.rest.RestRepository;
 import com.scxrh.amb.views.view.RetView;
 
 import org.json.JSONObject;
@@ -19,13 +20,15 @@ public class RetPresenter
 {
     private static final String TAG = RetPresenter.class.getSimpleName();
     @Inject
-    MessageManager messager;
+    MessageManager message;
     @Inject
     RetView view;
     @Inject
     HttpClient client;
     @Inject
     Activity activity;
+    @Inject
+    RestRepository rest;
 
     @Inject
     public RetPresenter() { }
@@ -34,28 +37,29 @@ public class RetPresenter
     {
         if (!Utils.regex(user, Const.REGEX_MOBILE))
         {
-            view.showError(messager.getMessage(Const.MSG_MOBILE_ILLEGAL));
+            view.showError(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
             view.finish();
             return;
         }
         if (TextUtils.isEmpty(verify))
         {
-            view.showError(messager.getMessage(Const.MSG_INPUT_VERIFY_CODE));
+            view.showError(message.getMessage(Const.MSG_INPUT_VERIFY_CODE));
             view.finish();
             return;
         }
         if (pwd == null || pwd.length() < 6)
         {
-            view.showError(messager.getMessage(Const.MSG_PWD_IS_SHORT));
+            view.showError(message.getMessage(Const.MSG_PWD_IS_SHORT));
             view.finish();
             return;
         }
         if (!agree)
         {
-            view.showError(messager.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
+            view.showError(message.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
             view.finish();
             return;
         }
+
         RequestParams params = new RequestParams();
         params.put("telephone", user);
         params.put("verifyNo", verify);
@@ -65,7 +69,7 @@ public class RetPresenter
             @Override
             public void onHttpStart()
             {
-                view.showProgress(messager.getMessage(Const.MSG_SUBMITTING));
+                view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
             }
 
             @Override
@@ -77,7 +81,7 @@ public class RetPresenter
             @Override
             public void onHttpFailure(JSONObject response)
             {
-                view.showError(messager.getMessage(Const.MSG_REG_FAILED));
+                view.showError(message.getMessage(Const.MSG_REG_FAILED));
             }
 
             @Override
