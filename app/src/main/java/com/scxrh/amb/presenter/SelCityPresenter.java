@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class SelCityPresenter
 {
@@ -41,33 +41,19 @@ public class SelCityPresenter
     public void loadData()
     {
         view.showProgress(messager.getMessage(Const.MSG_LOADING));
-        rest.getCities().subscribe(new Subscriber<List<City>>()
-        {
-            @Override
-            public void onCompleted()
+        rest.getCities().observeOn(AndroidSchedulers.mainThread()).subscribe(cities -> {
+            if (cities != null)
             {
+                mData.clear();
+                mData.addAll(cities);
+                prepareData();
+                view.showData();
                 view.finish();
             }
-
-            @Override
-            public void onError(Throwable e)
-            {
-                view.showError(messager.getMessage(Const.MSG_LOADING_FAILED));
-                onCompleted();
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onNext(List<City> cities)
-            {
-                if (cities != null)
-                {
-                    mData.clear();
-                    mData.addAll(cities);
-                    prepareData();
-                    view.showData();
-                }
-            }
+        }, e -> {
+            view.showError(messager.getMessage(Const.MSG_LOADING_FAILED));
+            view.finish();
+            e.printStackTrace();
         });
     }
 

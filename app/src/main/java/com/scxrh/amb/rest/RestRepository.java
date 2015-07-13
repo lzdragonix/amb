@@ -14,6 +14,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 import retrofit.RestAdapter;
+import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 import rx.Observable;
 
@@ -25,7 +26,7 @@ public class RestRepository
     {
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(new CityItemAdapterFactory()).create();
         RestAdapter.Builder builder = new RestAdapter.Builder();
-        RestAdapter restAdapter = builder.setEndpoint(AmbApi.URL_BASE)
+        RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
                                          .setLogLevel(RestAdapter.LogLevel.FULL)
                                          .setConverter(new GsonConverter(gson))
                                          .setErrorHandler(new RetrofitErrorHandler())
@@ -36,6 +37,11 @@ public class RestRepository
     public Observable<List<City>> getCities()
     {
         return mAmbApi.getCities();
+    }
+
+    public Observable<Response> login(String user, String pwd)
+    {
+        return mAmbApi.login(user, pwd);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

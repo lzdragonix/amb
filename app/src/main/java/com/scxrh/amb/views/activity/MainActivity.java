@@ -8,7 +8,6 @@ import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.presenter.LoginPresenter;
 import com.scxrh.amb.views.fragment.LoginFragment;
-import com.scxrh.amb.views.fragment.MainFragment;
 
 public class MainActivity extends BaseActivity
 {
@@ -38,7 +37,7 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        replaceFragment(R.id.container, new MainFragment(), LoginFragment.TAG);
+        replaceFragment(R.id.container, new LoginFragment(), LoginFragment.TAG);
     }
 
     @Override

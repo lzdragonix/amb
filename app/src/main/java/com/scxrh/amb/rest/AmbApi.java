@@ -4,16 +4,18 @@ import com.scxrh.amb.model.City;
 
 import java.util.List;
 
-import retrofit.http.GET;
+import retrofit.client.Response;
+import retrofit.http.POST;
+import retrofit.http.Query;
 import rx.Observable;
 
 public interface AmbApi
 {
-    public static final String URL_BASE = "http://113.106.63.129:8489";
-    public static final String URL_LOGIN = URL_BASE + "/windforce/m/mlogin.action";
-    public static final String URL_USER_REGISTER = URL_BASE + "/windforce/m/user_register.action";
-    public static final String URL_SMS_SEND = URL_BASE + "/windforce/m/sms_send.action";
+    String END_POINT = "http://113.106.63.129:8489";
 
-    @GET("/shopxx/m/area_queryCity.action")
+    @POST("/shopxx/m/area_queryCity.action")
     Observable<List<City>> getCities();
+
+    @POST("/windforce/m/mlogin.action")
+    Observable<Response> login(@Query("userKey") String user, @Query("password") String pwd);
 }
