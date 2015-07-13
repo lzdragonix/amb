@@ -12,8 +12,9 @@ import android.widget.TextView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
-import com.scxrh.amb.injector.component.DaggerMainComponent;
-import com.scxrh.amb.injector.module.MainModule;
+import com.scxrh.amb.injector.component.DaggerMvpComponent;
+import com.scxrh.amb.injector.module.ActivityModule;
+import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.presenter.MainPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
@@ -72,11 +73,12 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     @Override
     protected void injectDependencies()
     {
-        DaggerMainComponent.builder()
-                           .appComponent(App.getAppComponent())
-                           .mainModule(new MainModule(this))
-                           .build()
-                           .inject(this);
+        DaggerMvpComponent.builder()
+                          .appComponent(App.getAppComponent())
+                          .activityModule(new ActivityModule(getActivity()))
+                          .mvpModule(new MvpModule(this))
+                          .build()
+                          .inject(this);
     }
 
     @Override
@@ -122,6 +124,13 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     public void changeCity(City city)
     {
         txtCity.setText(city.getName());
+        txtCommunity.setText("请选择");
+    }
+
+    @Override
+    public void changeCommunity(City city)
+    {
+        txtCommunity.setText(city.getName());
     }
 
     @OnClick(R.id.txtCity)
@@ -129,6 +138,15 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     {
         Intent intent = new Intent(getActivity(), WindowActivity.class);
         intent.putExtra(Const.KEY_FRAGMENT, SelCityFragment.class.getName());
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.txtCommunity)
+    void selCommunity()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, SelCityFragment.class.getName());
+        intent.putExtra("type", "community");
         startActivity(intent);
     }
 

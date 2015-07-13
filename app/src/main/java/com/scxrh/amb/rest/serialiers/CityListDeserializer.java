@@ -20,11 +20,20 @@ public class CityListDeserializer implements JsonDeserializer<List<List<City>>>
             throws JsonParseException
     {
         List<List<City>> data = new ArrayList<>();
-        JsonObject obj = json.getAsJsonObject().get("data").getAsJsonObject();
-        Gson gson = new Gson();
         Type type = new TypeToken<List<City>>() { }.getType();
-        data.add(gson.fromJson(obj.get("hot"), type));
-        data.add(gson.fromJson(obj.get("normal"), type));
+        Gson gson = new Gson();
+        json = json.getAsJsonObject().get("data");
+        if (json.isJsonArray())
+        {
+            data.add(new ArrayList<>());
+            data.add(gson.fromJson(json, type));
+        }
+        else
+        {
+            JsonObject obj = json.getAsJsonObject();
+            data.add(gson.fromJson(obj.get("hot"), type));
+            data.add(gson.fromJson(obj.get("normal"), type));
+        }
         return data;
     }
 }

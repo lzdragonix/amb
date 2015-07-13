@@ -161,6 +161,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/btnManager"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -180,7 +181,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="客户经理"/>
+                        android:text="@string/txt_manager"/>
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

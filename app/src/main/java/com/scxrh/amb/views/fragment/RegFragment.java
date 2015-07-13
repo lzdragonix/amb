@@ -12,9 +12,9 @@ import android.widget.TextView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
-import com.scxrh.amb.injector.component.DaggerRegComponent;
+import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
-import com.scxrh.amb.injector.module.RegModule;
+import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.presenter.RegPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.RegView;
@@ -86,10 +86,10 @@ public class RegFragment extends BaseFragment implements RegView
     @Override
     protected void injectDependencies()
     {
-        DaggerRegComponent.builder()
+        DaggerMvpComponent.builder()
                           .appComponent(App.getAppComponent())
                           .activityModule(new ActivityModule(getActivity()))
-                          .regModule(new RegModule(this))
+                          .mvpModule(new MvpModule(this))
                           .build()
                           .inject(this);
     }
@@ -136,6 +136,10 @@ public class RegFragment extends BaseFragment implements RegView
     {
         toast(msg);
     }
+
+    @Override
+    public void showData()
+    { }
 
     @Override
     public void finish()

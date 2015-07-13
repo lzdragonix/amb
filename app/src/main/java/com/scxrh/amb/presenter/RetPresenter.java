@@ -1,18 +1,12 @@
 package com.scxrh.amb.presenter;
 
-import android.app.Activity;
 import android.text.TextUtils;
 
-import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
-import com.scxrh.amb.net.http.HttpClient;
-import com.scxrh.amb.net.http.IHttpResponse;
 import com.scxrh.amb.rest.RestRepository;
 import com.scxrh.amb.views.view.RetView;
-
-import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -23,10 +17,6 @@ public class RetPresenter
     MessageManager message;
     @Inject
     RetView view;
-    @Inject
-    HttpClient client;
-    @Inject
-    Activity activity;
     @Inject
     RestRepository rest;
 
@@ -59,36 +49,5 @@ public class RetPresenter
             view.finish();
             return;
         }
-
-        RequestParams params = new RequestParams();
-        params.put("telephone", user);
-        params.put("verifyNo", verify);
-        params.put("password", pwd);
-        client.post(activity, Const.URL_USER_REGISTER, params, new IHttpResponse()
-        {
-            @Override
-            public void onHttpStart()
-            {
-                view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
-            }
-
-            @Override
-            public void onHttpSuccess(JSONObject response)
-            {
-                view.regSuccess();
-            }
-
-            @Override
-            public void onHttpFailure(JSONObject response)
-            {
-                view.showError(message.getMessage(Const.MSG_REG_FAILED));
-            }
-
-            @Override
-            public void onHttpFinish()
-            {
-                view.finish();
-            }
-        });
     }
 }

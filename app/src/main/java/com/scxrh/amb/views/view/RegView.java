@@ -1,12 +1,6 @@
 package com.scxrh.amb.views.view;
 
-public interface RegView
+public interface RegView extends ProgressView
 {
-    void showProgress(String msg);
-
-    void showError(String msg);
-
-    void finish();
-
     void regSuccess();
 }

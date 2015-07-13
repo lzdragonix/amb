@@ -1,14 +1,13 @@
 package com.scxrh.amb.presenter;
 
-import android.app.Activity;
 import android.text.TextUtils;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.City;
-import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.rest.RestRepository;
-import com.scxrh.amb.views.view.SelCityView;
+import com.scxrh.amb.views.view.MvpView;
+import com.scxrh.amb.views.view.ProgressView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,15 +21,10 @@ import rx.android.schedulers.AndroidSchedulers;
 public class SelCityPresenter
 {
     @Inject
-    SelCityView view;
-    @Inject
-    HttpClient client;
-    @Inject
-    Activity activity;
-    @Inject
     MessageManager message;
     @Inject
     RestRepository rest;
+    private ProgressView view;
     private List<City> mData = new ArrayList<>();
     private List<String> pys = new ArrayList<>();
     private Comparator<City> mComparator = (lhs, rhs) -> {
@@ -43,12 +37,34 @@ public class SelCityPresenter
     };
 
     @Inject
-    public SelCityPresenter() { }
+    public SelCityPresenter(MvpView view)
+    {
+        this.view = (ProgressView)view;
+    }
 
-    public void loadData()
+    public void loadCity()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
         rest.queryCities().observeOn(AndroidSchedulers.mainThread()).subscribe(cities -> {
+            if (cities != null)
+            {
+                mData.clear();
+                mData.addAll(prepareData(cities));
+                view.showData();
+                view.finish();
+            }
+        }, e -> {
+            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.finish();
+            e.printStackTrace();
+        });
+    }
+
+    public void loadCommunity(String cityCode)
+    {
+        String para = "402881882ba8753a012ba934ac770127";
+        view.showProgress(message.getMessage(Const.MSG_LOADING));
+        rest.queryCommunities(para).observeOn(AndroidSchedulers.mainThread()).subscribe(cities -> {
             if (cities != null)
             {
                 mData.clear();

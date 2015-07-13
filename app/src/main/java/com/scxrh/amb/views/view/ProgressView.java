@@ -1,6 +1,6 @@
 package com.scxrh.amb.views.view;
 
-public interface SelCityView
+public interface ProgressView extends MvpView
 {
     void showProgress(String msg);
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,11 @@ import android.widget.TextView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
 import com.scxrh.amb.common.RxBus;
-import com.scxrh.amb.injector.component.DaggerSelCityComponent;
+import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
-import com.scxrh.amb.injector.module.SelCityModule;
+import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.presenter.SelCityPresenter;
-import com.scxrh.amb.views.view.SelCityView;
+import com.scxrh.amb.views.view.ProgressView;
 
 import javax.inject.Inject;
 
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 //
-public class SelCityFragment extends BaseFragment implements SelCityView
+public class SelCityFragment extends BaseFragment implements ProgressView
 {
     public static final String TAG = SelCityFragment.class.getSimpleName();
     private static final int VIEWTYPE_CONTENT = 0;
@@ -38,10 +39,11 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     TextView txtHeader;
     @Bind(R.id.rvList)
     RecyclerView mRecyclerView;
+    private boolean isComm = false;
     private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
         OnItemClickListener mOnItemClickListener = (view, position) -> {
-            rxBus.post("city_change", presenter.getItem(position));
+            rxBus.post(isComm ? "community_change" : "city_change", presenter.getItem(position));
             getActivity().finish();
         };
 
@@ -101,11 +103,20 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        isComm = !TextUtils.isEmpty(getArguments().getString("type"));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //mRecyclerView.addItemDecoration(new DividerItemDecoration(LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
-        txtHeader.setText(getString(R.string.txt_select_city));
-        presenter.loadData();
+        if (isComm)
+        {
+            txtHeader.setText(getString(R.string.txt_select_community));
+            presenter.loadCommunity("");
+        }
+        else
+        {
+            txtHeader.setText(getString(R.string.txt_select_city));
+            presenter.loadCity();
+        }
     }
 
     @Override
@@ -117,12 +128,12 @@ public class SelCityFragment extends BaseFragment implements SelCityView
     @Override
     protected void injectDependencies()
     {
-        DaggerSelCityComponent.builder()
-                              .appComponent(App.getAppComponent())
-                              .activityModule(new ActivityModule(getActivity()))
-                              .selCityModule(new SelCityModule(this))
-                              .build()
-                              .inject(this);
+        DaggerMvpComponent.builder()
+                          .appComponent(App.getAppComponent())
+                          .activityModule(new ActivityModule(getActivity()))
+                          .mvpModule(new MvpModule(this))
+                          .build()
+                          .inject(this);
     }
 
     @OnClick(R.id.btnBack)

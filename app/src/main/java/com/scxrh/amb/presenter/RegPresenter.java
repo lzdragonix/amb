@@ -1,94 +1,69 @@
 package com.scxrh.amb.presenter;
 
-import android.app.Activity;
 import android.text.TextUtils;
 
-import com.loopj.android.http.RequestParams;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
-import com.scxrh.amb.net.http.HttpClient;
-import com.scxrh.amb.net.http.IHttpResponse;
+import com.scxrh.amb.rest.RestRepository;
+import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.RegView;
 
-import org.json.JSONObject;
-
 import javax.inject.Inject;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 public class RegPresenter
 {
     private static final String TAG = RegPresenter.class.getSimpleName();
     @Inject
-    MessageManager messager;
+    MessageManager message;
     @Inject
-    RegView view;
-    @Inject
-    HttpClient client;
-    @Inject
-    Activity activity;
+    RestRepository rest;
+    private RegView view;
 
     @Inject
-    public RegPresenter() { }
+    public RegPresenter(MvpView view)
+    {
+        this.view = (RegView)view;
+    }
 
     public void reg(String user, String pwd, String verify, boolean agree)
     {
         if (!Utils.regex(user, Const.REGEX_MOBILE))
         {
-            view.showError(messager.getMessage(Const.MSG_MOBILE_ILLEGAL));
+            view.showError(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
             view.finish();
             return;
         }
         if (TextUtils.isEmpty(verify))
         {
-            view.showError(messager.getMessage(Const.MSG_INPUT_VERIFY_CODE));
+            view.showError(message.getMessage(Const.MSG_INPUT_VERIFY_CODE));
             view.finish();
             return;
         }
         if (pwd == null || pwd.length() < 6)
         {
-            view.showError(messager.getMessage(Const.MSG_PWD_IS_SHORT));
+            view.showError(message.getMessage(Const.MSG_PWD_IS_SHORT));
             view.finish();
             return;
         }
         if (!agree)
         {
-            view.showError(messager.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
+            view.showError(message.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
             view.finish();
             return;
         }
-        RequestParams params = new RequestParams();
-        params.put("telephone", user);
-        params.put("verifyNo", verify);
-        params.put("password", pwd);
-        client.post(activity, Const.URL_USER_REGISTER, params, new IHttpResponse()
-        {
-            @Override
-            public void onHttpStart()
-            {
-                view.showProgress(messager.getMessage(Const.MSG_SUBMITTING));
-            }
-
-            @Override
-            public void onHttpSuccess(JSONObject response)
-            {
-                view.regSuccess();
-            }
-
-            @Override
-            public void onHttpFailure(JSONObject response)
-            {
-                view.showError(messager.getMessage(Const.MSG_REG_FAILED));
-            }
-
-            @Override
-            public void onHttpFinish()
-            {
-                view.finish();
-            }
+        view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
+        rest.register(user, pwd, verify).observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
+            view.regSuccess();
+            view.finish();
+        }, throwable -> {
+            view.showError(message.getMessage(Const.MSG_REG_FAILED));
+            view.finish();
         });
     }
 
     public void getSMS(String moblie)
-    {
-    }
+    { }
 }

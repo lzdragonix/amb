@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
@@ -39,19 +40,34 @@ public class RestRepository
         mAmbApi = restAdapter.create(AmbApi.class);
     }
 
-    public Observable<List<List<City>>> queryCities()
-    {
-        return mAmbApi.queryCities();
-    }
-
     public Observable<Response> login(String user, String pwd)
     {
         return mAmbApi.login(user, pwd);
     }
 
+    public Observable<Response> register(String user, String pwd, String verify)
+    {
+        return mAmbApi.register(user, pwd, verify);
+    }
+
     public Observable<JsonObject> queryAgreement()
     {
         return mAmbApi.queryAgreement();
+    }
+
+    public Observable<List<List<City>>> queryCities()
+    {
+        return mAmbApi.queryCities();
+    }
+
+    public Observable<List<List<City>>> queryCommunities(String cityCode)
+    {
+        return mAmbApi.queryCommunities(cityCode);
+    }
+
+    public Observable<List<SalesManager>> queryManagers(String communityId)
+    {
+        return mAmbApi.queryManagers(communityId);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
