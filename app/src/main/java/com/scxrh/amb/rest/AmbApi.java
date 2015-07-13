@@ -1,5 +1,6 @@
 package com.scxrh.amb.rest;
 
+import com.google.gson.JsonObject;
 import com.scxrh.amb.model.City;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface AmbApi
 
     @POST("/windforce/m/mlogin.action")
     Observable<Response> login(@Query("userKey") String user, @Query("password") String pwd);
+
+    @POST("/shopxx/m/agreement_queryAgreement.action")
+    Observable<JsonObject> queryAgreement();
 }

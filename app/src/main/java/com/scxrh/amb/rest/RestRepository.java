@@ -4,10 +4,23 @@ import android.accounts.NetworkErrorException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -20,11 +33,45 @@ import rx.Observable;
 
 public class RestRepository
 {
+    TypeAdapter<JSONObject> dd = new TypeAdapter<JSONObject>()
+    {
+        @Override
+        public void write(JsonWriter out, JSONObject value) throws IOException
+        {
+        }
+
+        @Override
+        public JSONObject read(JsonReader in) throws IOException
+        {
+            try
+            {
+                return new JSONObject(in.toString());
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    };
+
+JsonDeserializer<JSONObject> tt = new JsonDeserializer<JSONObject>() {
+    @Override
+    public JSONObject deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException
+    {
+        return null;
+    }
+};
+
+
     private AmbApi mAmbApi;
 
     public RestRepository()
     {
-        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new CityItemAdapterFactory()).create();
+        Gson gson = new GsonBuilder().registerTypeAdapter(JSONObject.class, dd)
+                                     .registerTypeAdapterFactory(new CityItemAdapterFactory())
+                                     .create();
         RestAdapter.Builder builder = new RestAdapter.Builder();
         RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
                                          .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -42,6 +89,11 @@ public class RestRepository
     public Observable<Response> login(String user, String pwd)
     {
         return mAmbApi.login(user, pwd);
+    }
+
+    public Observable<JsonObject> queryAgreement()
+    {
+        return mAmbApi.queryAgreement();
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

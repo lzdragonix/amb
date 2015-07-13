@@ -16,6 +16,7 @@ import com.scxrh.amb.injector.component.DaggerRegComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.RegModule;
 import com.scxrh.amb.presenter.RegPresenter;
+import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.RegView;
 
 import javax.inject.Inject;
@@ -29,8 +30,8 @@ public class RegFragment extends BaseFragment implements RegView
     public static final String TAG = RegFragment.class.getSimpleName();
     @Bind(R.id.txtHeader)
     TextView txtHeader;
-    @Bind(R.id.txt1)
-    TextView txt1;
+    @Bind(R.id.txtAgreement)
+    TextView txtAgreement;
     @Bind(R.id.btnReg)
     View btnReg;
     @Bind(R.id.txtUser)
@@ -66,7 +67,7 @@ public class RegFragment extends BaseFragment implements RegView
     {
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText(getString(R.string.txt_register));
-        txt1.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        txtAgreement.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override
@@ -85,8 +86,11 @@ public class RegFragment extends BaseFragment implements RegView
     @Override
     protected void injectDependencies()
     {
-        DaggerRegComponent.builder().appComponent(App.getAppComponent())
-                          .activityModule(new ActivityModule(getActivity())).regModule(new RegModule(this)).build()
+        DaggerRegComponent.builder()
+                          .appComponent(App.getAppComponent())
+                          .activityModule(new ActivityModule(getActivity()))
+                          .regModule(new RegModule(this))
+                          .build()
                           .inject(this);
     }
 
@@ -111,6 +115,14 @@ public class RegFragment extends BaseFragment implements RegView
         btnGetVerify.setEnabled(false);
         presenter.getSMS(txtUser.getText().toString());
         timer.start();
+    }
+
+    @OnClick(R.id.txtAgreement)
+    void agreement()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, AgreementFragment.class.getName());
+        startActivity(intent);
     }
 
     @Override
