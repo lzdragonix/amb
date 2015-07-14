@@ -5,7 +5,7 @@ import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.net.http.HttpClient;
-import com.scxrh.amb.rest.RestRepository;
+import com.scxrh.amb.rest.RestClient;
 
 import javax.inject.Singleton;
 
@@ -59,8 +59,8 @@ public class AppModule
 
     @Singleton
     @Provides
-    public RestRepository provideRestRepository()
+    public RestClient provideRestRepository()
     {
-        return new RestRepository();
+        return new RestClient();
     }
 }

@@ -12,7 +12,7 @@ import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.manager.MessageManager;
-import com.scxrh.amb.rest.RestRepository;
+import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ public class AgreementFragment extends BaseFragment implements MvpView
     @Bind(R.id.txtHeader)
     TextView txtHeader;
     @Inject
-    RestRepository rest;
+    RestClient rest;
     @Inject
     MessageManager message;
 

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
-import com.scxrh.amb.rest.RestRepository;
+import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.RetView;
 
 import javax.inject.Inject;
@@ -18,7 +18,7 @@ public class RetPresenter
     @Inject
     RetView view;
     @Inject
-    RestRepository rest;
+    RestClient rest;
 
     @Inject
     public RetPresenter() { }

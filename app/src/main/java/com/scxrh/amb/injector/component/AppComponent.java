@@ -6,7 +6,7 @@ import com.scxrh.amb.injector.module.AppModule;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.net.http.HttpClient;
-import com.scxrh.amb.rest.RestRepository;
+import com.scxrh.amb.rest.RestClient;
 
 import javax.inject.Singleton;
 
@@ -26,5 +26,5 @@ public interface AppComponent
 
     RxBus getRxBus();
 
-    RestRepository getRestRepository();
+    RestClient getRestClient();
 }

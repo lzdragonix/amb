@@ -10,8 +10,9 @@ import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.presenter.ManagerPresenter;
-import com.scxrh.amb.rest.RestRepository;
 import com.scxrh.amb.views.view.ProgressView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,8 +27,6 @@ public class ManagerFragment extends BaseFragment implements ProgressView
     RecyclerView mRecyclerView;
     @Bind(R.id.txtHeader)
     TextView txtHeader;
-    @Inject
-    RestRepository rest;
     @Inject
     ManagerPresenter presenter;
 
@@ -53,6 +52,7 @@ public class ManagerFragment extends BaseFragment implements ProgressView
     {
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText(getString(R.string.txt_manager));
+        presenter.loadData("402883474e4336c2014e43499c43000c");
     }
 
     @OnClick(R.id.btnBack)
@@ -64,15 +64,17 @@ public class ManagerFragment extends BaseFragment implements ProgressView
     @Override
     public void showProgress(String msg)
     {
+        showProgressDialog(msg);
     }
 
     @Override
     public void showError(String msg)
     {
+        toast(msg);
     }
 
     @Override
-    public void showData()
+    public void showData(List<?> data)
     {
     }
 

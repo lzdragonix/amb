@@ -19,6 +19,8 @@ import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.presenter.SelCityPresenter;
 import com.scxrh.amb.views.view.ProgressView;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -110,7 +112,7 @@ public class SelCityFragment extends BaseFragment implements ProgressView
         if (isComm)
         {
             txtHeader.setText(getString(R.string.txt_select_community));
-            presenter.loadCommunity("");
+            presenter.loadCommunity("402881882ba8753a012ba934ac770127");
         }
         else
         {
@@ -156,7 +158,7 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     }
 
     @Override
-    public void showData()
+    public void showData(List<?> data)
     {
         mAdapter.notifyDataSetChanged();
     }

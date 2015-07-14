@@ -7,7 +7,7 @@ import com.scxrh.amb.common.DES;
 import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
-import com.scxrh.amb.rest.RestRepository;
+import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.LoginView;
 
 import javax.inject.Inject;
@@ -24,7 +24,7 @@ public class LoginPresenter
     @Inject
     SettingsManager settings;
     @Inject
-    RestRepository rest;
+    RestClient rest;
 
     @Inject
     public LoginPresenter() { }

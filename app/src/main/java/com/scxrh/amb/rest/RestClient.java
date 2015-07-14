@@ -2,7 +2,6 @@ package com.scxrh.amb.rest;
 
 import android.accounts.NetworkErrorException;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -11,38 +10,51 @@ import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
+import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
 
-import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.List;
 
 import retrofit.RestAdapter;
+import retrofit.client.Header;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 import rx.Observable;
 
-public class RestRepository
+public class RestClient
 {
+    private String cookie;
     private AmbApi mAmbApi;
 
-    public RestRepository()
+    public RestClient()
     {
-        Type type = new TypeToken<List<List<City>>>() { }.getType();
-        Gson gson = new GsonBuilder().registerTypeAdapter(type, new CityListDeserializer()).create();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(new TypeToken<List<List<City>>>() { }.getType(), new CityListDeserializer())
+                   .registerTypeAdapter(new TypeToken<List<SalesManager>>() { }.getType(), new ManagerDeserializer());
         RestAdapter.Builder builder = new RestAdapter.Builder();
         RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
                                          .setLogLevel(RestAdapter.LogLevel.FULL)
-                                         .setConverter(new GsonConverter(gson))
+                                         .setConverter(new GsonConverter(gsonBuilder.create()))
                                          .setErrorHandler(new RetrofitErrorHandler())
+                                         .setRequestInterceptor(request -> request.addHeader("Cookie", cookie))
                                          .build();
         mAmbApi = restAdapter.create(AmbApi.class);
     }
 
     public Observable<Response> login(String user, String pwd)
     {
-        return mAmbApi.login(user, pwd);
+        return mAmbApi.login(user, pwd).doOnNext(response -> {
+            for (Header header : response.getHeaders())
+            {
+                if ("Set-Cookie".equals(header.getName()))
+                {
+                    cookie = header.getValue();
+                    break;
+                }
+            }
+        });
     }
 
     public Observable<Response> register(String user, String pwd, String verify)

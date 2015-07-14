@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.City;
-import com.scxrh.amb.rest.RestRepository;
+import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.ProgressView;
 
@@ -23,7 +23,7 @@ public class SelCityPresenter
     @Inject
     MessageManager message;
     @Inject
-    RestRepository rest;
+    RestClient rest;
     private ProgressView view;
     private List<City> mData = new ArrayList<>();
     private List<String> pys = new ArrayList<>();
@@ -50,7 +50,7 @@ public class SelCityPresenter
             {
                 mData.clear();
                 mData.addAll(prepareData(cities));
-                view.showData();
+                view.showData(mData);
                 view.finish();
             }
         }, e -> {
@@ -62,14 +62,13 @@ public class SelCityPresenter
 
     public void loadCommunity(String cityCode)
     {
-        String para = "402881882ba8753a012ba934ac770127";
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        rest.queryCommunities(para).observeOn(AndroidSchedulers.mainThread()).subscribe(cities -> {
+        rest.queryCommunities(cityCode).observeOn(AndroidSchedulers.mainThread()).subscribe(cities -> {
             if (cities != null)
             {
                 mData.clear();
                 mData.addAll(prepareData(cities));
-                view.showData();
+                view.showData(mData);
                 view.finish();
             }
         }, e -> {
