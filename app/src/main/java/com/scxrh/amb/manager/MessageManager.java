@@ -27,6 +27,8 @@ public class MessageManager
         map.put(Const.MSG_AGREE_REG_PROTOCOL, r.getString(R.string.msg_agree_reg_protocol));
         map.put(Const.MSG_LOADING, r.getString(R.string.msg_loading));
         map.put(Const.MSG_LOADING_FAILED, r.getString(R.string.msg_loading_failed));
+        map.put(Const.MSG_ERROR_PASSWORD, r.getString(R.string.msg_error_password));
+        map.put(Const.MSG_PWD_INCONFORMITY, r.getString(R.string.msg_pwd_inconformity));
     }
 
     public String getMessage(int msgId)

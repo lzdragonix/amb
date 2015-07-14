@@ -1,12 +1,8 @@
 package com.scxrh.amb.views.view;
 
-public interface RetView
+public interface RetView extends ProgressView
 {
-    void showProgress(String msg);
-
-    void showError(String msg);
-
-    void finish();
+    void initUser(String user);
 
     void regSuccess();
 }

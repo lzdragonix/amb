@@ -24,5 +24,7 @@
     <string name="msg_agree_reg_protocol">请同意注册协议</string>
     <string name="msg_loading">正在加载，请稍候</string>
     <string name="msg_loading_failed">加载数据失败</string>
+    <string name="msg_error_password">用户名或密码不正确</string>
+    <string name="msg_pwd_inconformity">两次密码录入不一致</string>
 
 </resources>

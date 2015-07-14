@@ -5,6 +5,7 @@ import android.accounts.NetworkErrorException;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
@@ -27,16 +28,18 @@ public class RestClient
 {
     private String cookie;
     private AmbApi mAmbApi;
+    private GsonConverter mConverter;
 
     public RestClient()
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(new TypeToken<List<List<City>>>() { }.getType(), new CityListDeserializer())
                    .registerTypeAdapter(new TypeToken<List<SalesManager>>() { }.getType(), new ManagerDeserializer());
+        mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
         RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
                                          .setLogLevel(RestAdapter.LogLevel.FULL)
-                                         .setConverter(new GsonConverter(gsonBuilder.create()))
+                                         .setConverter(mConverter)
                                          .setErrorHandler(new RetrofitErrorHandler())
                                          .setRequestInterceptor(request -> request.addHeader("Cookie", cookie))
                                          .build();
@@ -46,13 +49,28 @@ public class RestClient
     public Observable<Response> login(String user, String pwd)
     {
         return mAmbApi.login(user, pwd).doOnNext(response -> {
-            for (Header header : response.getHeaders())
+            try
             {
-                if ("Set-Cookie".equals(header.getName()))
+                JsonObject json = (JsonObject)mConverter.fromBody(response.getBody(), JsonObject.class);
+                if (Const.RETURNCODE_0000.equals(json.get(Const.KEY_CODE).getAsString()))
                 {
-                    cookie = header.getValue();
-                    break;
+                    for (Header header : response.getHeaders())
+                    {
+                        if ("Set-Cookie".equals(header.getName()))
+                        {
+                            cookie = header.getValue();
+                            break;
+                        }
+                    }
                 }
+                else
+                {
+                    throw new RuntimeException("error-password");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -80,6 +98,11 @@ public class RestClient
     public Observable<List<SalesManager>> queryManagers(String communityId)
     {
         return mAmbApi.queryManagers(communityId);
+    }
+
+    public Observable<Response> restorePwd(String tel, String pwd, String verify)
+    {
+        return mAmbApi.restorePwd(tel, pwd, verify);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

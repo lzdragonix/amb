@@ -16,6 +16,8 @@ public class Const
     public static final int MSG_AGREE_REG_PROTOCOL = MSG_SERVER_ERROR + 8;
     public static final int MSG_LOADING = MSG_SERVER_ERROR + 9;
     public static final int MSG_LOADING_FAILED = MSG_SERVER_ERROR + 10;
+    public static final int MSG_ERROR_PASSWORD = MSG_SERVER_ERROR + 11;
+    public static final int MSG_PWD_INCONFORMITY = MSG_SERVER_ERROR + 12;
     //some key
     public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
     public static final String KEY_CODE = "code";
@@ -25,6 +27,7 @@ public class Const
     //rest returncode
     public static final String RETURNCODE_0000 = "0000";
     public static final String RETURNCODE_0001 = "0001";
+    public static final String RETURNCODE_9999 = "9999";
     //some regex
     public static final Pattern REGEX_EMAIL = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
     public static final Pattern REGEX_MOBILE = Pattern.compile("^(1[8|3|5][0-9]|15[0|3|6|7|8|9]|18[2|5|6|8|9])\\d{8}$");

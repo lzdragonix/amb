@@ -33,4 +33,8 @@ public interface AmbApi
 
     @POST("/windforce/m/mfinancialAdvisor_queryManagers.action")
     Observable<List<SalesManager>> queryManagers(@Query("communityId") String communityId);
+
+    @POST("/windforce/m/user_restorePwd.action")
+    Observable<Response> restorePwd(@Query("telephone") String tel, @Query("newPassword") String pwd,
+            @Query("verifyNo") String verifyNo);
 }

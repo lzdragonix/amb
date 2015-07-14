@@ -7,17 +7,20 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
-import com.scxrh.amb.injector.component.DaggerRetComponent;
+import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
-import com.scxrh.amb.injector.module.RetModule;
+import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.presenter.RetPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.RetView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -32,10 +35,12 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     TextView txtHeader;
     @Bind(R.id.txtAgreement)
     TextView txtAgreement;
-    @Bind(R.id.btnReg)
-    View btnReg;
+    @Bind(R.id.btnSubmit)
+    View btnSubmit;
     @Bind(R.id.txtUser)
-    TextView txtUser;
+    EditText txtUser;
+    @Bind(R.id.txtPwd1)
+    TextView txtPwd1;
     @Bind(R.id.txtPwd)
     TextView txtPwd;
     @Bind(R.id.txtVerify)
@@ -68,6 +73,7 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText("找回密码");
         txtAgreement.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        presenter.initUser();
     }
 
     @Override
@@ -86,10 +92,10 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     @Override
     protected void injectDependencies()
     {
-        DaggerRetComponent.builder()
+        DaggerMvpComponent.builder()
                           .appComponent(App.getAppComponent())
                           .activityModule(new ActivityModule(getActivity()))
-                          .retModule(new RetModule(this))
+                          .mvpModule(new MvpModule(this))
                           .build()
                           .inject(this);
     }
@@ -119,7 +125,8 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     @OnClick(R.id.btnSubmit)
     void btnSubmit()
     {
-
+        presenter.retrieve(txtUser.getText().toString(), txtPwd.getText().toString(), txtPwd1.getText().toString(),
+                           txtVerify.getText().toString(), ckxAgree.isChecked());
     }
 
     @Override
@@ -135,10 +142,21 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     }
 
     @Override
+    public void showData(List<?> data)
+    { }
+
+    @Override
     public void finish()
     {
         closeProgressDialog();
-        btnReg.setEnabled(true);
+        btnSubmit.setEnabled(true);
+    }
+
+    @Override
+    public void initUser(String user)
+    {
+        txtUser.setText(user);
+        txtUser.setSelection(user.length());
     }
 
     @Override

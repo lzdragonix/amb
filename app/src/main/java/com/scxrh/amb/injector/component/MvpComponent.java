@@ -7,6 +7,7 @@ import com.scxrh.amb.views.fragment.AgreementFragment;
 import com.scxrh.amb.views.fragment.MainFragment;
 import com.scxrh.amb.views.fragment.ManagerFragment;
 import com.scxrh.amb.views.fragment.RegFragment;
+import com.scxrh.amb.views.fragment.RetrievePwdFragment;
 import com.scxrh.amb.views.fragment.SelCityFragment;
 
 import dagger.Component;
@@ -24,4 +25,7 @@ public interface MvpComponent
     void inject(RegFragment fragment);
 
     void inject(ManagerFragment fragment);
+
+    // 找回密码
+    void inject(RetrievePwdFragment fragment);
 }

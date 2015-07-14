@@ -56,8 +56,15 @@ public class LoginPresenter
             settings.setValue(Const.KEY_PASSWORD, DES.encrypt(pwd, DES.getKey()));
             view.finish();
             view.showMain();
-        }, e -> {
-            view.showError(message.getMessage(Const.MSG_SERVER_ERROR));
+        }, throwable -> {
+            if (throwable.getMessage().contains("error-password"))
+            {
+                view.showError(message.getMessage(Const.MSG_ERROR_PASSWORD));
+            }
+            else
+            {
+                view.showError(message.getMessage(Const.MSG_SERVER_ERROR));
+            }
             view.finish();
         });
     }
