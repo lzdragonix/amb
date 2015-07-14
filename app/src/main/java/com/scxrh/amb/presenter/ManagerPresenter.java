@@ -1,13 +1,10 @@
 package com.scxrh.amb.presenter;
 
-import android.util.Log;
-
-import com.scxrh.amb.model.SalesManager;
+import com.scxrh.amb.Const;
+import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.ProgressView;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -15,9 +12,11 @@ import rx.android.schedulers.AndroidSchedulers;
 
 public class ManagerPresenter
 {
-    private ProgressView view;
     @Inject
     RestClient rest;
+    @Inject
+    MessageManager message;
+    private ProgressView view;
 
     @Inject
     public ManagerPresenter(MvpView view)
@@ -27,9 +26,13 @@ public class ManagerPresenter
 
     public void loadData(String communityId)
     {
-        List<SalesManager> data;
-        rest.queryManagers(communityId).observeOn(AndroidSchedulers.mainThread()).subscribe(list->{
-            Log.i("ManagerPresenter", "list size="+list.size());
+        view.showProgress(message.getMessage(Const.MSG_LOADING));
+        rest.queryManagers(communityId).observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
+            view.showData(list);
+            view.finish();
+        }, throwable -> {
+            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.finish();
         });
     }
 }
