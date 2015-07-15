@@ -4,6 +4,7 @@ import com.scxrh.amb.App;
 import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.net.http.HttpClient;
 import com.scxrh.amb.rest.RestClient;
 
@@ -64,5 +65,12 @@ public class AppModule
     public RestClient provideRestRepository()
     {
         return new RestClient(settings);
+    }
+
+    @Singleton
+    @Provides
+    public SysInfo provideSysInfo()
+    {
+        return new SysInfo();
     }
 }

@@ -1,19 +1,16 @@
 package com.scxrh.amb.presenter;
 
-import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.views.view.MainView;
 import com.scxrh.amb.views.view.MvpView;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-
 public class MainPresenter
 {
     @Inject
-    RxBus rxBus;
+    SysInfo sysInfo;
     private MainView view;
 
     @Inject
@@ -25,10 +22,8 @@ public class MainPresenter
     public void initialize()
     {
         view.initTab();
-        Observable<City> observable = rxBus.register("city_change", City.class);
-        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(view::changeCity);
-        observable = rxBus.register("community_change", City.class);
-        observable.observeOn(AndroidSchedulers.mainThread()).subscribe(view::changeCommunity);
+        sysInfo.observable("city", City.class).subscribe(view::changeCity);
+        sysInfo.observable("community", City.class).subscribe(view::changeCommunity);
     }
 
     public void changeTab(String tab)

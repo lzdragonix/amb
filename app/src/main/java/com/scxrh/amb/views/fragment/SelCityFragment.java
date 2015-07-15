@@ -12,10 +12,11 @@ import android.widget.TextView;
 
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
-import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
+import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.SelCityPresenter;
 import com.scxrh.amb.views.view.ProgressView;
 
@@ -36,7 +37,7 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     @Inject
     SelCityPresenter presenter;
     @Inject
-    RxBus rxBus;
+    SysInfo sysInfo;
     @Bind(R.id.txtHeader)
     TextView txtHeader;
     @Bind(R.id.rvList)
@@ -45,7 +46,9 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
         OnItemClickListener mOnItemClickListener = (view, position) -> {
-            rxBus.post(isComm ? "community_change" : "city_change", presenter.getItem(position));
+            City city = presenter.getItem(position);
+            if (isComm) { sysInfo.setCommunity(city); }
+            else { sysInfo.setCity(city); }
             getActivity().finish();
         };
 
@@ -112,7 +115,8 @@ public class SelCityFragment extends BaseFragment implements ProgressView
         if (isComm)
         {
             txtHeader.setText(getString(R.string.txt_select_community));
-            presenter.loadCommunity("402881882ba8753a012ba934ac770127");
+            //presenter.loadCommunity("402881882ba8753a012ba934ac770127");
+            presenter.loadCommunity(sysInfo.getCity().getId());
         }
         else
         {
