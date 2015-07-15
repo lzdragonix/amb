@@ -73,6 +73,7 @@ public class RetPresenter
         view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
         rest.restorePwd(user, pwd, "111111").observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
             view.finish();
+            view.success();
         }, throwable -> {
             view.showError(message.getMessage(Const.MSG_SERVER_ERROR));
         });

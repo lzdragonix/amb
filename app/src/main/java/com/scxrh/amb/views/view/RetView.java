@@ -4,5 +4,5 @@ public interface RetView extends ProgressView
 {
     void initUser(String user);
 
-    void regSuccess();
+    void success();
 }

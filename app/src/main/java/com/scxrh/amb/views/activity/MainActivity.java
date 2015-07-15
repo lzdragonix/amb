@@ -3,6 +3,7 @@ package com.scxrh.amb.views.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
@@ -31,6 +32,27 @@ public class MainActivity extends BaseActivity
             presenter.login(user, pwd);
         }
         super.onActivityResult(requestCode, resultCode, intent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            try
+            {
+                finish();
+                // 杀死该应用进程
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(0);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

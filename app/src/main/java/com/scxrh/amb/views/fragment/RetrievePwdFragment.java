@@ -160,12 +160,8 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     }
 
     @Override
-    public void regSuccess()
+    public void success()
     {
-        Intent intent = new Intent();
-        intent.putExtra(Const.KEY_ACCOUNT, txtUser.getText().toString());
-        intent.putExtra(Const.KEY_PASSWORD, txtPwd.getText().toString());
-        getActivity().setResult(Activity.RESULT_OK, intent);
         getActivity().finish();
     }
 }

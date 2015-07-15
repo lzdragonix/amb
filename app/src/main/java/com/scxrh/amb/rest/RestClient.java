@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
@@ -98,6 +99,11 @@ public class RestClient
     public Observable<List<SalesManager>> queryManagers(String communityId)
     {
         return mAmbApi.queryManagers(communityId);
+    }
+
+    public Observable<List<FinancialProduct>> queryFinancialProduct(String communityId, String bankNo)
+    {
+        return mAmbApi.queryFinancialProduct(communityId, bankNo);
     }
 
     public Observable<Response> restorePwd(String tel, String pwd, String verify)

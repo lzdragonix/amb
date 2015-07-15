@@ -4,6 +4,7 @@ import com.scxrh.amb.injector.ActivityScope;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.views.fragment.AgreementFragment;
+import com.scxrh.amb.views.fragment.FinProFragment;
 import com.scxrh.amb.views.fragment.MainFragment;
 import com.scxrh.amb.views.fragment.ManagerFragment;
 import com.scxrh.amb.views.fragment.RegFragment;
@@ -28,4 +29,6 @@ public interface MvpComponent
 
     // 找回密码
     void inject(RetrievePwdFragment fragment);
+
+    void inject(FinProFragment fragment);
 }

@@ -2,6 +2,7 @@ package com.scxrh.amb.rest;
 
 import com.google.gson.JsonObject;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
 
 import java.util.List;
@@ -37,4 +38,8 @@ public interface AmbApi
     @POST("/windforce/m/user_restorePwd.action")
     Observable<Response> restorePwd(@Query("telephone") String tel, @Query("newPassword") String pwd,
             @Query("verifyNo") String verifyNo);
+
+    @POST("/windforce/m/mfinancialProduct_queryFinancialProduct.action")
+    Observable<List<FinancialProduct>> queryFinancialProduct(@Query("communityId") String communityId,
+            @Query("bankNo") String bankNo);
 }
