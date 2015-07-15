@@ -26,4 +26,12 @@ public class RecommendFragment extends BaseFragment
         intent.putExtra(Const.KEY_FRAGMENT, ManagerFragment.class.getName());
         startActivity(intent);
     }
+
+    @OnClick(R.id.btnFinPro)
+    void btnFinPro()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, FinProFragment.class.getName());
+        startActivity(intent);
+    }
 }

@@ -12,6 +12,7 @@ import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
+import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
 
 import java.net.ConnectException;
@@ -35,7 +36,9 @@ public class RestClient
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(new TypeToken<List<List<City>>>() { }.getType(), new CityListDeserializer())
-                   .registerTypeAdapter(new TypeToken<List<SalesManager>>() { }.getType(), new ManagerDeserializer());
+                   .registerTypeAdapter(new TypeToken<List<SalesManager>>() { }.getType(), new ManagerDeserializer())
+                   .registerTypeAdapter(new TypeToken<List<FinancialProduct>>() { }.getType(),
+                                        new FinProductDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
         RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
