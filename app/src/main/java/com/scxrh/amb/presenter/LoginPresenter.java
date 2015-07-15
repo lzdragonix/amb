@@ -9,6 +9,7 @@ import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.LoginView;
+import com.scxrh.amb.views.view.MvpView;
 
 import javax.inject.Inject;
 
@@ -17,17 +18,19 @@ import rx.android.schedulers.AndroidSchedulers;
 public class LoginPresenter
 {
     private static final String TAG = LoginPresenter.class.getSimpleName();
+    LoginView view;
     @Inject
     MessageManager message;
-    @Inject
-    LoginView view;
     @Inject
     SettingsManager settings;
     @Inject
     RestClient rest;
 
     @Inject
-    public LoginPresenter() { }
+    public LoginPresenter(MvpView view)
+    {
+        this.view = (LoginView)view;
+    }
 
     public void initialize()
     {

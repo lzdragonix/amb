@@ -16,10 +16,12 @@ import dagger.Provides;
 public class AppModule
 {
     private App mApp;
+    private SettingsManager settings;
 
     public AppModule(App application)
     {
         mApp = application;
+        settings = new SettingsManager(mApp);
     }
 
     @Singleton
@@ -47,7 +49,7 @@ public class AppModule
     @Provides
     public SettingsManager provideSettingsManager()
     {
-        return new SettingsManager(mApp);
+        return settings;
     }
 
     @Singleton
@@ -61,6 +63,6 @@ public class AppModule
     @Provides
     public RestClient provideRestRepository()
     {
-        return new RestClient();
+        return new RestClient(settings);
     }
 }

@@ -1,16 +1,10 @@
 package com.scxrh.amb.views.view;
 
-public interface LoginView
+public interface LoginView extends ProgressView
 {
     void initUser(String user);
 
     void initPwd(String pwd);
 
-    void showProgress(String msg);
-
     void showMain();
-
-    void showError(String msg);
-
-    void finish();
 }

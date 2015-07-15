@@ -10,14 +10,16 @@ import android.widget.TextView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
-import com.scxrh.amb.injector.component.DaggerLoginComponent;
+import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
-import com.scxrh.amb.injector.module.LoginModule;
+import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.presenter.LoginPresenter;
 import com.scxrh.amb.views.activity.BaseActivity;
 import com.scxrh.amb.views.activity.MainActivity;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.LoginView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -46,12 +48,12 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     @Override
     protected void injectDependencies()
     {
-        DaggerLoginComponent.builder()
-                            .appComponent(App.getAppComponent())
-                            .activityModule(new ActivityModule(getActivity()))
-                            .loginModule(new LoginModule(this))
-                            .build()
-                            .inject(this);
+        DaggerMvpComponent.builder()
+                          .appComponent(App.getAppComponent())
+                          .activityModule(new ActivityModule(getActivity()))
+                          .mvpModule(new MvpModule(this))
+                          .build()
+                          .inject(this);
     }
 
     @Override
@@ -79,12 +81,6 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     }
 
     @Override
-    public void showProgress(String msg)
-    {
-        showProgressDialog(msg);
-    }
-
-    @Override
     public void showMain()
     {
         if (isAdded())
@@ -94,10 +90,20 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     }
 
     @Override
+    public void showProgress(String msg)
+    {
+        showProgressDialog(msg);
+    }
+
+    @Override
     public void showError(String msg)
     {
         toast(msg);
     }
+
+    @Override
+    public void showData(List<?> data)
+    { }
 
     @Override
     public void finish()

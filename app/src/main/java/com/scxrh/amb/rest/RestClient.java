@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.scxrh.amb.Const;
+import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
@@ -31,9 +32,12 @@ public class RestClient
     private String cookie;
     private AmbApi mAmbApi;
     private GsonConverter mConverter;
+    private SettingsManager settings;
 
-    public RestClient()
+    public RestClient(SettingsManager settings)
     {
+        this.settings = settings;
+        cookie = settings.getString(Const.KEY_COOKIE);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(new TypeToken<List<List<City>>>() { }.getType(), new CityListDeserializer())
                    .registerTypeAdapter(new TypeToken<List<SalesManager>>() { }.getType(), new ManagerDeserializer())
@@ -63,6 +67,7 @@ public class RestClient
                         if ("Set-Cookie".equals(header.getName()))
                         {
                             cookie = header.getValue();
+                            settings.setValue(Const.KEY_COOKIE, cookie);
                             break;
                         }
                     }
