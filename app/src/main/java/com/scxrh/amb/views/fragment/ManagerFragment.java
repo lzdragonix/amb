@@ -15,6 +15,7 @@ import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.SalesManager;
+import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.ManagerPresenter;
 import com.scxrh.amb.views.view.ProgressView;
 
@@ -37,6 +38,8 @@ public class ManagerFragment extends BaseFragment implements ProgressView
     TextView txtHeader;
     @Inject
     ManagerPresenter presenter;
+    @Inject
+    SysInfo sysInfo;
 
     @Override
     protected int getLayoutId()
@@ -61,7 +64,7 @@ public class ManagerFragment extends BaseFragment implements ProgressView
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText(getString(R.string.txt_manager));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        presenter.loadData("402883474e4336c2014e43499c43000c");
+        presenter.loadData(sysInfo.getCommunity().getId());
     }
 
     @OnClick(R.id.btnBack)
