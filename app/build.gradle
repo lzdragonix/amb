@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.android.databinding'
 
 android {
     compileSdkVersion 21
@@ -47,7 +48,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 
     //http
-    compile 'com.loopj.android:android-async-http:1.4.7'
+    //compile 'com.loopj.android:android-async-http:1.4.7'
     
     //rx java
     compile 'io.reactivex:rxjava:1.0.0'
