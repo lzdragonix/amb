@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
+import com.scxrh.amb.model.UIData;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import rx.Observable;
 
 public interface AmbApi
 {
-    String END_POINT = "http://113.106.63.129:8489";
+    public static final String END_POINT = "http://113.106.63.129:8489";
 
     @POST("/windforce/m/mlogin.action")
     Observable<Response> login(@Query("userKey") String user, @Query("password") String pwd);
@@ -42,4 +43,7 @@ public interface AmbApi
     @POST("/windforce/m/mfinancialProduct_queryFinancialProduct.action")
     Observable<List<FinancialProduct>> queryFinancialProduct(@Query("communityId") String communityId,
             @Query("bankNo") String bankNo);
+
+    @POST("/windforce/m/ui_queryUIData.action")
+    Observable<List<UIData>> queryUIData(@Query("pageName") String pageName);
 }

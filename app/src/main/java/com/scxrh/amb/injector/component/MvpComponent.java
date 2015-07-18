@@ -9,6 +9,7 @@ import com.scxrh.amb.views.fragment.LiveFragment;
 import com.scxrh.amb.views.fragment.LoginFragment;
 import com.scxrh.amb.views.fragment.MainFragment;
 import com.scxrh.amb.views.fragment.ManagerFragment;
+import com.scxrh.amb.views.fragment.RecommendFragment;
 import com.scxrh.amb.views.fragment.RegFragment;
 import com.scxrh.amb.views.fragment.RetrievePwdFragment;
 import com.scxrh.amb.views.fragment.SelCityFragment;
@@ -37,4 +38,6 @@ public interface MvpComponent
     void inject(LoginFragment fragment);
 
     void inject(LiveFragment fragment);
+
+    void inject(RecommendFragment fragment);
 }

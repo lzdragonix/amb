@@ -10,11 +10,13 @@ import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
+import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
 import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
+import com.scxrh.amb.rest.serialiers.UIDataDeserializer;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -42,7 +44,8 @@ public class RestClient
         gsonBuilder.registerTypeAdapter(new TypeToken<List<List<City>>>() { }.getType(), new CityListDeserializer())
                    .registerTypeAdapter(new TypeToken<List<SalesManager>>() { }.getType(), new ManagerDeserializer())
                    .registerTypeAdapter(new TypeToken<List<FinancialProduct>>() { }.getType(),
-                                        new FinProductDeserializer());
+                                        new FinProductDeserializer())
+                   .registerTypeAdapter(new TypeToken<List<UIData>>() { }.getType(), new UIDataDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
         RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
@@ -117,6 +120,11 @@ public class RestClient
     public Observable<Response> restorePwd(String tel, String pwd, String verify)
     {
         return mAmbApi.restorePwd(tel, pwd, verify);
+    }
+
+    public Observable<List<UIData>> queryUIData(String page)
+    {
+        return mAmbApi.queryUIData(page);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
