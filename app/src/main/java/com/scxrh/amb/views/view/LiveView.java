@@ -1,12 +1,5 @@
 package com.scxrh.amb.views.view;
 
-public interface LiveView
+public interface LiveView extends MvpView
 {
-    void showProgress(String msg);
-
-    void showMain();
-
-    void showError(String msg);
-
-    void loginFinished();
 }
