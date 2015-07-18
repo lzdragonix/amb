@@ -1,0 +1,232 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:text="便民生活"
+            android:gravity="center_vertical"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/cadadae"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="5"
+            android:background="@color/cffffff">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_sddj"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_sjcz"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_ghkd"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_columnSpan="5"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_tv"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_columnSpan="5"
+                android:background="@color/cadadae"/>
+        </GridLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:text="社区服务"
+            android:gravity="center_vertical"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/cadadae"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="5"
+            android:background="@color/cffffff">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_wyfw"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_jzfw"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_columnSpan="5"
+                android:background="@color/cadadae"/>
+        </GridLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:text="轻松出行"
+            android:gravity="center_vertical"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/cadadae"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="5"
+            android:background="@color/cffffff">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_fjyd"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_hcyd"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_columnSpan="5"
+                android:background="@color/cadadae"/>
+        </GridLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:text="医疗教育"
+            android:gravity="center_vertical"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/cadadae"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="5"
+            android:background="@color/cffffff">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_ylfw"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/life_sqjy"/>
+
+            <View
+                android:layout_height="120dp"
+                android:layout_width="1dp"
+                android:background="@color/cadadae"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_columnSpan="5"
+                android:background="@color/cadadae"/>
+        </GridLayout>
+    </LinearLayout>
+</ScrollView>

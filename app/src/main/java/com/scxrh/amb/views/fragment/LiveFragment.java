@@ -88,6 +88,9 @@ public class LiveFragment extends BaseFragment implements LiveView
                 case 1:
                     fragment = new LiveMSFragment();
                     break;
+                case 3:
+                    fragment = new LiveSEHFragment();
+                    break;
                 default:
                     fragment = new BlankFragment();
                     break;

@@ -22,7 +22,7 @@
         android:layout_marginLeft="10dp"
         android:textColor="@color/cffffff"
         android:textSize="16sp"
-        android:text="成都"/>
+        android:text="北京"/>
 
     <TextView
         android:id="@+id/txtCommunity"
@@ -33,7 +33,7 @@
         android:layout_marginLeft="10dp"
         android:textColor="@color/cffffff"
         android:textSize="16sp"
-        android:text="武侯区"/>
+        android:text="朝阳区"/>
 
     <TextView
         android:id="@+id/txtHeader"
