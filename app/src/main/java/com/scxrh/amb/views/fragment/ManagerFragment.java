@@ -1,14 +1,15 @@
 package com.scxrh.amb.views.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
@@ -17,6 +18,7 @@ import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.ManagerPresenter;
+import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.view.ProgressView;
 
 import java.util.ArrayList;
@@ -120,8 +122,10 @@ public class ManagerFragment extends BaseFragment implements ProgressView
             ViewHolder vh = (ViewHolder)holder;
             SalesManager sm = data.get(position);
             vh.name.setText(sm.getName());
-            vh.description.setText(sm.getDescription());
-            vh.phone.setText(sm.getPhone());
+            vh.description.setText(sm.getDesc());
+            vh.phone.setText(sm.getTelephone());
+            String url = AmbApi.END_POINT + sm.getPhotoUrl();
+            vh.photo.setImageURI(Uri.parse(url));
         }
 
         @Override
@@ -140,7 +144,7 @@ public class ManagerFragment extends BaseFragment implements ProgressView
         @Bind(R.id.phone)
         TextView phone;
         @Bind(R.id.photo)
-        ImageView photo;
+        SimpleDraweeView photo;
 
         public ViewHolder(View view)
         {

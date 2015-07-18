@@ -49,7 +49,7 @@ public class SelCityPresenter
             if (cities != null)
             {
                 mData.clear();
-                mData.addAll(prepareData(cities));
+                mData.addAll(prepareData(cities, true));
                 view.showData(mData);
                 view.finish();
             }
@@ -67,7 +67,7 @@ public class SelCityPresenter
             if (cities != null)
             {
                 mData.clear();
-                mData.addAll(prepareData(cities));
+                mData.addAll(prepareData(cities, false));
                 view.showData(mData);
                 view.finish();
             }
@@ -88,7 +88,7 @@ public class SelCityPresenter
         return mData.get(index);
     }
 
-    private List<City> prepareData(List<List<City>> cities)
+    private List<City> prepareData(List<List<City>> cities, boolean isCity)
     {
         List<City> data = new ArrayList<>();
         pys.clear();
@@ -112,19 +112,22 @@ public class SelCityPresenter
             mData.add(city);
         }
         mData.addAll(normal);
-        //hot
-        List<City> hot = cities.get(0);
-        for (City city : hot)
+        if (isCity)
         {
+            //hot
+            List<City> hot = cities.get(0);
+            for (City city : hot)
+            {
+                city.setHot(1);
+            }
+            mData.addAll(hot);
+            City city = new City();
+            city.setId("0");
+            city.setPinyin("a");
+            city.setName("热门城市");
             city.setHot(1);
+            mData.add(city);
         }
-        mData.addAll(hot);
-        City city = new City();
-        city.setId("0");
-        city.setPinyin("a");
-        city.setName("热门城市");
-        city.setHot(1);
-        mData.add(city);
         Collections.sort(mData, mComparator);
         return data;
     }

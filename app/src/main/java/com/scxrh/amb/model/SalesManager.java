@@ -2,44 +2,10 @@ package com.scxrh.amb.model;
 
 public class SalesManager
 {
-    private int id;
-    private int bankId;
-    private String description;
     private String name;
-    private String phone;
-    private String photo;
-    private int rank;
-    private int sex;
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-
-    public int getBankId()
-    {
-        return bankId;
-    }
-
-    public void setBankId(int bankId)
-    {
-        this.bankId = bankId;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
+    private String desc;
+    private String photoUrl;
+    private String telephone;
 
     public String getName()
     {
@@ -51,43 +17,33 @@ public class SalesManager
         this.name = name;
     }
 
-    public String getPhone()
+    public String getDesc()
     {
-        return phone;
+        return desc;
     }
 
-    public void setPhone(String phone)
+    public void setDesc(String desc)
     {
-        this.phone = phone;
+        this.desc = desc;
     }
 
-    public String getPhoto()
+    public String getPhotoUrl()
     {
-        return photo;
+        return photoUrl;
     }
 
-    public void setPhoto(String photo)
+    public void setPhotoUrl(String photoUrl)
     {
-        this.photo = photo;
+        this.photoUrl = photoUrl;
     }
 
-    public int getRank()
+    public String getTelephone()
     {
-        return rank;
+        return telephone;
     }
 
-    public void setRank(int rank)
+    public void setTelephone(String telephone)
     {
-        this.rank = rank;
-    }
-
-    public int getSex()
-    {
-        return sex;
-    }
-
-    public void setSex(int sex)
-    {
-        this.sex = sex;
+        this.telephone = telephone;
     }
 }

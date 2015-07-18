@@ -47,6 +47,7 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     {
         OnItemClickListener mOnItemClickListener = (view, position) -> {
             City city = presenter.getItem(position);
+            if ("0".equals(city.getId())) { return; }
             if (isComm) { sysInfo.setCommunity(city); }
             else { sysInfo.setCity(city); }
             getActivity().finish();

@@ -1,21 +1,24 @@
 package com.scxrh.amb.views.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.FinancialProduct;
+import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.FinProPresenter;
+import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.view.ProgressView;
 
 import java.util.ArrayList;
@@ -37,6 +40,8 @@ public class FinProFragment extends BaseFragment implements ProgressView
     RecyclerView mRecyclerView;
     @Bind(R.id.txtHeader)
     TextView txtHeader;
+    @Inject
+    SysInfo sysInfo;
 
     @Override
     protected int getLayoutId()
@@ -61,7 +66,7 @@ public class FinProFragment extends BaseFragment implements ProgressView
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText(getString(R.string.txt_fin_product));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        presenter.loadData("402883474e4336c2014e43499c43000c", "");
+        presenter.loadData(sysInfo.getCommunity().getId(), "");
     }
 
     @Override
@@ -117,7 +122,9 @@ public class FinProFragment extends BaseFragment implements ProgressView
             ViewHolder vh = (ViewHolder)holder;
             FinancialProduct fin = data.get(position);
             vh.name.setText(fin.getName());
-            vh.description.setText(fin.getDescription());
+            vh.description.setText(fin.getDesc());
+            String url = AmbApi.END_POINT + fin.getImgUrl();
+            vh.imgProduct.setImageURI(Uri.parse(url));
         }
 
         @Override
@@ -134,7 +141,7 @@ public class FinProFragment extends BaseFragment implements ProgressView
         @Bind(R.id.description)
         TextView description;
         @Bind(R.id.imgProduct)
-        ImageView imgProduct;
+        SimpleDraweeView imgProduct;
 
         public ViewHolder(View view)
         {
