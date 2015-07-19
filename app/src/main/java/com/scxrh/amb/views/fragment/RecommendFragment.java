@@ -113,7 +113,7 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     public void showData(List<?> data)
     {
         List<UIData> uis = (List<UIData>)data;
-        String url = AmbApi.END_POINT + uis.get(3).getItems().get(0).getImgUrl();
+        String url = AmbApi.END_POINT + uis.get(2).getItems().get(0).getImgUrl();
         imgAD.setImageURI(Uri.parse(url));
         rvShop.setAdapter(new RecyclerViewAdapter(uis.get(1).getItems()));
         rvBuy.setAdapter(new RecyclerViewAdapter(uis.get(0).getItems()));
