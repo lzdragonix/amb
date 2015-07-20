@@ -20,8 +20,6 @@ import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.SelCityPresenter;
 import com.scxrh.amb.views.view.ProgressView;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -163,7 +161,7 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     }
 
     @Override
-    public void showData(List<?> data)
+    public void showData(Object data)
     {
         mAdapter.notifyDataSetChanged();
     }

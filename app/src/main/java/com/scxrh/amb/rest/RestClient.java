@@ -22,6 +22,7 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.RestAdapter;
 import retrofit.client.Header;
@@ -45,7 +46,7 @@ public class RestClient
                    .registerTypeAdapter(new TypeToken<List<SalesManager>>() { }.getType(), new ManagerDeserializer())
                    .registerTypeAdapter(new TypeToken<List<FinancialProduct>>() { }.getType(),
                                         new FinProductDeserializer())
-                   .registerTypeAdapter(new TypeToken<List<UIData>>() { }.getType(), new UIDataDeserializer());
+                   .registerTypeAdapter(new TypeToken<Map<String, UIData>>() { }.getType(), new UIDataDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
         RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
@@ -122,7 +123,7 @@ public class RestClient
         return mAmbApi.restorePwd(tel, pwd, verify);
     }
 
-    public Observable<List<UIData>> queryUIData(String page)
+    public Observable<Map<String, UIData>> queryUIData(String page)
     {
         return mAmbApi.queryUIData(page);
     }

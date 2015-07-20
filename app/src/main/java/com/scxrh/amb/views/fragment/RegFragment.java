@@ -19,8 +19,6 @@ import com.scxrh.amb.presenter.RegPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.RegView;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -140,7 +138,7 @@ public class RegFragment extends BaseFragment implements RegView
     }
 
     @Override
-    public void showData(List<?> data)
+    public void showData(Object data)
     { }
 
     @Override

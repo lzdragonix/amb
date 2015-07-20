@@ -8,24 +8,24 @@ import com.google.gson.JsonParseException;
 import com.scxrh.amb.model.UIData;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class UIDataDeserializer implements JsonDeserializer<List<UIData>>
+public class UIDataDeserializer implements JsonDeserializer<Map<String, UIData>>
 {
     @Override
-    public List<UIData> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    public Map<String, UIData> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException
     {
-        List<UIData> data = new ArrayList<>();
+        Map<String, UIData> data = new HashMap<>();
         Gson gson = new Gson();
         json = json.getAsJsonObject().get("data");
-        data.add(gson.fromJson(json.getAsJsonObject().get("buy"), UIData.class));
-        data.add(gson.fromJson(json.getAsJsonObject().get("hot"), UIData.class));
-        data.add(gson.fromJson(json.getAsJsonObject().get("ad"), UIData.class));
-        data.add(gson.fromJson(json.getAsJsonObject().get("finance"), UIData.class));
-        data.add(gson.fromJson(json.getAsJsonObject().get("lottery"), UIData.class));
-        data.add(gson.fromJson(json.getAsJsonObject().get("discount"), UIData.class));
+        data.put("buy", gson.fromJson(json.getAsJsonObject().get("buy"), UIData.class));
+        data.put("hot", gson.fromJson(json.getAsJsonObject().get("hot"), UIData.class));
+        data.put("ad", gson.fromJson(json.getAsJsonObject().get("ad"), UIData.class));
+        data.put("finance", gson.fromJson(json.getAsJsonObject().get("finance"), UIData.class));
+        data.put("lottery", gson.fromJson(json.getAsJsonObject().get("lottery"), UIData.class));
+        data.put("discount", gson.fromJson(json.getAsJsonObject().get("discount"), UIData.class));
         return data;
     }
 }

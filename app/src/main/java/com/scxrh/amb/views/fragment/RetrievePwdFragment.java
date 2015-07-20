@@ -20,8 +20,6 @@ import com.scxrh.amb.presenter.RetPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.RetView;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -142,7 +140,7 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     }
 
     @Override
-    public void showData(List<?> data)
+    public void showData(Object data)
     { }
 
     @Override

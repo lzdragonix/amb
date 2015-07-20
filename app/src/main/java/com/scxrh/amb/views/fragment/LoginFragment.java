@@ -19,8 +19,6 @@ import com.scxrh.amb.views.activity.MainActivity;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.LoginView;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -102,7 +100,7 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     }
 
     @Override
-    public void showData(List<?> data)
+    public void showData(Object data)
     { }
 
     @Override

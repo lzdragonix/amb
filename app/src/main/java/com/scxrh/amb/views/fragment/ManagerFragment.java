@@ -89,7 +89,7 @@ public class ManagerFragment extends BaseFragment implements ProgressView
 
     @Override
     @SuppressWarnings("unchecked")
-    public void showData(List<?> data)
+    public void showData(Object data)
     {
         mRecyclerView.setAdapter(new RecyclerViewAdapter((List<SalesManager>)data));
     }

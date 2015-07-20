@@ -26,6 +26,7 @@ import com.scxrh.amb.views.view.ProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -110,16 +111,17 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     }
 
     @Override
-    public void showData(List<?> data)
+    @SuppressWarnings("unchecked")
+    public void showData(Object data)
     {
-        List<UIData> uis = (List<UIData>)data;
-        String url = AmbApi.END_POINT + uis.get(2).getItems().get(0).getImgUrl();
+        Map<String, UIData> uis = (Map<String, UIData>)data;
+        String url = AmbApi.END_POINT + uis.get("ad").getItems().get(0).getImgUrl();
         imgAD.setImageURI(Uri.parse(url));
-        rvShop.setAdapter(new RecyclerViewAdapter(uis.get(1).getItems()));
-        rvBuy.setAdapter(new RecyclerViewAdapter(uis.get(0).getItems()));
-        rvLottery.setAdapter(new RecyclerViewAdapter(uis.get(4).getItems()));
-        rvDiscount.setAdapter(new RecyclerViewAdapter(uis.get(5).getItems()));
-        rvFinance.setAdapter(new RecyclerViewAdapter(uis.get(3).getItems()));
+        rvShop.setAdapter(new RecyclerViewAdapter(uis.get("hot").getItems()));
+        rvBuy.setAdapter(new RecyclerViewAdapter(uis.get("buy").getItems()));
+        rvLottery.setAdapter(new RecyclerViewAdapter(uis.get("lottery").getItems()));
+        rvDiscount.setAdapter(new RecyclerViewAdapter(uis.get("discount").getItems()));
+        rvFinance.setAdapter(new RecyclerViewAdapter(uis.get("finance").getItems()));
     }
 
     @Override

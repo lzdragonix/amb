@@ -83,7 +83,7 @@ public class FinProFragment extends BaseFragment implements ProgressView
 
     @Override
     @SuppressWarnings("unchecked")
-    public void showData(List<?> data)
+    public void showData(Object data)
     {
         mRecyclerView.setAdapter(new RecyclerViewAdapter((List<FinancialProduct>)data));
     }

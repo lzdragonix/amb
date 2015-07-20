@@ -7,6 +7,7 @@ import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit.client.Response;
 import retrofit.http.POST;
@@ -45,5 +46,5 @@ public interface AmbApi
             @Query("bankNo") String bankNo);
 
     @POST("/windforce/m/ui_queryUIData.action")
-    Observable<List<UIData>> queryUIData(@Query("pageName") String pageName);
+    Observable<Map<String, UIData>> queryUIData(@Query("pageName") String pageName);
 }
