@@ -44,6 +44,17 @@
         android:textSize="20sp"
         android:text="@string/app_name"/>
 
+    <ImageView
+        android:id="@+id/shezhi"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/my_shezhi"
+        android:contentDescription="@string/app_name"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

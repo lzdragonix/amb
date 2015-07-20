@@ -21,7 +21,6 @@ import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.City;
-import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.SelCityPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
@@ -43,8 +42,6 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     private static final int VIEWTYPE_INDEX = 1;
     @Inject
     SelCityPresenter presenter;
-    @Inject
-    SysInfo sysInfo;
     @Bind(R.id.txtHeader)
     TextView txtHeader;
     @Bind(R.id.rvList)
@@ -63,7 +60,7 @@ public class SelCityFragment extends BaseFragment implements ProgressView
         if (isComm)
         {
             txtHeader.setText(getString(R.string.txt_select_community));
-            presenter.loadCommunity(sysInfo.getCity().getId());
+            presenter.loadCommunity();
         }
         else
         {
@@ -149,11 +146,11 @@ public class SelCityFragment extends BaseFragment implements ProgressView
             RecyclerViewAdapter adapter = (RecyclerViewAdapter)((RecyclerView)view.getParent()).getAdapter();
             City city = adapter.getItem(position);
             if ("0".equals(city.getId())) { return; }
-            if (isComm) { sysInfo.setCommunity(city); }
+            if (isComm) { presenter.changeCommunity(city); }
             else
             {
-                sysInfo.setCity(city);
-                sysInfo.setCommunity(new City());
+                presenter.changeCity(city);
+                presenter.changeCommunity(new City());
                 Intent intent = new Intent(getActivity(), WindowActivity.class);
                 intent.putExtra(Const.KEY_FRAGMENT, SelCityFragment.class.getName());
                 intent.putExtra("type", "community");

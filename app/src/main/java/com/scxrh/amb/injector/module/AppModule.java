@@ -1,9 +1,12 @@
 package com.scxrh.amb.injector.module;
 
+import com.google.gson.Gson;
 import com.scxrh.amb.App;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.rest.RestClient;
 
@@ -17,11 +20,14 @@ public class AppModule
 {
     private App mApp;
     private SettingsManager settings;
+    private SysInfo sysInfo;
 
     public AppModule(App application)
     {
         mApp = application;
         settings = new SettingsManager(mApp);
+        sysInfo = new SysInfo();
+        initSysInfo(sysInfo);
     }
 
     @Singleton
@@ -63,6 +69,23 @@ public class AppModule
     @Provides
     public SysInfo provideSysInfo()
     {
-        return new SysInfo();
+        return sysInfo;
+    }
+
+    private void initSysInfo(SysInfo info)
+    {
+        String name = settings.getString(Const.KEY_USER_NAME);
+        info.setName(name);
+        Gson gson = new Gson();
+        City city = gson.fromJson(settings.getString(Const.KEY_CITY), City.class);
+        if (city == null)
+        {
+            city = new City();
+            city.setId("1");
+            city.setName("北京");
+        }
+        info.setCity(city);
+        city = gson.fromJson(settings.getString(Const.KEY_COMMUNITY), City.class);
+        info.setCommunity(city == null ? new City() : city);
     }
 }

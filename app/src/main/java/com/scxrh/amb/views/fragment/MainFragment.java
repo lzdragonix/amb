@@ -48,21 +48,31 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     TextView txtCommunity;
     @Bind(R.id.txtCity)
     TextView txtCity;
+    @Bind(R.id.shezhi)
+    ImageView shezhi;
     private Map<String, TabHolder> tabs = new HashMap<>();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        presenter.initialize();
+        initTab();
+        presenter.initView();
         tabhost.setOnTabChangedListener(this);
-        presenter.changeTab(TAB_RECOMM);
+        changeTab(TAB_RECOMM);
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        presenter.onDestroyView();
     }
 
     @Override
     public void onTabChanged(String tabId)
     {
-        presenter.changeTab(tabId);
+        changeTab(tabId);
     }
 
     @Override
@@ -82,8 +92,7 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
                           .inject(this);
     }
 
-    @Override
-    public void initTab()
+    private void initTab()
     {
         tabhost.setup(getActivity(), getChildFragmentManager(), R.id.content);
         // recommend
@@ -112,16 +121,6 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     }
 
     @Override
-    public void changeTab(String name)
-    {
-        reset();
-        TabHolder tab = tabs.get(name);
-        if (tab == null) { return; }
-        tab.tap();
-        txtHeader.setText(tab.txt.getText());
-    }
-
-    @Override
     public void changeCity(City city)
     {
         txtCity.setText(city.getName());
@@ -132,6 +131,19 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     {
         String name = city.getName();
         txtCommunity.setText(TextUtils.isEmpty(name) ? "请选择" : name);
+    }
+
+    private void changeTab(String name)
+    {
+        reset();
+        TabHolder tab = tabs.get(name);
+        if (tab == null) { return; }
+        tab.tap();
+        txtHeader.setText(tab.txt.getText());
+        if (TAB_MINE.equals(name))
+        {
+            shezhi.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick(R.id.txtCity)
@@ -151,8 +163,17 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         startActivity(intent);
     }
 
+    @OnClick(R.id.shezhi)
+    void showSZ()
+    {
+        //        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        //        intent.putExtra(Const.KEY_FRAGMENT, PerInfoFragment.class.getName());
+        //        startActivity(intent);
+    }
+
     private void reset()
     {
+        shezhi.setVisibility(View.INVISIBLE);
         for (TabHolder tab : tabs.values())
         {
             tab.untap();

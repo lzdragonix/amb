@@ -26,4 +26,12 @@ public class MineFragment extends BaseFragment
         intent.putExtra(Const.KEY_FRAGMENT, LoginFragment.class.getName());
         startActivity(intent);
     }
+
+    @OnClick(R.id.grxx)
+    void showGRXX()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, PerInfoFragment.class.getName());
+        startActivity(intent);
+    }
 }

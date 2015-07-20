@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import rx.Observable;
@@ -16,6 +17,18 @@ public class SysInfo
     private Map<String, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
     private City city = new City();
     private City community = new City();
+    private String name = "";
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+        notify("name", name);
+    }
 
     public City getCommunity()
     {
@@ -39,36 +52,49 @@ public class SysInfo
         notify("city", city);
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> Observable<T> observable(@NonNull String name, @NonNull Class<T> clazz)
+    @SuppressWarnings({ "unchecked", "unused" })
+    public <T> Observable<T> observable(@NonNull String name, @NonNull Object observe, @NonNull Class<T> clazz)
     {
-        List<Subject> subjectList = subjectMapper.get(name);
+        String key = genKey(name, observe);
+        List<Subject> subjectList = subjectMapper.get(key);
         if (null == subjectList)
         {
             subjectList = new ArrayList<>();
-            subjectMapper.put(name, subjectList);
+            subjectMapper.put(key, subjectList);
         }
         Subject<T, T> subject;
         subjectList.add(subject = PublishSubject.create());
         return subject;
     }
 
-    public <T> void unobservable(@NonNull String name, @NonNull Observable observable)
+    public void unobservable(Object observe)
     {
-        List<Subject> subjects = subjectMapper.get(name);
-        if (subjects != null)
+        String hash = String.valueOf(observe.hashCode());
+        Set<String> keys = subjectMapper.keySet();
+        for (String key : keys)
         {
-            subjectMapper.remove(name);
+            if (!key.contains(hash)) { continue; }
+            subjectMapper.remove(key);
         }
     }
 
     @SuppressWarnings("unchecked")
     private void notify(@NonNull String name, @NonNull Object content)
     {
-        List<Subject> subjectList = subjectMapper.get(name);
-        for (Subject subject : subjectList)
+        Set<String> keys = subjectMapper.keySet();
+        for (String key : keys)
         {
-            subject.onNext(content);
+            if (!key.contains(name)) { continue; }
+            List<Subject> subjectList = subjectMapper.get(key);
+            for (Subject subject : subjectList)
+            {
+                subject.onNext(content);
+            }
         }
+    }
+
+    private String genKey(String name, Object observe)
+    {
+        return name + "-" + observe.hashCode();
     }
 }

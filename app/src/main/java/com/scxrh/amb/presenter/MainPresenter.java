@@ -19,15 +19,16 @@ public class MainPresenter
         this.view = (MainView)view;
     }
 
-    public void initialize()
+    public void initView()
     {
-        view.initTab();
-        sysInfo.observable("city", City.class).subscribe(view::changeCity);
-        sysInfo.observable("community", City.class).subscribe(view::changeCommunity);
+        view.changeCity(sysInfo.getCity());
+        view.changeCommunity(sysInfo.getCommunity());
+        sysInfo.observable("city", this, City.class).subscribe(view::changeCity);
+        sysInfo.observable("community", this, City.class).subscribe(view::changeCommunity);
     }
 
-    public void changeTab(String tab)
+    public void onDestroyView()
     {
-        view.changeTab(tab);
+        sysInfo.unobservable(this);
     }
 }

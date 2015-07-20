@@ -2,9 +2,12 @@ package com.scxrh.amb.presenter;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
+import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.ProgressView;
@@ -24,6 +27,10 @@ public class SelCityPresenter
     MessageManager message;
     @Inject
     RestClient rest;
+    @Inject
+    SysInfo sysInfo;
+    @Inject
+    SettingsManager settings;
     private ProgressView view;
     private List<City> mData = new ArrayList<>();
     private List<String> pys = new ArrayList<>();
@@ -60,22 +67,24 @@ public class SelCityPresenter
         });
     }
 
-    public void loadCommunity(String cityCode)
+    public void loadCommunity()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        rest.queryCommunities(cityCode).observeOn(AndroidSchedulers.mainThread()).subscribe(cities -> {
-            if (cities != null)
-            {
-                mData.clear();
-                mData.addAll(prepareData(cities, false));
-                view.showData(mData);
+        rest.queryCommunities(sysInfo.getCity().getId())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(cities -> {
+                if (cities != null)
+                {
+                    mData.clear();
+                    mData.addAll(prepareData(cities, false));
+                    view.showData(mData);
+                    view.finish();
+                }
+            }, e -> {
+                view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
                 view.finish();
-            }
-        }, e -> {
-            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
-            view.finish();
-            e.printStackTrace();
-        });
+                e.printStackTrace();
+            });
     }
 
     public void filter(String s)
@@ -97,6 +106,20 @@ public class SelCityPresenter
         {
             view.showData(mData);
         }
+    }
+
+    public void changeCity(City city)
+    {
+        sysInfo.setCity(city);
+        Gson gson = new Gson();
+        settings.setValue(Const.KEY_CITY, gson.toJson(city));
+    }
+
+    public void changeCommunity(City city)
+    {
+        sysInfo.setCommunity(city);
+        Gson gson = new Gson();
+        settings.setValue(Const.KEY_COMMUNITY, gson.toJson(city));
     }
 
     private List<City> prepareData(List<List<City>> cities, boolean isCity)
