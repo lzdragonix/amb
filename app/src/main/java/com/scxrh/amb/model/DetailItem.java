@@ -8,6 +8,61 @@ public class DetailItem
     private String shopName;
     private String telephone;
     private String text;
+    private String name;
+    private String price;
+    private String thumbImgUrl;
+    private String desc;
+    private String itemId;
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(String price)
+    {
+        this.price = price;
+    }
+
+    public String getThumbImgUrl()
+    {
+        return thumbImgUrl;
+    }
+
+    public void setThumbImgUrl(String thumbImgUrl)
+    {
+        this.thumbImgUrl = thumbImgUrl;
+    }
+
+    public String getDesc()
+    {
+        return desc;
+    }
+
+    public void setDesc(String desc)
+    {
+        this.desc = desc;
+    }
+
+    public String getItemId()
+    {
+        return itemId;
+    }
+
+    public void setItemId(String itemId)
+    {
+        this.itemId = itemId;
+    }
 
     public String getImgUrl()
     {

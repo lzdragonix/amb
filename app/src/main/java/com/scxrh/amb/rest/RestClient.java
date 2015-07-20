@@ -141,6 +141,11 @@ public class RestClient
         return mAmbApi.queryShop(itemId);
     }
 
+    public Observable<DetailItem> queryProduct(String itemId)
+    {
+        return mAmbApi.queryProduct(itemId);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override

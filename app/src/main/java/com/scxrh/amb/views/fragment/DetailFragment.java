@@ -67,6 +67,9 @@ public class DetailFragment extends BaseFragment implements ProgressView
             case "shop":
                 txtHeader.setText("活动");
                 break;
+            case "product":
+                txtHeader.setText("商品详情");
+                break;
         }
     }
 
@@ -89,6 +92,9 @@ public class DetailFragment extends BaseFragment implements ProgressView
         {
             case "ad":
                 showAD(data);
+                break;
+            case "product":
+                showProduct(data);
                 break;
         }
     }
@@ -121,5 +127,17 @@ public class DetailFragment extends BaseFragment implements ProgressView
     private void showShop(Object data)
     {
         DetailItem di = (DetailItem)data;
+    }
+
+    private void showProduct(Object data)
+    {
+        DetailItem di = (DetailItem)data;
+        View view = getActivity().getLayoutInflater().inflate(R.layout.layout_detail_ad, detailContent, false);
+        SimpleDraweeView imgAD = ButterKnife.findById(view, R.id.imgAD);
+        String url = AmbApi.END_POINT + di.getImgUrl();
+        imgAD.setImageURI(Uri.parse(url));
+        TextView txtAdContent = ButterKnife.findById(view, R.id.txtAdContent);
+        txtAdContent.setText(di.getText());
+        detailContent.addView(view);
     }
 }
