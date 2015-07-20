@@ -32,6 +32,9 @@ public class DetailPresenter
             case "ad":
                 queryAd(item.getItemId());
                 break;
+            case "product":
+                queryProduct(item.getItemId());
+                break;
         }
     }
 
@@ -39,6 +42,18 @@ public class DetailPresenter
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
         rest.queryAd(itemId).observeOn(AndroidSchedulers.mainThread()).subscribe(detailItem -> {
+            view.showData(detailItem);
+            view.finish();
+        }, throwable -> {
+            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.finish();
+        });
+    }
+
+    private void queryProduct(String itemId)
+    {
+        view.showProgress(message.getMessage(Const.MSG_LOADING));
+        rest.queryProduct(itemId).observeOn(AndroidSchedulers.mainThread()).subscribe(detailItem -> {
             view.showData(detailItem);
             view.finish();
         }, throwable -> {

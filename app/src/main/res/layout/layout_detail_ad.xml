@@ -9,13 +9,16 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imgAD"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         fresco:actualImageScaleType="fitXY"
         fresco:placeholderImageScaleType="fitXY"
         fresco:placeholderImage="@mipmap/test_img_1"/>
 
     <TextView
         android:id="@+id/txtAdContent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

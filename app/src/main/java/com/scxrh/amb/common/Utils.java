@@ -1,6 +1,7 @@
 package com.scxrh.amb.common;
 
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.TypedValue;
 
 import org.json.JSONArray;
@@ -34,6 +35,21 @@ public class Utils
             JSONObject json = array.optJSONObject(i);
             if (json == null) { continue; }
             result.add(json);
+        }
+        return result;
+    }
+
+    public static float tryParse(String value, float defaultValue)
+    {
+        if (TextUtils.isEmpty(value)) { return defaultValue; }
+        float result;
+        try
+        {
+            result = Float.parseFloat(value);
+        }
+        catch (NumberFormatException e)
+        {
+            result = defaultValue;
         }
         return result;
     }

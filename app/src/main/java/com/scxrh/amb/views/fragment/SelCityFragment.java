@@ -1,6 +1,7 @@
 package com.scxrh.amb.views.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.scxrh.amb.App;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
@@ -21,6 +23,7 @@ import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.SelCityPresenter;
+import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
 
 import java.util.ArrayList;
@@ -147,7 +150,15 @@ public class SelCityFragment extends BaseFragment implements ProgressView
             City city = adapter.getItem(position);
             if ("0".equals(city.getId())) { return; }
             if (isComm) { sysInfo.setCommunity(city); }
-            else { sysInfo.setCity(city); }
+            else
+            {
+                sysInfo.setCity(city);
+                sysInfo.setCommunity(new City());
+                Intent intent = new Intent(getActivity(), WindowActivity.class);
+                intent.putExtra(Const.KEY_FRAGMENT, SelCityFragment.class.getName());
+                intent.putExtra("type", "community");
+                getActivity().startActivity(intent);
+            }
             getActivity().finish();
         };
 

@@ -3,6 +3,7 @@ package com.scxrh.amb.views.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -124,13 +125,13 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     public void changeCity(City city)
     {
         txtCity.setText(city.getName());
-        txtCommunity.setText("请选择");
     }
 
     @Override
     public void changeCommunity(City city)
     {
-        txtCommunity.setText(city.getName());
+        String name = city.getName();
+        txtCommunity.setText(TextUtils.isEmpty(name) ? "请选择" : name);
     }
 
     @OnClick(R.id.txtCity)
