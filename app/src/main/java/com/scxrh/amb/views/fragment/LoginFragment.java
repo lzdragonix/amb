@@ -14,8 +14,6 @@ import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.presenter.LoginPresenter;
-import com.scxrh.amb.views.activity.BaseActivity;
-import com.scxrh.amb.views.activity.MainActivity;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.LoginView;
 
@@ -61,7 +59,6 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
         txtUser.setOnEditorActionListener(this);
         txtPwd.setOnEditorActionListener(this);
         presenter.initialize();
-        ((MainActivity)getActivity()).setPresenter(presenter);
     }
 
     @Override
@@ -79,12 +76,9 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     }
 
     @Override
-    public void showMain()
+    public void close()
     {
-        if (isAdded())
-        {
-            ((BaseActivity)getActivity()).replaceFragment(R.id.container, new MainFragment(), MainFragment.TAG);
-        }
+        getActivity().finish();
     }
 
     @Override
@@ -122,7 +116,8 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     {
         Intent intent = new Intent(getActivity(), WindowActivity.class);
         intent.putExtra(Const.KEY_FRAGMENT, RegFragment.class.getName());
-        getActivity().startActivityForResult(intent, MainActivity.REQUESTCODE_REG);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @OnClick(R.id.btnRetPwd)
@@ -131,6 +126,7 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
         Intent intent = new Intent(getActivity(), WindowActivity.class);
         intent.putExtra(Const.KEY_FRAGMENT, RetrievePwdFragment.class.getName());
         startActivity(intent);
+        getActivity().finish();
     }
 
     @Override

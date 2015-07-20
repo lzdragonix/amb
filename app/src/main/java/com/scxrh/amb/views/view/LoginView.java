@@ -6,5 +6,5 @@ public interface LoginView extends ProgressView
 
     void initPwd(String pwd);
 
-    void showMain();
+    void close();
 }

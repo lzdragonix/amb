@@ -1,8 +1,14 @@
 package com.scxrh.amb.views.fragment;
 
-import com.scxrh.amb.R;
+import android.content.Intent;
 
-// 生活服务
+import com.scxrh.amb.Const;
+import com.scxrh.amb.R;
+import com.scxrh.amb.views.activity.WindowActivity;
+
+import butterknife.OnClick;
+
+// 我的
 public class MineFragment extends BaseFragment
 {
     public static final String TAG = MineFragment.class.getSimpleName();
@@ -11,5 +17,13 @@ public class MineFragment extends BaseFragment
     protected int getLayoutId()
     {
         return R.layout.fragment_mine;
+    }
+
+    @OnClick(R.id.login)
+    void showLogin()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, LoginFragment.class.getName());
+        startActivity(intent);
     }
 }

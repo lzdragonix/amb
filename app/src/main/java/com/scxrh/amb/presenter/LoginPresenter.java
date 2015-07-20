@@ -58,7 +58,7 @@ public class LoginPresenter
             settings.setValue(Const.KEY_ACCOUNT, user);
             settings.setValue(Const.KEY_PASSWORD, DES.encrypt(pwd, DES.getKey()));
             view.finish();
-            view.showMain();
+            view.close();
         }, throwable -> {
             if (throwable.getMessage().contains("error-password"))
             {
@@ -70,15 +70,5 @@ public class LoginPresenter
             }
             view.finish();
         });
-    }
-
-    public void inputUser(String user)
-    {
-        view.initUser(user);
-    }
-
-    public void inputPwd(String pwd)
-    {
-        view.initPwd(pwd);
     }
 }
