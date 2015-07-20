@@ -4,6 +4,7 @@ import com.scxrh.amb.injector.ActivityScope;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.views.fragment.AgreementFragment;
+import com.scxrh.amb.views.fragment.DetailFragment;
 import com.scxrh.amb.views.fragment.FinProFragment;
 import com.scxrh.amb.views.fragment.LiveFragment;
 import com.scxrh.amb.views.fragment.LoginFragment;
@@ -40,4 +41,6 @@ public interface MvpComponent
     void inject(LiveFragment fragment);
 
     void inject(RecommendFragment fragment);
+
+    void inject(DetailFragment fragment);
 }

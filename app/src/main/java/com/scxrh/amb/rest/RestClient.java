@@ -8,12 +8,14 @@ import com.google.gson.reflect.TypeToken;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
+import com.scxrh.amb.rest.serialiers.DetailItemDeserializer;
 import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
 import com.scxrh.amb.rest.serialiers.UIDataDeserializer;
@@ -46,7 +48,8 @@ public class RestClient
                    .registerTypeAdapter(new TypeToken<List<SalesManager>>() { }.getType(), new ManagerDeserializer())
                    .registerTypeAdapter(new TypeToken<List<FinancialProduct>>() { }.getType(),
                                         new FinProductDeserializer())
-                   .registerTypeAdapter(new TypeToken<Map<String, UIData>>() { }.getType(), new UIDataDeserializer());
+                   .registerTypeAdapter(new TypeToken<Map<String, UIData>>() { }.getType(), new UIDataDeserializer())
+                   .registerTypeAdapter(DetailItem.class, new DetailItemDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
         RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
@@ -126,6 +129,11 @@ public class RestClient
     public Observable<Map<String, UIData>> queryUIData(String page)
     {
         return mAmbApi.queryUIData(page);
+    }
+
+    public Observable<DetailItem> queryAd(String itemId)
+    {
+        return mAmbApi.queryAd(itemId);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

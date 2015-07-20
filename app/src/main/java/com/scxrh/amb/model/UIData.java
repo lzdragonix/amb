@@ -1,11 +1,11 @@
 package com.scxrh.amb.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by leo on 7/18/15.
- */
 public class UIData
 {
     private String locationId;
@@ -42,12 +42,28 @@ public class UIData
         this.items = items;
     }
 
-    public class Item
+    public static class Item implements Parcelable
     {
+        public static final Creator<Item> CREATOR = new Creator<Item>()
+        {
+            public Item createFromParcel(Parcel source) {return new Item(source);}
+
+            public Item[] newArray(int size) {return new Item[size];}
+        };
         private String contentType;
         private String imgUrl;
         private String itemId;
         private String itemType;
+
+        public Item() { }
+
+        protected Item(Parcel in)
+        {
+            this.contentType = in.readString();
+            this.imgUrl = in.readString();
+            this.itemId = in.readString();
+            this.itemType = in.readString();
+        }
 
         public String getContentType()
         {
@@ -87,6 +103,18 @@ public class UIData
         public void setItemType(String itemType)
         {
             this.itemType = itemType;
+        }
+
+        @Override
+        public int describeContents() { return 0; }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags)
+        {
+            dest.writeString(this.contentType);
+            dest.writeString(this.imgUrl);
+            dest.writeString(this.itemId);
+            dest.writeString(this.itemType);
         }
     }
 }

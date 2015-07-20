@@ -3,6 +3,8 @@ package com.scxrh.amb.views.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,8 +42,8 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     public static final String TAG = RecommendFragment.class.getSimpleName();
     @Inject
     RecomPresenter presenter;
-    @Bind(R.id.imgAD)
-    SimpleDraweeView imgAD;
+    @Bind(R.id.vpAD)
+    ViewPager vpAD;
     @Bind(R.id.rvShop)
     RecyclerView rvShop;
     @Bind(R.id.rvBuy)
@@ -115,8 +117,7 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     public void showData(Object data)
     {
         Map<String, UIData> uis = (Map<String, UIData>)data;
-        String url = AmbApi.END_POINT + uis.get("ad").getItems().get(0).getImgUrl();
-        imgAD.setImageURI(Uri.parse(url));
+        vpAD.setAdapter(new ADPagerAdapter(uis.get("ad").getItems()));
         rvShop.setAdapter(new RecyclerViewAdapter(uis.get("hot").getItems()));
         rvBuy.setAdapter(new RecyclerViewAdapter(uis.get("buy").getItems()));
         rvLottery.setAdapter(new RecyclerViewAdapter(uis.get("lottery").getItems()));
@@ -128,6 +129,14 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     public void finish()
     {
         closeProgressDialog();
+    }
+
+    private void showDetail(UIData.Item item)
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, DetailFragment.class.getName());
+        intent.putExtra(Const.KEY_DATA, item);
+        startActivity(intent);
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
@@ -170,6 +179,57 @@ public class RecommendFragment extends BaseFragment implements ProgressView
         {
             super(view);
             ButterKnife.bind(this, view);
+        }
+    }
+
+    private class ADPagerAdapter extends PagerAdapter
+    {
+        private List<UIData.Item> data;
+        private View[] pages;
+
+        public ADPagerAdapter(List<UIData.Item> data)
+        {
+            this.data = data;
+            pages = new View[data.size()];
+        }
+
+        @Override
+        public int getCount()
+        {
+            return pages.length;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position)
+        {
+            View view = pages[position];
+            if (view == null)
+            {
+                view = getActivity().getLayoutInflater().inflate(R.layout.layout_image_item_ad, container, false);
+                pages[position] = view;
+                String url = AmbApi.END_POINT + data.get(position).getImgUrl();
+                SimpleDraweeView img = (SimpleDraweeView)view.findViewById(R.id.imgItem);
+                img.setImageURI(Uri.parse(url));
+                view.setOnClickListener(v -> showDetail(data.get(position)));
+            }
+            if (view.getParent() != null)
+            {
+                ((ViewGroup)view.getParent()).removeView(view);
+            }
+            container.addView(view);
+            return view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object)
+        {
+            container.removeView(pages[position]);
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object)
+        {
+            return view == object;
         }
     }
 }

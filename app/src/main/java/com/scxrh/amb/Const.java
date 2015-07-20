@@ -20,6 +20,7 @@ public class Const
     public static final int MSG_PWD_INCONFORMITY = MSG_SERVER_ERROR + 12;
     //some key
     public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
+    public static final String KEY_DATA = "KEY_DATA";
     public static final String KEY_CODE = "code";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
     public static final String KEY_PASSWORD = "KEY_PASSWORD";
