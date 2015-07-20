@@ -63,6 +63,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="酒店"
+            android:visibility="gone"
             android:textColor="@color/c333333"/>
     </LinearLayout>
 

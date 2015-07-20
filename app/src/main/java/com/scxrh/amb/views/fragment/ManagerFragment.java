@@ -1,5 +1,6 @@
 package com.scxrh.amb.views.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -126,6 +127,11 @@ public class ManagerFragment extends BaseFragment implements ProgressView
             vh.phone.setText(sm.getTelephone());
             String url = AmbApi.END_POINT + sm.getPhotoUrl();
             vh.photo.setImageURI(Uri.parse(url));
+            vh.phone.setOnClickListener(v -> {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + ((TextView)v).getText().toString()));
+                startActivity(intent);
+            });
         }
 
         @Override

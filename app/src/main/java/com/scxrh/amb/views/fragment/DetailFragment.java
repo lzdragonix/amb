@@ -33,6 +33,8 @@ public class DetailFragment extends BaseFragment implements ProgressView
     DetailPresenter presenter;
     @Bind(R.id.detailContent)
     FrameLayout detailContent;
+    @Bind(R.id.txtHeader)
+    TextView txtHeader;
     private UIData.Item item;
 
     protected int getLayoutId()
@@ -57,6 +59,15 @@ public class DetailFragment extends BaseFragment implements ProgressView
         super.onActivityCreated(savedInstanceState);
         item = getArguments().getParcelable(Const.KEY_DATA);
         presenter.loadData(item);
+        switch (item.getContentType())
+        {
+            case "ad":
+                txtHeader.setText("广告详情");
+                break;
+            case "shop":
+                txtHeader.setText("活动");
+                break;
+        }
     }
 
     @Override
@@ -99,10 +110,16 @@ public class DetailFragment extends BaseFragment implements ProgressView
         DetailItem di = (DetailItem)data;
         View view = getActivity().getLayoutInflater().inflate(R.layout.layout_detail_ad, detailContent, false);
         SimpleDraweeView imgAD = ButterKnife.findById(view, R.id.imgAD);
-        String url = AmbApi.END_POINT + "/" + di.getImgUrl();
+        String url = AmbApi.END_POINT + di.getImgUrl();
         imgAD.setImageURI(Uri.parse(url));
         TextView txtAdContent = ButterKnife.findById(view, R.id.txtAdContent);
         txtAdContent.setText(di.getText());
         detailContent.addView(view);
+    }
+
+    //活动
+    private void showShop(Object data)
+    {
+        DetailItem di = (DetailItem)data;
     }
 }

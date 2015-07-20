@@ -27,8 +27,18 @@ public class DetailPresenter
 
     public void loadData(UIData.Item item)
     {
+        switch (item.getContentType())
+        {
+            case "ad":
+                queryAd(item.getItemId());
+                break;
+        }
+    }
+
+    private void queryAd(String itemId)
+    {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        rest.queryAd(item.getItemId()).observeOn(AndroidSchedulers.mainThread()).subscribe(detailItem -> {
+        rest.queryAd(itemId).observeOn(AndroidSchedulers.mainThread()).subscribe(detailItem -> {
             view.showData(detailItem);
             view.finish();
         }, throwable -> {

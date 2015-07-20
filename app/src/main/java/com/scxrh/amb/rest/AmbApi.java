@@ -51,4 +51,7 @@ public interface AmbApi
 
     @POST("/windforce/m/ad_queryAd.action")
     Observable<DetailItem> queryAd(@Query("itemId") String itemId);
+
+    @POST("/shopxx/m/shop_queryShop.action")
+    Observable<DetailItem> queryShop(@Query("itemId") String itemId);
 }

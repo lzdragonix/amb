@@ -78,14 +78,25 @@ public class SelCityPresenter
         });
     }
 
-    public int getCount()
+    public void filter(String s)
     {
-        return mData.size();
-    }
-
-    public City getItem(int index)
-    {
-        return mData.get(index);
+        if (!TextUtils.isEmpty(s))
+        {
+            List<City> cities = new ArrayList<>();
+            for (City city : mData)
+            {
+                if (cities.contains(city) || "0".equals(city.getId())) { continue; }
+                if (city.getName().contains(s) || city.getPinyin().contains(s))
+                {
+                    cities.add(city);
+                }
+            }
+            view.showData(cities);
+        }
+        else
+        {
+            view.showData(mData);
+        }
     }
 
     private List<City> prepareData(List<List<City>> cities, boolean isCity)

@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.scxrh.amb.App;
@@ -19,6 +22,9 @@ import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.SelCityPresenter;
 import com.scxrh.amb.views.view.ProgressView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,68 +46,9 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     TextView txtHeader;
     @Bind(R.id.rvList)
     RecyclerView mRecyclerView;
+    @Bind(R.id.etxSearch)
+    EditText etxSearch;
     private boolean isComm = false;
-    private RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>()
-    {
-        OnItemClickListener mOnItemClickListener = (view, position) -> {
-            City city = presenter.getItem(position);
-            if ("0".equals(city.getId())) { return; }
-            if (isComm) { sysInfo.setCommunity(city); }
-            else { sysInfo.setCity(city); }
-            getActivity().finish();
-        };
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-        {
-            View view;
-            if (viewType == VIEWTYPE_INDEX)
-            {
-                view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_city_item_index, parent, false);
-                return new ViewHolderIndex(view);
-            }
-            else
-            {
-                view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_city_item, parent, false);
-                return new ViewHolderContent(view);
-            }
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
-        {
-            holder.itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position));
-            if (holder instanceof ViewHolderIndex)
-            {
-                ((ViewHolderIndex)holder).index.setText(presenter.getItem(position).getName());
-            }
-            else if (holder instanceof ViewHolderContent)
-            {
-                int i = position + 1;
-                if (i < presenter.getCount() - 1 && "0".equals(presenter.getItem(i).getId()))
-                {
-                    ((ViewHolderContent)holder).divider.setVisibility(View.INVISIBLE);
-                }
-                else
-                {
-                    ((ViewHolderContent)holder).divider.setVisibility(View.VISIBLE);
-                }
-                ((ViewHolderContent)holder).name.setText(presenter.getItem(position).getName());
-            }
-        }
-
-        @Override
-        public int getItemViewType(int position)
-        {
-            return "0".equals(presenter.getItem(position).getId()) ? VIEWTYPE_INDEX : VIEWTYPE_CONTENT;
-        }
-
-        @Override
-        public int getItemCount()
-        {
-            return presenter.getCount();
-        }
-    };
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
@@ -110,11 +57,9 @@ public class SelCityFragment extends BaseFragment implements ProgressView
         isComm = !TextUtils.isEmpty(getArguments().getString("type"));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //mRecyclerView.addItemDecoration(new DividerItemDecoration(LinearLayoutManager.VERTICAL));
-        mRecyclerView.setAdapter(mAdapter);
         if (isComm)
         {
             txtHeader.setText(getString(R.string.txt_select_community));
-            //presenter.loadCommunity("402881882ba8753a012ba934ac770127");
             presenter.loadCommunity(sysInfo.getCity().getId());
         }
         else
@@ -122,6 +67,22 @@ public class SelCityFragment extends BaseFragment implements ProgressView
             txtHeader.setText(getString(R.string.txt_select_city));
             presenter.loadCity();
         }
+        etxSearch.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                presenter.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            { }
+        });
     }
 
     @Override
@@ -161,9 +122,10 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void showData(Object data)
     {
-        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(new RecyclerViewAdapter((List<City>)data));
     }
 
     @Override
@@ -175,6 +137,80 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     interface OnItemClickListener
     {
         void onItemClick(View view, int position);
+    }
+
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+    {
+        private List<City> data;
+        OnItemClickListener mOnItemClickListener = (view, position) -> {
+            RecyclerViewAdapter adapter = (RecyclerViewAdapter)((RecyclerView)view.getParent()).getAdapter();
+            City city = adapter.getItem(position);
+            if ("0".equals(city.getId())) { return; }
+            if (isComm) { sysInfo.setCommunity(city); }
+            else { sysInfo.setCity(city); }
+            getActivity().finish();
+        };
+
+        public RecyclerViewAdapter(List<City> data)
+        {
+            this.data = data == null ? new ArrayList<>() : data;
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            View view;
+            if (viewType == VIEWTYPE_INDEX)
+            {
+                view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_city_item_index, parent, false);
+                return new ViewHolderIndex(view);
+            }
+            else
+            {
+                view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_city_item, parent, false);
+                return new ViewHolderContent(view);
+            }
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
+        {
+            holder.itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position));
+            if (holder instanceof ViewHolderIndex)
+            {
+                ((ViewHolderIndex)holder).index.setText(data.get(position).getName());
+            }
+            else if (holder instanceof ViewHolderContent)
+            {
+                int i = position + 1;
+                if (i < data.size() - 1 && "0".equals(data.get(i).getId()))
+                {
+                    ((ViewHolderContent)holder).divider.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    ((ViewHolderContent)holder).divider.setVisibility(View.VISIBLE);
+                }
+                ((ViewHolderContent)holder).name.setText(data.get(position).getName());
+            }
+        }
+
+        @Override
+        public int getItemViewType(int position)
+        {
+            return "0".equals(data.get(position).getId()) ? VIEWTYPE_INDEX : VIEWTYPE_CONTENT;
+        }
+
+        @Override
+        public int getItemCount()
+        {
+            return data.size();
+        }
+
+        public City getItem(int position)
+        {
+            return data.get(position);
+        }
     }
 
     class ViewHolderContent extends RecyclerView.ViewHolder

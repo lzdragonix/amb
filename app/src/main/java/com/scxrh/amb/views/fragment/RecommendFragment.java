@@ -139,9 +139,18 @@ public class RecommendFragment extends BaseFragment implements ProgressView
         startActivity(intent);
     }
 
+    interface OnItemClickListener
+    {
+        void onItemClick(View view, int position);
+    }
+
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
         private List<UIData.Item> data;
+        private OnItemClickListener mOnItemClickListener = (view, position) -> {
+            UIData.Item item = ((RecyclerViewAdapter)((RecyclerView)view.getParent()).getAdapter()).getItem(position);
+            showDetail(item);
+        };
 
         public RecyclerViewAdapter(List<UIData.Item> data)
         {
@@ -158,6 +167,7 @@ public class RecommendFragment extends BaseFragment implements ProgressView
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
+            holder.itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position));
             ViewHolder vh = (ViewHolder)holder;
             String url = AmbApi.END_POINT + data.get(position).getImgUrl();
             vh.imgItem.setImageURI(Uri.parse(url));
@@ -167,6 +177,11 @@ public class RecommendFragment extends BaseFragment implements ProgressView
         public int getItemCount()
         {
             return data.size();
+        }
+
+        public UIData.Item getItem(int position)
+        {
+            return data.get(position);
         }
     }
 

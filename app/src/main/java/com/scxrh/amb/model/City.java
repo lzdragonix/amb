@@ -57,4 +57,19 @@ public class City
     {
         this.py = py;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+        City city = (City)o;
+        return !(id != null ? !id.equals(city.id) : city.id != null);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return id != null ? id.hashCode() : 0;
+    }
 }
