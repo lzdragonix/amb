@@ -91,4 +91,12 @@ public class MineFragment extends BaseFragment implements MineView
         intent.putExtra(Const.KEY_FRAGMENT, FavoriteFragment.class.getName());
         startActivity(intent);
     }
+
+    @OnClick(R.id.tsjy)
+    void tsjy()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, SuggestionFragment.class.getName());
+        startActivity(intent);
+    }
 }

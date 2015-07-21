@@ -27,5 +27,7 @@
     <string name="msg_loading_failed">加载数据失败</string>
     <string name="msg_error_password">用户名或密码不正确</string>
     <string name="msg_pwd_inconformity">两次密码录入不一致</string>
+    <string name="msg_submit_failed">提交数据失败</string>
+    <string name="msg_submit_success">提交数据成功</string>
 
 </resources>

@@ -163,6 +163,11 @@ public class RestClient
         return mAmbApi.modifyPassword(oldPassword, newPassword);
     }
 
+    public Observable<JSONObject> submitSuggest(String name, String contactInfo, String content)
+    {
+        return mAmbApi.submitSuggest(name, contactInfo, content);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override

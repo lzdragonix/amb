@@ -18,6 +18,8 @@ public class Const
     public static final int MSG_LOADING_FAILED = MSG_SERVER_ERROR + 10;
     public static final int MSG_ERROR_PASSWORD = MSG_SERVER_ERROR + 11;
     public static final int MSG_PWD_INCONFORMITY = MSG_SERVER_ERROR + 12;
+    public static final int MSG_SUBMIT_FAILED = MSG_SERVER_ERROR + 13;
+    public static final int MSG_SUBMIT_SUCCESS = MSG_SERVER_ERROR + 14;
     //some key
     public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
     public static final String KEY_DATA = "KEY_DATA";

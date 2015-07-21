@@ -29,6 +29,8 @@ public class MessageManager
         map.put(Const.MSG_LOADING_FAILED, r.getString(R.string.msg_loading_failed));
         map.put(Const.MSG_ERROR_PASSWORD, r.getString(R.string.msg_error_password));
         map.put(Const.MSG_PWD_INCONFORMITY, r.getString(R.string.msg_pwd_inconformity));
+        map.put(Const.MSG_SUBMIT_FAILED, r.getString(R.string.msg_submit_failed));
+        map.put(Const.MSG_SUBMIT_SUCCESS, r.getString(R.string.msg_submit_success));
     }
 
     public String getMessage(int msgId)
