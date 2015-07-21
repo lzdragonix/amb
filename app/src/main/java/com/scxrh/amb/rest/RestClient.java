@@ -171,6 +171,11 @@ public class RestClient
         return mAmbApi.submitSuggest(name, contactInfo, content);
     }
 
+    public Observable<BankInfo> queryBank(String bankNo, String communityId)
+    {
+        return mAmbApi.queryBank(bankNo, communityId);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override
