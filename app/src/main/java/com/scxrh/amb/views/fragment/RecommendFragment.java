@@ -100,6 +100,14 @@ public class RecommendFragment extends BaseFragment implements ProgressView
         startActivity(intent);
     }
 
+    @OnClick(R.id.btnFav)
+    void btnFav()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, FavoriteFragment.class.getName());
+        startActivity(intent);
+    }
+
     @Override
     public void showProgress(String msg)
     {

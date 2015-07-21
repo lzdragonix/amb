@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.model.BankInfo;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FinancialProduct;
@@ -15,6 +16,7 @@ import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
+import com.scxrh.amb.rest.serialiers.BankInfoDeserializer;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
 import com.scxrh.amb.rest.serialiers.DetailItemDeserializer;
 import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
@@ -56,6 +58,7 @@ public class RestClient
                    .registerTypeAdapter(new TypeToken<Map<String, UIData>>() { }.getType(), new UIDataDeserializer())
                    .registerTypeAdapter(DetailItem.class, new DetailItemDeserializer())
                    .registerTypeAdapter(JSONObject.class, new JSONObjectDeserializer())
+                   .registerTypeAdapter(BankInfo.class, new BankInfoDeserializer())
                    .registerTypeAdapter(UserInfo.class, new UserInfoDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();

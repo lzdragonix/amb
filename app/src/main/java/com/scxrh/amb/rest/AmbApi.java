@@ -1,6 +1,7 @@
 package com.scxrh.amb.rest;
 
 import com.google.gson.JsonObject;
+import com.scxrh.amb.model.BankInfo;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FinancialProduct;
@@ -74,4 +75,7 @@ public interface AmbApi
     @POST("/windforce/m/suggestion_submitSuggest.action")
     Observable<JSONObject> submitSuggest(@Query("name") String name, @Query("contactInfo") String contactInfo,
             @Query("content") String content);
+
+    @POST("/windforce/m/bank_queryBank.action")
+    Observable<BankInfo> queryBank(@Query("bankNo") String bankNo, @Query("cityCode") String cityCode);
 }
