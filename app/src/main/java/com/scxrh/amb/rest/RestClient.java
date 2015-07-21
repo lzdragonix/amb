@@ -154,6 +154,11 @@ public class RestClient
         return mAmbApi.queryCurUserInfo();
     }
 
+    public Observable<Response> modifyPassword(String oldPassowrd, String newPassword)
+    {
+        return mAmbApi.modifyPassword(oldPassowrd, newPassword);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override

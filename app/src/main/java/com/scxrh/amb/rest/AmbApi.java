@@ -61,4 +61,11 @@ public interface AmbApi
 
     @POST("/windforce/m/user_queryCurUserInfo.action")
     Observable<UserInfo> queryCurUserInfo();
+
+    @POST("/windforce/m/user_modifyUserInfo.action")
+    Observable<Response> modifyUserInfo();
+
+    @POST("/windforce/m/user_modifyPassword.action")
+    Observable<Response> modifyPassword(@Query("oldPassowrd") String oldPassowrd,
+            @Query("newPassword") String newPassword);
 }

@@ -164,11 +164,11 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     }
 
     @OnClick(R.id.shezhi)
-    void showSZ()
+    void showSettings()
     {
-        //        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        //        intent.putExtra(Const.KEY_FRAGMENT, PerInfoFragment.class.getName());
-        //        startActivity(intent);
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, SettingsFragment.class.getName());
+        startActivity(intent);
     }
 
     private void reset()
