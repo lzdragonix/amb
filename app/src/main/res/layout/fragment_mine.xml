@@ -50,6 +50,7 @@
             android:background="@color/cadadae"/>
 
         <ImageView
+            android:id="@+id/favorite"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@mipmap/my_sc"/>
