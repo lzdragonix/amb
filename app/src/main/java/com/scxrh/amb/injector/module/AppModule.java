@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.common.RxBus;
+import com.scxrh.amb.manager.DirManager;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.City;
@@ -72,6 +73,13 @@ public class AppModule
         return sysInfo;
     }
 
+    @Singleton
+    @Provides
+    public DirManager provideDirManager()
+    {
+        return new DirManager();
+    }
+
     private void initSysInfo(SysInfo info)
     {
         String name = settings.getString(Const.KEY_USER_NAME);
@@ -87,5 +95,6 @@ public class AppModule
         info.setCity(city);
         city = gson.fromJson(settings.getString(Const.KEY_COMMUNITY), City.class);
         info.setCommunity(city == null ? new City() : city);
+        info.setAvatar(settings.getString(Const.KEY_AVATAR));
     }
 }

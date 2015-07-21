@@ -1,12 +1,15 @@
 package com.scxrh.amb.views.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
@@ -32,6 +35,8 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     TextView txtPwd;
     @Bind(R.id.btnLogin)
     View btnLogin;
+    @Bind(R.id.imgAvatar)
+    SimpleDraweeView imgAvatar;
     @Inject
     LoginPresenter presenter;
 
@@ -58,7 +63,14 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
         super.onActivityCreated(savedInstanceState);
         txtUser.setOnEditorActionListener(this);
         txtPwd.setOnEditorActionListener(this);
-        presenter.initialize();
+        presenter.initView();
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        presenter.onDestroyView();
     }
 
     @Override
@@ -73,6 +85,13 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     {
         txtUser.setText(pwd);
         txtUser.setSelection(pwd.length());
+    }
+
+    @Override
+    public void changeAvatar(String path)
+    {
+        if (TextUtils.isEmpty(path)) { return; }
+        imgAvatar.setImageURI(Uri.parse(path));
     }
 
     @Override

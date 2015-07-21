@@ -42,6 +42,7 @@
                 android:layout_marginRight="10dp"
                 fresco:actualImageScaleType="focusCrop"
                 fresco:placeholderImageScaleType="focusCrop"
+                fresco:roundAsCircle="true"
                 fresco:placeholderImage="@mipmap/login_img"/>
 
             <ImageView

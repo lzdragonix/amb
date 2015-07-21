@@ -1,12 +1,17 @@
 package com.scxrh.amb.views.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
@@ -37,6 +42,8 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
     TextView txtCommunity;
     @Bind(R.id.txtCity)
     TextView txtCity;
+    @Bind(R.id.imgAvatar)
+    SimpleDraweeView imgAvatar;
     @Inject
     PerInfoPresenter presenter;
 
@@ -62,20 +69,10 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
     }
 
     @Override
-    protected int getLayoutId()
+    public void changeAvatar(String path)
     {
-        return R.layout.fragment_per_info;
-    }
-
-    @Override
-    protected void injectDependencies()
-    {
-        DaggerMvpComponent.builder()
-                          .appComponent(App.getAppComponent())
-                          .activityModule(new ActivityModule(getActivity()))
-                          .mvpModule(new MvpModule(this))
-                          .build()
-                          .inject(this);
+        if (TextUtils.isEmpty(path)) { return; }
+        imgAvatar.setImageURI(Uri.parse(path));
     }
 
     @Override
@@ -93,6 +90,50 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
         presenter.onDestroyView();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (resultCode != Activity.RESULT_OK) { return; }
+        if (requestCode == Const.REQUESTCODE_CAMERA)
+        {
+            Uri uri = presenter.getUriFile();
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            intent.setDataAndType(uri, "image/*");
+            intent.putExtra("crop", "true");
+            intent.putExtra("aspectX", 1);
+            intent.putExtra("aspectY", 1);
+            intent.putExtra("outputX", 120);
+            intent.putExtra("outputY", 120);
+            intent.putExtra("scale", true);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra("return-data", false);
+            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+            intent.putExtra("noFaceDetection", true);
+            getActivity().startActivityForResult(intent, Const.REQUESTCODE_CROP);
+        }
+        else if (requestCode == Const.REQUESTCODE_CROP)
+        {
+            presenter.modifyAvatar();
+        }
+    }
+
+    @Override
+    protected int getLayoutId()
+    {
+        return R.layout.fragment_per_info;
+    }
+
+    @Override
+    protected void injectDependencies()
+    {
+        DaggerMvpComponent.builder()
+                          .appComponent(App.getAppComponent())
+                          .activityModule(new ActivityModule(getActivity()))
+                          .mvpModule(new MvpModule(this))
+                          .build()
+                          .inject(this);
+    }
+
     @OnClick(R.id.btnBack)
     void btnBack()
     {
@@ -101,7 +142,18 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
 
     @OnClick(R.id.rlAvatar)
     void avatar()
-    { }
+    {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, presenter.getUriFile());
+        try
+        {
+            getActivity().startActivityForResult(intent, Const.REQUESTCODE_CAMERA);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     @OnClick(R.id.txtCity)
     void selectCity()

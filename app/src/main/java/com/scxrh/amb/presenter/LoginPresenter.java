@@ -7,6 +7,7 @@ import com.scxrh.amb.common.DES;
 import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.LoginView;
 import com.scxrh.amb.views.view.MvpView;
@@ -25,6 +26,8 @@ public class LoginPresenter
     SettingsManager settings;
     @Inject
     RestClient rest;
+    @Inject
+    SysInfo sysInfo;
 
     @Inject
     public LoginPresenter(MvpView view)
@@ -32,11 +35,17 @@ public class LoginPresenter
         this.view = (LoginView)view;
     }
 
-    public void initialize()
+    public void initView()
     {
         String user = settings.getString(Const.KEY_ACCOUNT);
-        if (TextUtils.isEmpty(user)) { return; }
-        view.initUser(user);
+        if (!TextUtils.isEmpty(user)) { view.initUser(user); }
+        view.changeAvatar(sysInfo.getAvatar());
+        sysInfo.observable("avatar", this, String.class).subscribe(view::changeAvatar);
+    }
+
+    public void onDestroyView()
+    {
+        sysInfo.unobservable(this);
     }
 
     public void login(final String user, final String pwd)

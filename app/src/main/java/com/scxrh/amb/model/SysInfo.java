@@ -18,6 +18,18 @@ public class SysInfo
     private City city = new City();
     private City community = new City();
     private String name = "";
+    private String avatar = "";
+
+    public String getAvatar()
+    {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar)
+    {
+        this.avatar = avatar;
+        notify("avatar", avatar);
+    }
 
     public String getName()
     {

@@ -28,6 +28,7 @@ public class Const
     public static final String KEY_USER_NAME = "KEY_USER_NAME";
     public static final String KEY_CITY = "KEY_CITY";
     public static final String KEY_COMMUNITY = "KEY_COMMUNITY";
+    public static final String KEY_AVATAR = "KEY_AVATAR";
     //rest returncode
     public static final String RETURNCODE_0000 = "0000";
     public static final String RETURNCODE_0001 = "0001";
@@ -39,4 +40,7 @@ public class Const
             "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$");
     public static final Pattern REGEX_IDCARD_18 = Pattern.compile(
             "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$");
+    //some requestcode
+    public static final int REQUESTCODE_CAMERA = 0xf000;
+    public static final int REQUESTCODE_CROP = REQUESTCODE_CAMERA + 1;
 }

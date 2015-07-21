@@ -10,6 +10,7 @@ import com.scxrh.amb.views.fragment.LiveFragment;
 import com.scxrh.amb.views.fragment.LoginFragment;
 import com.scxrh.amb.views.fragment.MainFragment;
 import com.scxrh.amb.views.fragment.ManagerFragment;
+import com.scxrh.amb.views.fragment.MineFragment;
 import com.scxrh.amb.views.fragment.PerInfoFragment;
 import com.scxrh.amb.views.fragment.RecommendFragment;
 import com.scxrh.amb.views.fragment.RegFragment;
@@ -46,4 +47,6 @@ public interface MvpComponent
     void inject(DetailFragment fragment);
 
     void inject(PerInfoFragment fragment);
+
+    void inject(MineFragment fragment);
 }

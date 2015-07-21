@@ -9,4 +9,6 @@ public interface PerInfoView extends ProgressView
     void changeCity(City city);
 
     void changeCommunity(City city);
+
+    void changeAvatar(String path);
 }

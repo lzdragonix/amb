@@ -1,5 +1,6 @@
 package com.scxrh.amb.views.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,23 @@ import android.view.ViewGroup;
 
 import com.scxrh.amb.views.activity.BaseActivity;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment
 {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        List<Fragment> childFragments = getChildFragmentManager().getFragments();
+        if (childFragments == null) { return; }
+        for (Fragment child : childFragments)
+        {
+            child.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
