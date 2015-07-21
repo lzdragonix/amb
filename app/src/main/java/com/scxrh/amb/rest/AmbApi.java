@@ -8,6 +8,8 @@ import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.model.UserInfo;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +68,6 @@ public interface AmbApi
     Observable<Response> modifyUserInfo();
 
     @POST("/windforce/m/user_modifyPassword.action")
-    Observable<Response> modifyPassword(@Query("oldPassowrd") String oldPassowrd,
+    Observable<JSONObject> modifyPassword(@Query("oldPassword") String oldPassword,
             @Query("newPassword") String newPassword);
 }

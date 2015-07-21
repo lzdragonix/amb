@@ -22,6 +22,7 @@ public class Const
     public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
     public static final String KEY_DATA = "KEY_DATA";
     public static final String KEY_CODE = "code";
+    public static final String KEY_MESSAGE = "message";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
     public static final String KEY_PASSWORD = "KEY_PASSWORD";
     public static final String KEY_COOKIE = "KEY_COOKIE";

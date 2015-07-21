@@ -18,9 +18,12 @@ import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
 import com.scxrh.amb.rest.serialiers.DetailItemDeserializer;
 import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
+import com.scxrh.amb.rest.serialiers.JSONObjectDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
 import com.scxrh.amb.rest.serialiers.UIDataDeserializer;
 import com.scxrh.amb.rest.serialiers.UserInfoDeserializer;
+
+import org.json.JSONObject;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -52,6 +55,7 @@ public class RestClient
                                         new FinProductDeserializer())
                    .registerTypeAdapter(new TypeToken<Map<String, UIData>>() { }.getType(), new UIDataDeserializer())
                    .registerTypeAdapter(DetailItem.class, new DetailItemDeserializer())
+                   .registerTypeAdapter(JSONObject.class, new JSONObjectDeserializer())
                    .registerTypeAdapter(UserInfo.class, new UserInfoDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
@@ -154,9 +158,9 @@ public class RestClient
         return mAmbApi.queryCurUserInfo();
     }
 
-    public Observable<Response> modifyPassword(String oldPassowrd, String newPassword)
+    public Observable<JSONObject> modifyPassword(String oldPassword, String newPassword)
     {
-        return mAmbApi.modifyPassword(oldPassowrd, newPassword);
+        return mAmbApi.modifyPassword(oldPassword, newPassword);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

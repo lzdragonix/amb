@@ -1,16 +1,19 @@
 package com.scxrh.amb.views.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.scxrh.amb.App;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.presenter.ModifyPwdPresenter;
-import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.views.activity.WindowActivity;
+import com.scxrh.amb.views.view.ModifyPwdView;
 
 import javax.inject.Inject;
 
@@ -18,7 +21,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 // 找回密码
-public class ModifyPwdFragment extends BaseFragment implements ProgressView
+public class ModifyPwdFragment extends BaseFragment implements ModifyPwdView
 {
     public static final String TAG = ModifyPwdFragment.class.getSimpleName();
     @Bind(R.id.txtHeader)
@@ -93,5 +96,19 @@ public class ModifyPwdFragment extends BaseFragment implements ProgressView
     {
         btnSubmit.setEnabled(true);
         closeProgressDialog();
+    }
+
+    @Override
+    public void close()
+    {
+        getActivity().finish();
+    }
+
+    @Override
+    public void showLogin()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, LoginFragment.class.getName());
+        startActivity(intent);
     }
 }
