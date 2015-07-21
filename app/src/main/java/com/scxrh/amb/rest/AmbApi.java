@@ -6,6 +6,7 @@ import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
+import com.scxrh.amb.model.UserInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -57,4 +58,7 @@ public interface AmbApi
 
     @POST("/shopxx/m/product_queryProduct.action")
     Observable<DetailItem> queryProduct(@Query("itemId") String itemId);
+
+    @POST("/windforce/m/user_queryCurUserInfo.action")
+    Observable<UserInfo> queryCurUserInfo();
 }

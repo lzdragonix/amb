@@ -12,6 +12,7 @@ import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
+import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.rest.exception.NetworkTimeOutException;
 import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
@@ -19,6 +20,7 @@ import com.scxrh.amb.rest.serialiers.DetailItemDeserializer;
 import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
 import com.scxrh.amb.rest.serialiers.UIDataDeserializer;
+import com.scxrh.amb.rest.serialiers.UserInfoDeserializer;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -49,7 +51,8 @@ public class RestClient
                    .registerTypeAdapter(new TypeToken<List<FinancialProduct>>() { }.getType(),
                                         new FinProductDeserializer())
                    .registerTypeAdapter(new TypeToken<Map<String, UIData>>() { }.getType(), new UIDataDeserializer())
-                   .registerTypeAdapter(DetailItem.class, new DetailItemDeserializer());
+                   .registerTypeAdapter(DetailItem.class, new DetailItemDeserializer())
+                   .registerTypeAdapter(UserInfo.class, new UserInfoDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
         RestAdapter restAdapter = builder.setEndpoint(AmbApi.END_POINT)
@@ -146,6 +149,11 @@ public class RestClient
         return mAmbApi.queryProduct(itemId);
     }
 
+    public Observable<UserInfo> queryCurUserInfo()
+    {
+        return mAmbApi.queryCurUserInfo();
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override
@@ -159,7 +167,7 @@ public class RestClient
             }
             else
             {
-                return new NetworkErrorException();
+                return new NetworkErrorException(cause.getMessage());
             }
             return new Exception();
         }

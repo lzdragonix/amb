@@ -76,11 +76,26 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
     }
 
     @Override
+    public void showLogin()
+    {
+        Intent intent = new Intent(getActivity(), WindowActivity.class);
+        intent.putExtra(Const.KEY_FRAGMENT, LoginFragment.class.getName());
+        startActivity(intent);
+    }
+
+    @Override
+    public void close()
+    {
+        getActivity().finish();
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText("个人信息");
         presenter.initView();
+        presenter.loadData();
     }
 
     @Override
@@ -198,6 +213,7 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
     @Override
     public void finish()
     {
+        closeProgressDialog();
         btnSubmit.setEnabled(true);
     }
 }
