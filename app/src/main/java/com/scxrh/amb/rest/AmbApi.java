@@ -48,7 +48,7 @@ public interface AmbApi
 
     @POST("/windforce/m/mfinancialProduct_queryFinancialProduct.action")
     Observable<List<FinancialProduct>> queryFinancialProduct(@Query("communityId") String communityId,
-            @Query("bankNo") String bankNo);
+            @Query("bankNo") String bankNo, @Query("itemId") String itemId);
 
     @POST("/windforce/m/ui_queryUIData.action")
     Observable<Map<String, UIData>> queryUIData(@Query("pageName") String pageName);

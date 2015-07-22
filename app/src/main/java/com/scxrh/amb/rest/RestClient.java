@@ -126,9 +126,9 @@ public class RestClient
         return mAmbApi.queryManagers(communityId);
     }
 
-    public Observable<List<FinancialProduct>> queryFinancialProduct(String communityId, String bankNo)
+    public Observable<List<FinancialProduct>> queryFinancialProduct(String communityId, String bankNo, String itemId)
     {
-        return mAmbApi.queryFinancialProduct(communityId, bankNo);
+        return mAmbApi.queryFinancialProduct(communityId, bankNo, itemId);
     }
 
     public Observable<Response> restorePwd(String tel, String pwd, String verify)

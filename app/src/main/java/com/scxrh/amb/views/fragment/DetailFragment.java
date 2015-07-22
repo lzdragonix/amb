@@ -15,10 +15,13 @@ import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.DetailItem;
+import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.presenter.DetailPresenter;
 import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.view.ProgressView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -71,6 +74,9 @@ public class DetailFragment extends BaseFragment implements ProgressView
             case "product":
                 txtHeader.setText("商品详情");
                 break;
+            case "finance":
+                txtHeader.setText("移动金融");
+                break;
         }
     }
 
@@ -96,6 +102,9 @@ public class DetailFragment extends BaseFragment implements ProgressView
                 break;
             case "product":
                 showProduct(data);
+                break;
+            case "finance":
+                showFinance(data);
                 break;
         }
     }
@@ -143,6 +152,21 @@ public class DetailFragment extends BaseFragment implements ProgressView
         desc.setText(di.getDesc());
         TextView price = ButterKnife.findById(view, R.id.price);
         price.setText("￥" + String.format("%.2f", Utils.tryParse(di.getPrice(), 0f)));
+        detailContent.addView(view);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void showFinance(Object data)
+    {
+        FinancialProduct di = ((List<FinancialProduct>)data).get(0);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.layout_detail_finance, detailContent, false);
+        SimpleDraweeView img = ButterKnife.findById(view, R.id.img);
+        String url = AmbApi.END_POINT + di.getImgUrl();
+        img.setImageURI(Uri.parse(url));
+        TextView name = ButterKnife.findById(view, R.id.name);
+        name.setText(di.getName());
+        TextView desc = ButterKnife.findById(view, R.id.desc);
+        desc.setText(di.getDesc());
         detailContent.addView(view);
     }
 }

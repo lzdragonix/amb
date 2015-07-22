@@ -27,7 +27,7 @@ public class FinProPresenter
     public void loadData(String communityId, String bankNo)
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        rest.queryFinancialProduct(communityId, bankNo).observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
+        rest.queryFinancialProduct(communityId, bankNo, "").observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
             view.showData(list);
             view.finish();
         }, throwable -> {
