@@ -77,5 +77,5 @@ public interface AmbApi
             @Query("content") String content);
 
     @POST("/windforce/m/bank_queryBank.action")
-    Observable<BankInfo> queryBank(@Query("bankNo") String bankNo, @Query("communityId") String communityId);
+    Observable<List<BankInfo>> queryBank(@Query("cityCode") String cityCode, @Query("communityId") String communityId);
 }

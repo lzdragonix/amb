@@ -4,9 +4,31 @@ public class BankInfo
 {
     private String bankNo;
     private String bankName;
+    private String bankLogo;
+    private String cityCode;
     private String communityId;
     private String telephone;
     private String address;
+
+    public String getBankLogo()
+    {
+        return bankLogo;
+    }
+
+    public void setBankLogo(String bankLogo)
+    {
+        this.bankLogo = bankLogo;
+    }
+
+    public String getCityCode()
+    {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode)
+    {
+        this.cityCode = cityCode;
+    }
 
     public String getBankNo()
     {

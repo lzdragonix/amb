@@ -58,7 +58,7 @@ public class RestClient
                    .registerTypeAdapter(new TypeToken<Map<String, UIData>>() { }.getType(), new UIDataDeserializer())
                    .registerTypeAdapter(DetailItem.class, new DetailItemDeserializer())
                    .registerTypeAdapter(JSONObject.class, new JSONObjectDeserializer())
-                   .registerTypeAdapter(BankInfo.class, new BankInfoDeserializer())
+                   .registerTypeAdapter(new TypeToken<List<BankInfo>>() { }.getType(), new BankInfoDeserializer())
                    .registerTypeAdapter(UserInfo.class, new UserInfoDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
@@ -171,9 +171,9 @@ public class RestClient
         return mAmbApi.submitSuggest(name, contactInfo, content);
     }
 
-    public Observable<BankInfo> queryBank(String bankNo, String communityId)
+    public Observable<List<BankInfo>> queryBank(String cityCode, String communityId)
     {
-        return mAmbApi.queryBank(bankNo, communityId);
+        return mAmbApi.queryBank(cityCode, communityId);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
