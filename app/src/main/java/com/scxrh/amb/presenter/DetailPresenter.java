@@ -30,6 +30,7 @@ public class DetailPresenter
         switch (item.getContentType())
         {
             case "ad":
+            case "ad2":
                 queryAd(item.getItemId());
                 break;
             case "product":

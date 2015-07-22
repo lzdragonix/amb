@@ -29,7 +29,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-// 生活 附近
+// 详细信息
 public class DetailFragment extends BaseFragment implements ProgressView
 {
     public static final String TAG = DetailFragment.class.getSimpleName();
@@ -66,6 +66,7 @@ public class DetailFragment extends BaseFragment implements ProgressView
         switch (item.getContentType())
         {
             case "ad":
+            case "ad2":
                 txtHeader.setText("广告详情");
                 break;
             case "shop":
@@ -98,6 +99,7 @@ public class DetailFragment extends BaseFragment implements ProgressView
         switch (item.getContentType())
         {
             case "ad":
+            case "ad2":
                 showAD(data);
                 break;
             case "product":
