@@ -2,7 +2,7 @@ package com.scxrh.amb.presenter;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
-import com.scxrh.amb.model.SysInfo;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.FinanceView;
 import com.scxrh.amb.views.view.MvpView;
@@ -18,7 +18,7 @@ public class FinancePresenter
     @Inject
     MessageManager message;
     @Inject
-    SysInfo sysInfo;
+    AppInfo appInfo;
     private FinanceView view;
 
     @Inject
@@ -30,8 +30,8 @@ public class FinancePresenter
     public void loadData()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        String cityCode = sysInfo.getCity().getId();
-        String communityId = sysInfo.getCommunity().getId();
+        String cityCode = appInfo.getCity().getId();
+        String communityId = appInfo.getCommunity().getId();
         rest.queryBank(cityCode, communityId).observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
             view.showData(list);
             view.finish();
@@ -44,7 +44,7 @@ public class FinancePresenter
     public void loadManager()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        String communityId = sysInfo.getCommunity().getId();
+        String communityId = appInfo.getCommunity().getId();
         rest.queryManagers(communityId).observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
             view.showManager(list);
             view.finish();
@@ -57,7 +57,7 @@ public class FinancePresenter
     public void loadProduct()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        String communityId = sysInfo.getCommunity().getId();
+        String communityId = appInfo.getCommunity().getId();
         rest.queryFinancialProduct(communityId, "", "").observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
             view.showProduct(list);
             view.finish();

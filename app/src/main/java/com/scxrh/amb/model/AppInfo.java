@@ -12,7 +12,7 @@ import rx.Observable;
 import rx.subjects.PublishSubject;
 import rx.subjects.Subject;
 
-public class SysInfo
+public class AppInfo
 {
     private Map<String, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
     private City city = new City();

@@ -7,8 +7,8 @@ import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.manager.DirManager;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
-import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.rest.RestClient;
 
 import javax.inject.Singleton;
@@ -21,13 +21,13 @@ public class AppModule
 {
     private App mApp;
     private SettingsManager settings;
-    private SysInfo sysInfo;
+    private AppInfo sysInfo;
 
     public AppModule(App application)
     {
         mApp = application;
         settings = new SettingsManager(mApp);
-        sysInfo = new SysInfo();
+        sysInfo = new AppInfo();
         initSysInfo(sysInfo);
     }
 
@@ -68,7 +68,7 @@ public class AppModule
 
     @Singleton
     @Provides
-    public SysInfo provideSysInfo()
+    public AppInfo provideSysInfo()
     {
         return sysInfo;
     }
@@ -80,7 +80,7 @@ public class AppModule
         return new DirManager();
     }
 
-    private void initSysInfo(SysInfo info)
+    private void initSysInfo(AppInfo info)
     {
         String name = settings.getString(Const.KEY_USER_NAME);
         info.setName(name);

@@ -1,6 +1,6 @@
 package com.scxrh.amb.presenter;
 
-import com.scxrh.amb.model.SysInfo;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.views.view.MineView;
 import com.scxrh.amb.views.view.MvpView;
 
@@ -9,7 +9,7 @@ import javax.inject.Inject;
 public class MinePresenter
 {
     @Inject
-    SysInfo sysInfo;
+    AppInfo appInfo;
     private MineView view;
 
     @Inject
@@ -20,12 +20,12 @@ public class MinePresenter
 
     public void initView()
     {
-        view.changeAvatar(sysInfo.getAvatar());
-        sysInfo.observable("avatar", this, String.class).subscribe(view::changeAvatar);
+        view.changeAvatar(appInfo.getAvatar());
+        appInfo.observable("avatar", this, String.class).subscribe(view::changeAvatar);
     }
 
     public void onDestroyView()
     {
-        sysInfo.unobservable(this);
+        appInfo.unobservable(this);
     }
 }

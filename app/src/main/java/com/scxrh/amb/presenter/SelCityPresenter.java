@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
-import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.ProgressView;
@@ -28,7 +28,7 @@ public class SelCityPresenter
     @Inject
     RestClient rest;
     @Inject
-    SysInfo sysInfo;
+    AppInfo appInfo;
     @Inject
     SettingsManager settings;
     private ProgressView view;
@@ -70,7 +70,7 @@ public class SelCityPresenter
     public void loadCommunity()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        rest.queryCommunities(sysInfo.getCity().getId())
+        rest.queryCommunities(appInfo.getCity().getId())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(cities -> {
                 if (cities != null)
@@ -110,14 +110,14 @@ public class SelCityPresenter
 
     public void changeCity(City city)
     {
-        sysInfo.setCity(city);
+        appInfo.setCity(city);
         Gson gson = new Gson();
         settings.setValue(Const.KEY_CITY, gson.toJson(city));
     }
 
     public void changeCommunity(City city)
     {
-        sysInfo.setCommunity(city);
+        appInfo.setCommunity(city);
         Gson gson = new Gson();
         settings.setValue(Const.KEY_COMMUNITY, gson.toJson(city));
     }

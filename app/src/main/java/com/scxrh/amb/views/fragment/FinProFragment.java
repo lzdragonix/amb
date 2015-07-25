@@ -15,8 +15,8 @@ import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.FinancialProduct;
-import com.scxrh.amb.model.SysInfo;
 import com.scxrh.amb.presenter.FinProPresenter;
 import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.view.ProgressView;
@@ -40,8 +40,6 @@ public class FinProFragment extends BaseFragment implements ProgressView
     RecyclerView mRecyclerView;
     @Bind(R.id.txtHeader)
     TextView txtHeader;
-    @Inject
-    SysInfo sysInfo;
 
     @Override
     protected int getLayoutId()
@@ -66,7 +64,7 @@ public class FinProFragment extends BaseFragment implements ProgressView
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText(getString(R.string.txt_fin_product));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        presenter.loadData(sysInfo.getCommunity().getId(), "");
+        presenter.loadData();
     }
 
     @Override

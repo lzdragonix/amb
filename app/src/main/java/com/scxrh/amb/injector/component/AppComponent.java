@@ -6,7 +6,7 @@ import com.scxrh.amb.injector.module.AppModule;
 import com.scxrh.amb.manager.DirManager;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
-import com.scxrh.amb.model.SysInfo;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.rest.RestClient;
 
 import javax.inject.Singleton;
@@ -27,7 +27,7 @@ public interface AppComponent
 
     RestClient getRestClient();
 
-    SysInfo getSysInfo();
+    AppInfo getSysInfo();
 
     DirManager getDirManager();
 }

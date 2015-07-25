@@ -2,7 +2,7 @@ package com.scxrh.amb.presenter;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
-import com.scxrh.amb.model.SysInfo;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.BankView;
 import com.scxrh.amb.views.view.MvpView;
@@ -18,7 +18,7 @@ public class BankPresenter
     @Inject
     MessageManager message;
     @Inject
-    SysInfo sysInfo;
+    AppInfo appInfo;
     private BankView view;
 
     @Inject
@@ -30,8 +30,8 @@ public class BankPresenter
     public void loadData()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
-        String cityCode = sysInfo.getCity().getId();
-        String communityId = sysInfo.getCommunity().getId();
+        String cityCode = appInfo.getCity().getId();
+        String communityId = appInfo.getCommunity().getId();
         rest.queryBank(cityCode, communityId).observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
             view.showData(list);
             view.finish();

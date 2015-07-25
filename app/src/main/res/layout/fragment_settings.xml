@@ -71,12 +71,14 @@
         </RelativeLayout>
 
         <View
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:background="@color/ccccccc"/>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rlAbout"
             android:layout_width="match_parent"
             android:layout_height="60dp">
@@ -98,12 +100,14 @@
         </RelativeLayout>
 
         <View
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:background="@color/ccccccc"/>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rlShare"
             android:layout_width="match_parent"
             android:layout_height="60dp">
