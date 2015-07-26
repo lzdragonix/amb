@@ -21,7 +21,7 @@ import rx.Observable;
 
 public interface AmbApi
 {
-    String END_POINT = "http://113.106.63.129:8489";
+    String END_POINT = "http://183.38.68.19:8489";
 
     @POST("/windforce/m/mlogin.action")
     Observable<Response> login(@Query("userKey") String user, @Query("password") String pwd);

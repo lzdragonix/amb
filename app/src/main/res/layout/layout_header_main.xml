@@ -5,7 +5,7 @@
                 android:background="@color/c0a465e">
 
     <ImageView
-        android:id="@+id/img1"
+        android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/img1"
+        android:layout_toRightOf="@+id/img"
         android:layout_marginLeft="10dp"
         android:textColor="@color/cffffff"
         android:textSize="16sp"

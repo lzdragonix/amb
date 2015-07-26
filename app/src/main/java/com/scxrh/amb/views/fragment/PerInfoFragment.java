@@ -44,6 +44,8 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
     TextView txtCity;
     @Bind(R.id.imgAvatar)
     SimpleDraweeView imgAvatar;
+    @Bind(R.id.addr)
+    EditText addr;
     @Inject
     PerInfoPresenter presenter;
 

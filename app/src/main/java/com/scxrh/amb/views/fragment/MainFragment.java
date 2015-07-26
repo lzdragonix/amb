@@ -48,6 +48,8 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     TextView txtCommunity;
     @Bind(R.id.txtCity)
     TextView txtCity;
+    @Bind(R.id.img)
+    ImageView img;
     @Bind(R.id.shezhi)
     ImageView shezhi;
     private Map<String, TabHolder> tabs = new HashMap<>();
@@ -150,6 +152,15 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         if (TAB_MINE.equals(name))
         {
             shezhi.setVisibility(View.VISIBLE);
+            img.setVisibility(View.INVISIBLE);
+            txtCity.setVisibility(View.INVISIBLE);
+            txtCommunity.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            img.setVisibility(View.VISIBLE);
+            txtCity.setVisibility(View.VISIBLE);
+            txtCommunity.setVisibility(View.VISIBLE);
         }
     }
 

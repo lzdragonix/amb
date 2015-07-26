@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
@@ -27,6 +28,8 @@ public class MineFragment extends BaseFragment implements MineView
     public static final String TAG = MineFragment.class.getSimpleName();
     @Bind(R.id.imgAvatar)
     SimpleDraweeView imgAvatar;
+    @Bind(R.id.txt_account)
+    TextView txtAccount;
     @Inject
     MinePresenter presenter;
 
@@ -74,6 +77,12 @@ public class MineFragment extends BaseFragment implements MineView
     {
         if (TextUtils.isEmpty(path)) { return; }
         imgAvatar.setImageURI(Uri.parse(path));
+    }
+
+    @Override
+    public void setAccount(String account)
+    {
+        txtAccount.setText(account);
     }
 
     @OnClick(R.id.grxx)
