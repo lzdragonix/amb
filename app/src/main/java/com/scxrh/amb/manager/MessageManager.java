@@ -31,6 +31,7 @@ public class MessageManager
         map.put(Const.MSG_PWD_INCONFORMITY, r.getString(R.string.msg_pwd_inconformity));
         map.put(Const.MSG_SUBMIT_FAILED, r.getString(R.string.msg_submit_failed));
         map.put(Const.MSG_SUBMIT_SUCCESS, r.getString(R.string.msg_submit_success));
+        map.put(Const.MSG_REG_SUCCESS, r.getString(R.string.msg_reg_success));
     }
 
     public String getMessage(int msgId)

@@ -30,13 +30,13 @@ public class ModifyPwdPresenter
     {
         if (TextUtils.isEmpty(oldpwd) || TextUtils.isEmpty(newpwd) || TextUtils.isEmpty(newpwd1))
         {
-            view.showError(message.getMessage(Const.MSG_EMPTY_USER_OR_PASSWORD));
+            view.showMessage(message.getMessage(Const.MSG_EMPTY_USER_OR_PASSWORD));
             view.finish();
             return;
         }
         if (!newpwd.equals(newpwd1))
         {
-            view.showError(message.getMessage(Const.MSG_PWD_INCONFORMITY));
+            view.showMessage(message.getMessage(Const.MSG_PWD_INCONFORMITY));
             view.finish();
             return;
         }
@@ -46,7 +46,7 @@ public class ModifyPwdPresenter
             String msg = response.optString(Const.KEY_MESSAGE);
             if (Const.RETURNCODE_0000.equals(code))
             {
-                view.showError("密码修改成功");
+                view.showMessage("密码修改成功");
                 view.close();
             }
             else if (Const.RETURNCODE_0001.equals(code))
@@ -58,16 +58,16 @@ public class ModifyPwdPresenter
             {
                 if (TextUtils.isEmpty(msg))
                 {
-                    view.showError("密码修改失败");
+                    view.showMessage("密码修改失败");
                 }
                 else
                 {
-                    view.showError(msg);
+                    view.showMessage(msg);
                 }
             }
             view.finish();
         }, throwable -> {
-            view.showError("密码修改失败");
+            view.showMessage("密码修改失败");
             view.finish();
         });
     }

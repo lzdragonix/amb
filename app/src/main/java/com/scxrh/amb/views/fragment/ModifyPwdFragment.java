@@ -82,7 +82,7 @@ public class ModifyPwdFragment extends BaseFragment implements ModifyPwdView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

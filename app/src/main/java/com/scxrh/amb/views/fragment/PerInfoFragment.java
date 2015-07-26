@@ -201,7 +201,7 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

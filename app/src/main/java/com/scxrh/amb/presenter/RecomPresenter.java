@@ -2,7 +2,9 @@ package com.scxrh.amb.presenter;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.rest.RestClient;
+import com.scxrh.amb.views.fragment.MainFragment;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.ProgressView;
 
@@ -18,6 +20,8 @@ public class RecomPresenter
     MessageManager message;
     @Inject
     RestClient rest;
+    @Inject
+    AppInfo appInfo;
 
     @Inject
     public RecomPresenter(MvpView view)
@@ -32,8 +36,13 @@ public class RecomPresenter
             view.showData(list);
             view.finish();
         }, throwable -> {
-            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
             view.finish();
         });
+    }
+
+    public void goFinTab()
+    {
+        appInfo.changeTab(MainFragment.TAB_FINANCE);
     }
 }

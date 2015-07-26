@@ -42,31 +42,31 @@ public class RetPresenter
     {
         if (!Utils.regex(user, Const.REGEX_MOBILE))
         {
-            view.showError(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
+            view.showMessage(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
             view.finish();
             return;
         }
         if (TextUtils.isEmpty(verify))
         {
-            view.showError(message.getMessage(Const.MSG_INPUT_VERIFY_CODE));
+            view.showMessage(message.getMessage(Const.MSG_INPUT_VERIFY_CODE));
             view.finish();
             return;
         }
         if (pwd == null || pwd.length() < 6)
         {
-            view.showError(message.getMessage(Const.MSG_PWD_IS_SHORT));
+            view.showMessage(message.getMessage(Const.MSG_PWD_IS_SHORT));
             view.finish();
             return;
         }
         if (!pwd.equals(pwd1))
         {
-            view.showError(message.getMessage(Const.MSG_PWD_INCONFORMITY));
+            view.showMessage(message.getMessage(Const.MSG_PWD_INCONFORMITY));
             view.finish();
             return;
         }
         if (!agree)
         {
-            view.showError(message.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
+            view.showMessage(message.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
             view.finish();
             return;
         }
@@ -75,7 +75,7 @@ public class RetPresenter
             view.finish();
             view.success();
         }, throwable -> {
-            view.showError(message.getMessage(Const.MSG_SERVER_ERROR));
+            view.showMessage(message.getMessage(Const.MSG_SERVER_ERROR));
         });
     }
 }

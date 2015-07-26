@@ -52,13 +52,13 @@ public class LoginPresenter
     {
         if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pwd))
         {
-            view.showError(message.getMessage(Const.MSG_EMPTY_USER_OR_PASSWORD));
+            view.showMessage(message.getMessage(Const.MSG_EMPTY_USER_OR_PASSWORD));
             view.finish();
             return;
         }
         if (!Utils.regex(user, Const.REGEX_MOBILE))
         {
-            view.showError(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
+            view.showMessage(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
             view.finish();
             return;
         }
@@ -71,11 +71,11 @@ public class LoginPresenter
         }, throwable -> {
             if (throwable.getMessage().contains("error-password"))
             {
-                view.showError(message.getMessage(Const.MSG_ERROR_PASSWORD));
+                view.showMessage(message.getMessage(Const.MSG_ERROR_PASSWORD));
             }
             else
             {
-                view.showError(message.getMessage(Const.MSG_SERVER_ERROR));
+                view.showMessage(message.getMessage(Const.MSG_SERVER_ERROR));
             }
             view.finish();
         });

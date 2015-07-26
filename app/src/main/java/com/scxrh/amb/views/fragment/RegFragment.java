@@ -132,7 +132,7 @@ public class RegFragment extends BaseFragment implements RegView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

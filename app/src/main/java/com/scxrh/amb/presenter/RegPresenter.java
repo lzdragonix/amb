@@ -32,34 +32,36 @@ public class RegPresenter
     {
         if (!Utils.regex(user, Const.REGEX_MOBILE))
         {
-            view.showError(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
+            view.showMessage(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
             view.finish();
             return;
         }
         if (TextUtils.isEmpty(verify))
         {
-            view.showError(message.getMessage(Const.MSG_INPUT_VERIFY_CODE));
+            view.showMessage(message.getMessage(Const.MSG_INPUT_VERIFY_CODE));
             view.finish();
             return;
         }
         if (pwd == null || pwd.length() < 6)
         {
-            view.showError(message.getMessage(Const.MSG_PWD_IS_SHORT));
+            view.showMessage(message.getMessage(Const.MSG_PWD_IS_SHORT));
             view.finish();
             return;
         }
         if (!agree)
         {
-            view.showError(message.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
+            view.showMessage(message.getMessage(Const.MSG_AGREE_REG_PROTOCOL));
             view.finish();
             return;
         }
         view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
         rest.register(user, pwd, verify).observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
             view.regSuccess();
+            view.showMessage(message.getMessage(Const.MSG_REG_SUCCESS));
+            rest.login(user, pwd).subscribe();
             view.finish();
         }, throwable -> {
-            view.showError(message.getMessage(Const.MSG_REG_FAILED));
+            view.showMessage(message.getMessage(Const.MSG_REG_FAILED));
             view.finish();
         });
     }

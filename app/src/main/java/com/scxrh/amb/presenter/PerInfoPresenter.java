@@ -69,7 +69,7 @@ public class PerInfoPresenter
             }
             else
             {
-                view.showError(message.getMessage(Const.MSG_LOADING));
+                view.showMessage(message.getMessage(Const.MSG_LOADING));
                 view.finish();
             }
         });

@@ -35,7 +35,7 @@ public class ManagerPresenter
             view.showData(list);
             view.finish();
         }, throwable -> {
-            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
             view.finish();
         });
     }

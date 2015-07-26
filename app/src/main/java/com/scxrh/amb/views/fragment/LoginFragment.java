@@ -107,7 +107,7 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

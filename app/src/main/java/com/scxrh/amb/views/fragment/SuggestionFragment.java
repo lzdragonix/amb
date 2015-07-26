@@ -95,7 +95,7 @@ public class SuggestionFragment extends BaseFragment implements SuggView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

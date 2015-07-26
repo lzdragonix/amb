@@ -7,4 +7,6 @@ public interface MainView extends MvpView
     void changeCity(City city);
 
     void changeCommunity(City city);
+
+    void changeTab(String tab);
 }

@@ -34,10 +34,10 @@ import butterknife.OnClick;
 public class MainFragment extends BaseFragment implements MainView, TabHost.OnTabChangeListener
 {
     public static final String TAG = MainFragment.class.getSimpleName();
-    private static final String TAB_RECOMM = "TAB_RECOMM";
-    private static final String TAB_LIVE = "TAB_LIVE";
-    private static final String TAB_FINANCE = "TAB_FINANCE";
-    private static final String TAB_MINE = "TAB_MINE";
+    public static final String TAB_RECOMM = "TAB_RECOMM";
+    public static final String TAB_LIVE = "TAB_LIVE";
+    public static final String TAB_FINANCE = "TAB_FINANCE";
+    public static final String TAB_MINE = "TAB_MINE";
     @Inject
     MainPresenter presenter;
     @Bind(android.R.id.tabhost)
@@ -59,7 +59,7 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         initTab();
         presenter.initView();
         tabhost.setOnTabChangedListener(this);
-        changeTab(TAB_RECOMM);
+        changeTabState(TAB_RECOMM);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
     @Override
     public void onTabChanged(String tabId)
     {
-        changeTab(tabId);
+        changeTabState(tabId);
     }
 
     @Override
@@ -133,7 +133,14 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         txtCommunity.setText(TextUtils.isEmpty(name) ? "请选择" : name);
     }
 
-    private void changeTab(String name)
+    @Override
+    public void changeTab(String tab)
+    {
+        if (TextUtils.isEmpty(tab)) { return; }
+        tabhost.setCurrentTabByTag(tab);
+    }
+
+    private void changeTabState(String name)
     {
         reset();
         TabHolder tab = tabs.get(name);

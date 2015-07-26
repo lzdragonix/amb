@@ -82,7 +82,7 @@ public class FinanceFragment extends BaseFragment implements FinanceView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

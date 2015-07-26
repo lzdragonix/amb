@@ -134,7 +134,7 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

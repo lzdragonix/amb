@@ -4,7 +4,7 @@ public interface ProgressView extends MvpView
 {
     void showProgress(String msg);
 
-    void showError(String msg);
+    void showMessage(String msg);
 
     void showData(Object data);
 

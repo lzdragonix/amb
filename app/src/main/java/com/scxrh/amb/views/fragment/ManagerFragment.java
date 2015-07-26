@@ -80,7 +80,7 @@ public class ManagerFragment extends BaseFragment implements ProgressView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

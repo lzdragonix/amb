@@ -36,7 +36,7 @@ public class FinancePresenter
             view.showData(list);
             view.finish();
         }, throwable -> {
-            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
             view.finish();
         });
     }
@@ -49,7 +49,7 @@ public class FinancePresenter
             view.showManager(list);
             view.finish();
         }, throwable -> {
-            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
             view.finish();
         });
     }
@@ -62,7 +62,7 @@ public class FinancePresenter
             view.showProduct(list);
             view.finish();
         }, throwable -> {
-            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
             view.finish();
         });
     }

@@ -61,7 +61,7 @@ public class SelCityPresenter
                 view.finish();
             }
         }, e -> {
-            view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
             view.finish();
             e.printStackTrace();
         });
@@ -81,7 +81,7 @@ public class SelCityPresenter
                     view.finish();
                 }
             }, e -> {
-                view.showError(message.getMessage(Const.MSG_LOADING_FAILED));
+                view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
                 view.finish();
                 e.printStackTrace();
             });

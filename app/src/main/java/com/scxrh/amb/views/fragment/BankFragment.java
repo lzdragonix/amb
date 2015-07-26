@@ -79,7 +79,7 @@ public class BankFragment extends BaseFragment implements BankView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

@@ -2,6 +2,8 @@ package com.scxrh.amb.model;
 
 import android.support.annotation.NonNull;
 
+import com.scxrh.amb.views.fragment.MainFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ public class AppInfo
     private City community = new City();
     private String name = "";
     private String avatar = "";
+    private String tab = MainFragment.TAB_RECOMM;
 
     public String getAvatar()
     {
@@ -62,6 +65,12 @@ public class AppInfo
     {
         this.city = city;
         notify("city", city);
+    }
+
+    public void changeTab(String tab)
+    {
+        this.tab = tab;
+        notify("tab", tab);
     }
 
     @SuppressWarnings({ "unchecked", "unused" })

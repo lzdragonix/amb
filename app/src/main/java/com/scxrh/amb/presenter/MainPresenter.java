@@ -25,6 +25,7 @@ public class MainPresenter
         view.changeCommunity(appInfo.getCommunity());
         appInfo.observable("city", this, City.class).subscribe(view::changeCity);
         appInfo.observable("community", this, City.class).subscribe(view::changeCommunity);
+        appInfo.observable("tab", this, String.class).subscribe(view::changeTab);
     }
 
     public void onDestroyView()

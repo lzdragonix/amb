@@ -30,19 +30,19 @@ public class SuggPresenter
     {
         if (TextUtils.isEmpty(content))
         {
-            view.showError("请输入投诉建议内容");
+            view.showMessage("请输入投诉建议内容");
             view.finish();
             return;
         }
         if (TextUtils.isEmpty(name))
         {
-            view.showError("请输入您的姓名");
+            view.showMessage("请输入您的姓名");
             view.finish();
             return;
         }
         if (TextUtils.isEmpty(contactInfo))
         {
-            view.showError("请输入联系方式");
+            view.showMessage("请输入联系方式");
             view.finish();
             return;
         }
@@ -52,7 +52,7 @@ public class SuggPresenter
             String msg = response.optString(Const.KEY_MESSAGE);
             if (Const.RETURNCODE_0000.equals(code))
             {
-                view.showError(message.getMessage(Const.MSG_SUBMIT_SUCCESS));
+                view.showMessage(message.getMessage(Const.MSG_SUBMIT_SUCCESS));
                 view.close();
             }
             else if (Const.RETURNCODE_0001.equals(code))
@@ -64,16 +64,16 @@ public class SuggPresenter
             {
                 if (TextUtils.isEmpty(msg))
                 {
-                    view.showError(message.getMessage(Const.MSG_SUBMIT_FAILED));
+                    view.showMessage(message.getMessage(Const.MSG_SUBMIT_FAILED));
                 }
                 else
                 {
-                    view.showError(msg);
+                    view.showMessage(msg);
                 }
             }
             view.finish();
         }, throwable -> {
-            view.showError(message.getMessage(Const.MSG_SUBMIT_FAILED));
+            view.showMessage(message.getMessage(Const.MSG_SUBMIT_FAILED));
             view.finish();
         });
     }

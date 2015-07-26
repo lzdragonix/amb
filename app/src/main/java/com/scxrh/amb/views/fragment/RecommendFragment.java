@@ -103,9 +103,10 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     @OnClick(R.id.btnBank)
     void btnBank()
     {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, BankFragment.class.getName());
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), WindowActivity.class);
+//        intent.putExtra(Const.KEY_FRAGMENT, BankFragment.class.getName());
+//        startActivity(intent);
+        presenter.goFinTab();
     }
 
     @OnClick(R.id.btnFav)
@@ -123,7 +124,7 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     }
 
     @Override
-    public void showError(String msg)
+    public void showMessage(String msg)
     {
         toast(msg);
     }

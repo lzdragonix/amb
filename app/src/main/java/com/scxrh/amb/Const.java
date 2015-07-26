@@ -20,6 +20,7 @@ public class Const
     public static final int MSG_PWD_INCONFORMITY = MSG_SERVER_ERROR + 12;
     public static final int MSG_SUBMIT_FAILED = MSG_SERVER_ERROR + 13;
     public static final int MSG_SUBMIT_SUCCESS = MSG_SERVER_ERROR + 14;
+    public static final int MSG_REG_SUCCESS = MSG_SERVER_ERROR + 15;
     //some key
     public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
     public static final String KEY_DATA = "KEY_DATA";
