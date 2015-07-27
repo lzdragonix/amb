@@ -66,7 +66,9 @@ public interface AmbApi
     Observable<UserInfo> queryCurUserInfo();
 
     @POST("/windforce/m/user_modifyUserInfo.action")
-    Observable<Response> modifyUserInfo();
+    Observable<Response> modifyUserInfo(@Query("userId") String userId, @Query("userName") String userName,
+            @Query("telephone") String telephone, @Query("email") String email, @Query("address") String address,
+            @Query("communityId") String communityId);
 
     @POST("/windforce/m/user_modifyPassword.action")
     Observable<JSONObject> modifyPassword(@Query("oldPassword") String oldPassword,

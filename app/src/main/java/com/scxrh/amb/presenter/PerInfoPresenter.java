@@ -6,8 +6,8 @@ import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.DirManager;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
-import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.AppInfo;
+import com.scxrh.amb.model.City;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.PerInfoView;
@@ -28,7 +28,7 @@ public class PerInfoPresenter
     SettingsManager settings;
     @Inject
     DirManager dir;
-    private PerInfoView view;
+    PerInfoView view;
     private Uri uriFile;
 
     @Inject
@@ -98,6 +98,18 @@ public class PerInfoPresenter
         settings.setValue(Const.KEY_AVATAR, path);
     }
 
-    public void submit()
-    { }
+    public void submit(String name, String addr)
+    {
+        String communityId = appInfo.getCommunity().getId();
+        view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
+        rest.modifyUserInfo("", name, "", "", addr, communityId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(userInfo -> {
+                view.showMessage(message.getMessage(Const.MSG_SUBMIT_SUCCESS));
+                view.finish();
+                view.close();
+            }, throwable -> {
+                view.showMessage(message.getMessage(Const.MSG_SUBMIT_FAILED));
+            });
+    }
 }

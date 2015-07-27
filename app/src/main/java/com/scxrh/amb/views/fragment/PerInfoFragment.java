@@ -193,7 +193,7 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
     void submit()
     {
         presenter.modifyName(name.getText().toString());
-        presenter.submit();
+        presenter.submit(name.getText().toString(), addr.getText().toString());
     }
 
     @Override

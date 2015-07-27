@@ -176,6 +176,12 @@ public class RestClient
         return mAmbApi.queryBank(cityCode, communityId);
     }
 
+    public Observable<Response> modifyUserInfo(String userId, String userName, String telephone, String email,
+            String address, String communityId)
+    {
+        return mAmbApi.modifyUserInfo(userId, userName, telephone, email, address, communityId);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override
