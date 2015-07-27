@@ -1,6 +1,7 @@
 package com.scxrh.amb.common;
 
 import android.content.res.Resources;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.TypedValue;
 
@@ -14,6 +15,11 @@ import java.util.regex.Pattern;
 
 public class Utils
 {
+    public static boolean hasSDCard()
+    {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+    }
+
     public static int dpToPx(int dip)
     {
         Resources r = Resources.getSystem();

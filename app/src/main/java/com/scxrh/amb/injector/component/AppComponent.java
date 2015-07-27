@@ -3,7 +3,6 @@ package com.scxrh.amb.injector.component;
 import com.scxrh.amb.App;
 import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.injector.module.AppModule;
-import com.scxrh.amb.manager.DirManager;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
@@ -28,6 +27,4 @@ public interface AppComponent
     RestClient getRestClient();
 
     AppInfo getSysInfo();
-
-    DirManager getDirManager();
 }

@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.common.RxBus;
-import com.scxrh.amb.manager.DirManager;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
@@ -71,13 +70,6 @@ public class AppModule
     public AppInfo provideSysInfo()
     {
         return sysInfo;
-    }
-
-    @Singleton
-    @Provides
-    public DirManager provideDirManager()
-    {
-        return new DirManager();
     }
 
     private void initSysInfo(AppInfo info)

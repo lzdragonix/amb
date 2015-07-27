@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.scxrh.amb.common.CrashHandler;
 import com.scxrh.amb.injector.component.AppComponent;
 import com.scxrh.amb.injector.component.DaggerAppComponent;
 import com.scxrh.amb.injector.module.AppModule;
@@ -28,6 +29,7 @@ public class App extends Application
         super.onCreate();
         initializeInjector();
         Fresco.initialize(this);
+        CrashHandler.initInstance(this);
     }
 
     private void initializeInjector()

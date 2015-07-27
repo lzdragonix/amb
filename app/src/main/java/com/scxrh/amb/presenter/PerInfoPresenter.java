@@ -26,8 +26,6 @@ public class PerInfoPresenter
     AppInfo appInfo;
     @Inject
     SettingsManager settings;
-    @Inject
-    DirManager dir;
     PerInfoView view;
     private Uri uriFile;
 
@@ -85,7 +83,7 @@ public class PerInfoPresenter
     {
         if (uriFile == null)
         {
-            String path = "file://" + dir.getPath() + "/" + System.currentTimeMillis();
+            String path = "file://" + DirManager.getPath() + "/" + System.currentTimeMillis();
             uriFile = Uri.parse(path);
         }
         return uriFile;
