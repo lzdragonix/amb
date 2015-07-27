@@ -8,12 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
+import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
@@ -32,6 +34,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 // 社区金融
 public class FinanceFragment extends BaseFragment implements FinanceView
 {
@@ -48,6 +52,8 @@ public class FinanceFragment extends BaseFragment implements FinanceView
     ViewPager vpManager;
     @Bind(R.id.productContent)
     LinearLayout productContent;
+    @Bind(R.id.ll_dots)
+    LinearLayout llDots;
 
     @Override
     protected int getLayoutId()
@@ -70,6 +76,22 @@ public class FinanceFragment extends BaseFragment implements FinanceView
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        vpManager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            { }
+
+            @Override
+            public void onPageSelected(int position)
+            {
+                changeDot(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            { }
+        });
         presenter.loadData();
         presenter.loadManager();
         presenter.loadProduct();
@@ -114,6 +136,19 @@ public class FinanceFragment extends BaseFragment implements FinanceView
     {
         List<SalesManager> list = (List<SalesManager>)data;
         vpManager.setAdapter(new ManagerPagerAdapter(list));
+        //dots
+        int count = vpManager.getAdapter().getCount();
+        for (int i = 0; i < count; i++)
+        {
+            ImageView img = new ImageView(getActivity());
+            img.setBackgroundResource(R.drawable.selector_dots);
+            img.setEnabled(false);
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+            int margin = Utils.dpToPx(5);
+            param.setMargins(margin, margin, margin, margin);
+            llDots.addView(img, param);
+        }
+        changeDot(0);
     }
 
     @Override
@@ -134,6 +169,17 @@ public class FinanceFragment extends BaseFragment implements FinanceView
             description.setText(product.getDesc());
             productContent.addView(view);
         }
+    }
+
+    private void changeDot(int index)
+    {
+        int count = llDots.getChildCount();
+        if (index >= count) { return; }
+        for (int i = 0; i < count; i++)
+        {
+            llDots.getChildAt(i).setEnabled(false);
+        }
+        llDots.getChildAt(index).setEnabled(true);
     }
 
     private class ManagerPagerAdapter extends PagerAdapter

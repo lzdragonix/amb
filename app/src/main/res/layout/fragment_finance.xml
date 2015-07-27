@@ -62,48 +62,13 @@
                 android:text="客户经理"/>
 
             <LinearLayout
+                android:id="@+id/ll_dots"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:gravity="center_vertical">
-
-                <View
-                    android:layout_height="10dp"
-                    android:layout_width="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@mipmap/chs_on"/>
-
-                <View
-                    android:layout_height="10dp"
-                    android:layout_width="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@mipmap/chs_off"/>
-
-                <View
-                    android:layout_height="10dp"
-                    android:layout_width="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@mipmap/chs_off"/>
-
-                <View
-                    android:layout_height="10dp"
-                    android:layout_width="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@mipmap/chs_off"/>
-
-                <View
-                    android:layout_height="10dp"
-                    android:layout_width="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@mipmap/chs_off"/>
-
-                <View
-                    android:layout_height="10dp"
-                    android:layout_width="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@mipmap/chs_off"/>
-            </LinearLayout>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"/>
         </RelativeLayout>
 
         <View
