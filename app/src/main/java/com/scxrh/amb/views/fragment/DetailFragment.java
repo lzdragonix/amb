@@ -1,8 +1,11 @@
 package com.scxrh.amb.views.fragment;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -78,6 +81,9 @@ public class DetailFragment extends BaseFragment implements ProgressView
             case "finance":
                 txtHeader.setText("移动金融");
                 break;
+            case "lottery":
+                txtHeader.setText("火爆抽奖");
+                break;
         }
     }
 
@@ -107,6 +113,9 @@ public class DetailFragment extends BaseFragment implements ProgressView
                 break;
             case "finance":
                 showFinance(data);
+                break;
+            case "lottery":
+                showLottery(data);
                 break;
         }
     }
@@ -170,5 +179,25 @@ public class DetailFragment extends BaseFragment implements ProgressView
         TextView desc = ButterKnife.findById(view, R.id.desc);
         desc.setText(di.getDesc());
         detailContent.addView(view);
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void showLottery(Object data)
+    {
+        String userId = data == null ? "" : data.toString();
+        String url = AmbApi.END_POINT + item.getItemId() + userId;
+        WebView webView = new WebView(getActivity());
+        WebSettings ws = webView.getSettings();
+        ws.setSupportZoom(false);
+        ws.setBuiltInZoomControls(false);
+        ws.setJavaScriptEnabled(true);
+        ws.setLoadWithOverviewMode(true);
+        ws.setBlockNetworkImage(true);
+        webView.setHorizontalScrollbarOverlay(false);
+        webView.setHorizontalScrollBarEnabled(false);
+        webView.setVerticalScrollbarOverlay(false);
+        webView.setVerticalScrollBarEnabled(false);
+        webView.loadUrl(url);
+        detailContent.addView(webView);
     }
 }

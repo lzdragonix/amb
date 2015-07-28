@@ -79,6 +79,8 @@ public class RestClient
                 JsonObject json = (JsonObject)mConverter.fromBody(response.getBody(), JsonObject.class);
                 if (Const.RETURNCODE_0000.equals(json.get(Const.KEY_CODE).getAsString()))
                 {
+                    String userId = json.getAsJsonObject("data").get("userId").getAsString();
+                    settings.setValue(Const.KEY_USER_ID, userId);
                     for (Header header : response.getHeaders())
                     {
                         if ("Set-Cookie".equals(header.getName()))
