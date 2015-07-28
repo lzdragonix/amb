@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-// 找回密码
+// 修改密码
 public class ModifyPwdFragment extends BaseFragment implements ModifyPwdView
 {
     public static final String TAG = ModifyPwdFragment.class.getSimpleName();
@@ -41,7 +41,7 @@ public class ModifyPwdFragment extends BaseFragment implements ModifyPwdView
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        txtHeader.setText("找回密码");
+        txtHeader.setText("修改密码");
     }
 
     @Override

@@ -48,6 +48,15 @@ public class DetailPresenter
         }
     }
 
+    public void favorite(String itemId, String contentType)
+    {
+        rest.addFavorite(itemId, contentType).observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
+            view.showMessage("收藏成功");
+        }, throwable -> {
+            view.showMessage("收藏失败");
+        });
+    }
+
     private void queryAd(String itemId)
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));

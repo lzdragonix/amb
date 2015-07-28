@@ -6,6 +6,7 @@ import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.views.fragment.AgreementFragment;
 import com.scxrh.amb.views.fragment.BankFragment;
 import com.scxrh.amb.views.fragment.DetailFragment;
+import com.scxrh.amb.views.fragment.FavoriteFragment;
 import com.scxrh.amb.views.fragment.FinProFragment;
 import com.scxrh.amb.views.fragment.FinanceFragment;
 import com.scxrh.amb.views.fragment.LiveFragment;
@@ -61,4 +62,6 @@ public interface MvpComponent
     void inject(BankFragment fragment);
 
     void inject(FinanceFragment fragment);
+
+    void inject(FavoriteFragment fragment);
 }

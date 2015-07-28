@@ -7,6 +7,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -42,6 +43,8 @@ public class DetailFragment extends BaseFragment implements ProgressView
     FrameLayout detailContent;
     @Bind(R.id.txtHeader)
     TextView txtHeader;
+    @Bind(R.id.shouc)
+    ImageView shouc;
     private UIData.Item item;
 
     protected int getLayoutId()
@@ -65,6 +68,8 @@ public class DetailFragment extends BaseFragment implements ProgressView
     {
         super.onActivityCreated(savedInstanceState);
         item = getArguments().getParcelable(Const.KEY_DATA);
+        boolean unshow = getArguments().getBoolean("un-show", false);
+        if (unshow) { shouc.setVisibility(View.GONE); }
         presenter.loadData(item);
         switch (item.getContentType())
         {
@@ -130,6 +135,12 @@ public class DetailFragment extends BaseFragment implements ProgressView
     void btnBack()
     {
         getActivity().finish();
+    }
+
+    @OnClick(R.id.shouc)
+    void favorite()
+    {
+        presenter.favorite(item.getItemId(), item.getContentType());
     }
 
     private void showAD(Object data)

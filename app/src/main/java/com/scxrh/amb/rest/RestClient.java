@@ -10,6 +10,7 @@ import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.BankInfo;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.DetailItem;
+import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
@@ -19,6 +20,7 @@ import com.scxrh.amb.rest.exception.NetworkUknownHostException;
 import com.scxrh.amb.rest.serialiers.BankInfoDeserializer;
 import com.scxrh.amb.rest.serialiers.CityListDeserializer;
 import com.scxrh.amb.rest.serialiers.DetailItemDeserializer;
+import com.scxrh.amb.rest.serialiers.FavoriteItemDeserializer;
 import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
 import com.scxrh.amb.rest.serialiers.JSONObjectDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
@@ -59,6 +61,8 @@ public class RestClient
                    .registerTypeAdapter(DetailItem.class, new DetailItemDeserializer())
                    .registerTypeAdapter(JSONObject.class, new JSONObjectDeserializer())
                    .registerTypeAdapter(new TypeToken<List<BankInfo>>() { }.getType(), new BankInfoDeserializer())
+                   .registerTypeAdapter(new TypeToken<List<FavoriteItem>>() { }.getType(),
+                                        new FavoriteItemDeserializer())
                    .registerTypeAdapter(UserInfo.class, new UserInfoDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
@@ -182,6 +186,16 @@ public class RestClient
             String address, String communityId)
     {
         return mAmbApi.modifyUserInfo(userId, userName, telephone, email, address, communityId);
+    }
+
+    public Observable<List<FavoriteItem>> queryFavorite()
+    {
+        return mAmbApi.queryFavorite();
+    }
+
+    public Observable<Response> addFavorite(String itemId, String contentType)
+    {
+        return mAmbApi.addFavorite(itemId, contentType);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

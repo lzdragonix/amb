@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.scxrh.amb.model.BankInfo;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.DetailItem;
+import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
@@ -80,4 +81,10 @@ public interface AmbApi
 
     @POST("/windforce/m/bank_queryBank.action")
     Observable<List<BankInfo>> queryBank(@Query("cityCode") String cityCode, @Query("communityId") String communityId);
+
+    @POST("/windforce/m/favorite_query.action")
+    Observable<List<FavoriteItem>> queryFavorite();
+
+    @POST("/windforce/m/favorite_add.action")
+    Observable<Response> addFavorite(@Query("itemId") String itemId, @Query("contentType") String contentType);
 }
