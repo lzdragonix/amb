@@ -1,7 +1,6 @@
 package com.scxrh.amb.rest;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
@@ -9,13 +8,15 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.scxrh.amb.model.City;
+import com.scxrh.amb.Const;
 
 import java.io.IOException;
 import java.util.List;
 
-public class CityItemAdapterFactory implements TypeAdapterFactory
+public class JsonAdapterFactory implements TypeAdapterFactory
 {
+    private Gson mGson = new Gson();
+
     @Override
     public <T> TypeAdapter<T> create(Gson gson, final TypeToken<T> type)
     {
@@ -33,26 +34,36 @@ public class CityItemAdapterFactory implements TypeAdapterFactory
             public T read(JsonReader in) throws IOException
             {
                 JsonElement jsonElement = elementAdapter.read(in);
-                if (type.getRawType() == City.class) { return adaptJsonToCity(jsonElement, type); }
-                if (type.getRawType() == List.class) { return adaptJsonToList(jsonElement, type); }
-                return delegate.fromJsonTree(jsonElement);
+                String code = jsonElement.getAsJsonObject().get(Const.KEY_CODE).getAsString();
+                if (Const.RETURNCODE_0000.equals(code))
+                {
+                    if (type.getRawType() == List.class)
+                    {
+                        return adaptJsonToList(jsonElement, type);
+                    }
+                    else
+                    {
+                        return adaptJsonToModel(jsonElement, type);
+                    }
+                }
+                else if (Const.RETURNCODE_0001.equals(code))
+                {
+                    throw new RuntimeException("un-login");
+                }
+                else
+                {
+                    throw new RuntimeException(jsonElement.getAsString());
+                }
             }
         }.nullSafe();
     }
 
-    private <T> T adaptJsonToCity(JsonElement jsonElement, TypeToken<T> type)
+    private <T> T adaptJsonToModel(JsonElement jsonElement, TypeToken<T> type)
     {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         if (jsonObject.has("data"))
         {
-            JsonElement marvelDataElement = jsonObject.get("data");
-            JsonObject marvelDataObject = marvelDataElement.getAsJsonObject();
-            if (marvelDataObject.get("count").getAsInt() == 1)
-            {
-                JsonArray marvelResults = marvelDataObject.get("results").getAsJsonArray();
-                JsonElement finalElement = marvelResults.get(0);
-                return new Gson().fromJson(finalElement, type.getType());
-            }
+            return mGson.fromJson(jsonObject.get("data"), type.getType());
         }
         return null;
     }
@@ -64,7 +75,7 @@ public class CityItemAdapterFactory implements TypeAdapterFactory
         {
             JsonElement data = jsonObject.get("data");
             JsonElement element = data.getAsJsonObject().get("normal");
-            return new Gson().fromJson(element, type.getType());
+            return mGson.fromJson(element, type.getType());
         }
         return null;
     }
