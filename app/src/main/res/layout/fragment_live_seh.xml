@@ -27,6 +27,7 @@
             android:background="@color/cffffff">
 
             <ImageView
+                android:id="@+id/life_sddj"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_sddj"/>
@@ -47,6 +48,7 @@
                 android:background="@color/cadadae"/>
 
             <ImageView
+                android:id="@+id/life_ghkd"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_ghkd"/>
@@ -58,6 +60,7 @@
                 android:background="@color/cadadae"/>
 
             <ImageView
+                android:id="@+id/life_tv"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_tv"/>
@@ -102,6 +105,7 @@
             android:background="@color/cffffff">
 
             <ImageView
+                android:id="@+id/life_wyfw"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_wyfw"/>
@@ -151,6 +155,7 @@
             android:background="@color/cffffff">
 
             <ImageView
+                android:id="@+id/life_fjyd"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_fjyd"/>
@@ -161,6 +166,7 @@
                 android:background="@color/cadadae"/>
 
             <ImageView
+                android:id="@+id/life_hcyd"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_hcyd"/>
@@ -200,6 +206,7 @@
             android:background="@color/cffffff">
 
             <ImageView
+                android:id="@+id/life_ylfw"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_ylfw"/>
@@ -210,6 +217,7 @@
                 android:background="@color/cadadae"/>
 
             <ImageView
+                android:id="@+id/life_sqjy"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_sqjy"/>
