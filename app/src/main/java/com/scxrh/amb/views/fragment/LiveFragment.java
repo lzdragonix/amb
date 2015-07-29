@@ -86,7 +86,12 @@ public class LiveFragment extends BaseFragment implements LiveView
                     fragment = new LiveFJFragment();
                     break;
                 case 1:
+                case 2:
+                case 4:
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("index", index);
                     fragment = new LiveMSFragment();
+                    fragment.setArguments(bundle);
                     break;
                 case 3:
                     fragment = new LiveSEHFragment();
@@ -95,7 +100,6 @@ public class LiveFragment extends BaseFragment implements LiveView
                     fragment = new BlankFragment();
                     break;
             }
-            Bundle bundle = new Bundle();
             ft.add(R.id.content, fragment, tag);
             mCurrent = fragment;
         }

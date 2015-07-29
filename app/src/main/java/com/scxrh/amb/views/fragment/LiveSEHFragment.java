@@ -2,7 +2,7 @@ package com.scxrh.amb.views.fragment;
 
 import com.scxrh.amb.R;
 
-// 生活 附近
+// 生活服务 生活
 public class LiveSEHFragment extends BaseFragment
 {
     public static final String TAG = LiveSEHFragment.class.getSimpleName();

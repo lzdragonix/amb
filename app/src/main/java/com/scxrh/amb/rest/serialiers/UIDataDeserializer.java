@@ -26,6 +26,7 @@ public class UIDataDeserializer implements JsonDeserializer<Map<String, UIData>>
         data.put("finance", gson.fromJson(json.getAsJsonObject().get("finance"), UIData.class));
         data.put("lottery", gson.fromJson(json.getAsJsonObject().get("lottery"), UIData.class));
         data.put("discount", gson.fromJson(json.getAsJsonObject().get("discount"), UIData.class));
+        data.put("content", gson.fromJson(json.getAsJsonObject().get("content"), UIData.class));
         return data;
     }
 }

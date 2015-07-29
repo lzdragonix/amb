@@ -22,6 +22,7 @@ import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.presenter.SelCityPresenter;
+import com.scxrh.amb.views.OnItemClickListener;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
 
@@ -132,11 +133,6 @@ public class SelCityFragment extends BaseFragment implements ProgressView
     public void finish()
     {
         closeProgressDialog();
-    }
-
-    interface OnItemClickListener
-    {
-        void onItemClick(View view, int position);
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>

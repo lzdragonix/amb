@@ -10,6 +10,7 @@ import com.scxrh.amb.views.fragment.FavoriteFragment;
 import com.scxrh.amb.views.fragment.FinProFragment;
 import com.scxrh.amb.views.fragment.FinanceFragment;
 import com.scxrh.amb.views.fragment.LiveFragment;
+import com.scxrh.amb.views.fragment.LiveMSFragment;
 import com.scxrh.amb.views.fragment.LoginFragment;
 import com.scxrh.amb.views.fragment.MainFragment;
 import com.scxrh.amb.views.fragment.ManagerFragment;
@@ -64,4 +65,6 @@ public interface MvpComponent
     void inject(FinanceFragment fragment);
 
     void inject(FavoriteFragment fragment);
+
+    void inject(LiveMSFragment fragment);
 }

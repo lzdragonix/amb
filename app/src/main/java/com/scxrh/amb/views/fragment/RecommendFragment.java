@@ -3,7 +3,6 @@ package com.scxrh.amb.views.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,16 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
+import com.scxrh.amb.adapter.ADPagerAdapter;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.presenter.RecomPresenter;
 import com.scxrh.amb.rest.AmbApi;
+import com.scxrh.amb.views.OnItemClickListener;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
 
@@ -103,9 +103,6 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     @OnClick(R.id.btnBank)
     void btnBank()
     {
-//        Intent intent = new Intent(getActivity(), WindowActivity.class);
-//        intent.putExtra(Const.KEY_FRAGMENT, BankFragment.class.getName());
-//        startActivity(intent);
         presenter.goFinTab();
     }
 
@@ -134,7 +131,7 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     public void showData(Object data)
     {
         Map<String, UIData> uis = (Map<String, UIData>)data;
-        vpAD.setAdapter(new ADPagerAdapter(uis.get("ad").getItems()));
+        vpAD.setAdapter(new ADPagerAdapter(getActivity(), uis.get("ad").getItems()));
         rvShop.setAdapter(new RecyclerViewAdapter(uis.get("hot").getItems()));
         rvBuy.setAdapter(new RecyclerViewAdapter(uis.get("buy").getItems()));
         rvLottery.setAdapter(new RecyclerViewAdapter(uis.get("lottery").getItems()));
@@ -154,11 +151,6 @@ public class RecommendFragment extends BaseFragment implements ProgressView
         intent.putExtra(Const.KEY_FRAGMENT, DetailFragment.class.getName());
         intent.putExtra(Const.KEY_DATA, item);
         startActivity(intent);
-    }
-
-    interface OnItemClickListener
-    {
-        void onItemClick(View view, int position);
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
@@ -211,57 +203,6 @@ public class RecommendFragment extends BaseFragment implements ProgressView
         {
             super(view);
             ButterKnife.bind(this, view);
-        }
-    }
-
-    private class ADPagerAdapter extends PagerAdapter
-    {
-        private List<UIData.Item> data;
-        private View[] pages;
-
-        public ADPagerAdapter(List<UIData.Item> data)
-        {
-            this.data = data;
-            pages = new View[data.size()];
-        }
-
-        @Override
-        public int getCount()
-        {
-            return pages.length;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position)
-        {
-            View view = pages[position];
-            if (view == null)
-            {
-                view = getActivity().getLayoutInflater().inflate(R.layout.layout_image_item_ad, container, false);
-                pages[position] = view;
-                String url = AmbApi.END_POINT + data.get(position).getImgUrl();
-                SimpleDraweeView img = (SimpleDraweeView)view.findViewById(R.id.imgItem);
-                img.setImageURI(Uri.parse(url));
-                view.setOnClickListener(v -> showDetail(data.get(position)));
-            }
-            if (view.getParent() != null)
-            {
-                ((ViewGroup)view.getParent()).removeView(view);
-            }
-            container.addView(view);
-            return view;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object)
-        {
-            container.removeView(pages[position]);
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object)
-        {
-            return view == object;
         }
     }
 }
