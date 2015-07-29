@@ -198,6 +198,11 @@ public class RestClient
         return mAmbApi.addFavorite(itemId, contentType);
     }
 
+    public Observable<Response> cancelFavorite(String cancelFavoriteId)
+    {
+        return mAmbApi.cancelFavorite(cancelFavoriteId);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override

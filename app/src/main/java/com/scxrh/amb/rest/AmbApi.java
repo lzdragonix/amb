@@ -87,4 +87,7 @@ public interface AmbApi
 
     @POST("/windforce/m/favorite_add.action")
     Observable<Response> addFavorite(@Query("itemId") String itemId, @Query("contentType") String contentType);
+
+    @POST("/windforce/m/favorite_cancel.action")
+    Observable<Response> cancelFavorite(@Query("cancelFavoriteId") String cancelFavoriteId);
 }

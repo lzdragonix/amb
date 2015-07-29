@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -24,7 +25,7 @@ import com.scxrh.amb.presenter.FavoritePresenter;
 import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.OnItemClickListener;
 import com.scxrh.amb.views.activity.WindowActivity;
-import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.views.view.FavoriteView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 // 收藏
-public class FavoriteFragment extends BaseFragment implements ProgressView
+public class FavoriteFragment extends BaseFragment implements FavoriteView
 {
     public static final String TAG = FavoriteFragment.class.getSimpleName();
     @Bind(R.id.txtHeader)
@@ -47,6 +48,26 @@ public class FavoriteFragment extends BaseFragment implements ProgressView
     RecyclerView mRecyclerView;
     @Inject
     FavoritePresenter presenter;
+    private CompoundButton.OnCheckedChangeListener mListener = (buttonView, isChecked) -> {
+        RecyclerViewAdapter adapter = (RecyclerViewAdapter)mRecyclerView.getAdapter();
+        int count = adapter.getItemCount();
+        for (int i = 0; i < count; i++)
+        {
+            adapter.getItem(i).setChecked("0");
+        }
+        adapter.notifyDataSetChanged();
+        if (isChecked)
+        {
+            int index = Integer.valueOf(buttonView.getTag().toString());
+            adapter.getItem(index).setChecked("1");
+            adapter.notifyItemChanged(index);
+            btnSubmit.setText("删除");
+        }
+        else
+        {
+            btnSubmit.setText("取消");
+        }
+    };
 
     @Override
     protected int getLayoutId()
@@ -84,7 +105,8 @@ public class FavoriteFragment extends BaseFragment implements ProgressView
     @OnClick(R.id.btnSubmit)
     void modify()
     {
-        if ("编辑".equals(btnSubmit.getText().toString()))
+        String btn = btnSubmit.getText().toString();
+        if ("编辑".equals(btn))
         {
             if (showCheckBox(true))
             {
@@ -92,13 +114,17 @@ public class FavoriteFragment extends BaseFragment implements ProgressView
                 mRecyclerView.getAdapter().notifyDataSetChanged();
             }
         }
-        else if ("取消".equals(btnSubmit.getText().toString()))
+        else if ("取消".equals(btn))
         {
             btnSubmit.setText("编辑");
             if (showCheckBox(false))
             {
                 mRecyclerView.getAdapter().notifyDataSetChanged();
             }
+        }
+        else if ("删除".equals(btn))
+        {
+            presenter.delFav();
         }
     }
 
@@ -138,6 +164,12 @@ public class FavoriteFragment extends BaseFragment implements ProgressView
     public void finish()
     {
         closeProgressDialog();
+    }
+
+    @Override
+    public void changeButton(String text)
+    {
+        btnSubmit.setText(text);
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
@@ -180,6 +212,7 @@ public class FavoriteFragment extends BaseFragment implements ProgressView
             vh.desc.setText(fav.getFavoriteDesc());
             String url = AmbApi.END_POINT + fav.getImgUrl();
             vh.img.setImageURI(Uri.parse(url));
+            vh.checkbox.setTag(position);
             if ("1".equals(fav.getShowCheck()))
             {
                 vh.checkbox.setVisibility(View.VISIBLE);
@@ -188,6 +221,9 @@ public class FavoriteFragment extends BaseFragment implements ProgressView
             {
                 vh.checkbox.setVisibility(View.GONE);
             }
+            vh.checkbox.setOnCheckedChangeListener(null);
+            vh.checkbox.setChecked("1".equals(fav.getChecked()));
+            vh.checkbox.setOnCheckedChangeListener(mListener);
         }
 
         @Override

@@ -10,6 +10,32 @@ public class FavoriteItem
     private String imgUrl;
     private String contentType;
     private String showCheck;
+    private String checked;
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+        FavoriteItem item = (FavoriteItem)o;
+        return favoriteId.equals(item.favoriteId);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return favoriteId.hashCode();
+    }
+
+    public String getChecked()
+    {
+        return checked;
+    }
+
+    public void setChecked(String checked)
+    {
+        this.checked = checked;
+    }
 
     public String getShowCheck()
     {

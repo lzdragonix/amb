@@ -2,9 +2,13 @@ package com.scxrh.amb.presenter;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
+import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.rest.RestClient;
+import com.scxrh.amb.views.view.FavoriteView;
 import com.scxrh.amb.views.view.MvpView;
-import com.scxrh.amb.views.view.ProgressView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,22 +20,51 @@ public class FavoritePresenter
     RestClient rest;
     @Inject
     MessageManager message;
-    private ProgressView view;
+    private FavoriteView view;
+    private List<FavoriteItem> mData = new ArrayList<>();
+    private FavoriteItem delItem;
 
     @Inject
     public FavoritePresenter(MvpView view)
     {
-        this.view = (ProgressView)view;
+        this.view = (FavoriteView)view;
     }
 
     public void loadData()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
         rest.queryFavorite().observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
-            view.showData(list);
+            mData.clear();
+            mData.addAll(list);
+            view.showData(mData);
             view.finish();
         }, throwable -> {
             view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.finish();
+        });
+    }
+
+    public void delFav()
+    {
+        for (FavoriteItem item : mData)
+        {
+            if ("1".equals(item.getChecked()))
+            {
+                delItem = item;
+                break;
+            }
+        }
+        if (delItem == null) { return; }
+        view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
+        rest.cancelFavorite(delItem.getFavoriteId()).observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
+            mData.remove(delItem);
+            delItem = null;
+            view.showMessage(message.getMessage(Const.MSG_SUBMIT_SUCCESS));
+            view.showData(mData);
+            view.finish();
+            view.changeButton("取消");
+        }, throwable -> {
+            view.showMessage(message.getMessage(Const.MSG_SUBMIT_FAILED));
             view.finish();
         });
     }
