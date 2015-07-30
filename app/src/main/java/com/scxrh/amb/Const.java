@@ -29,11 +29,10 @@ public class Const
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
     public static final String KEY_PASSWORD = "KEY_PASSWORD";
     public static final String KEY_COOKIE = "KEY_COOKIE";
-    public static final String KEY_USER_ID = "KEY_USER_ID";
-    public static final String KEY_USER_NAME = "KEY_USER_NAME";
     public static final String KEY_CITY = "KEY_CITY";
     public static final String KEY_COMMUNITY = "KEY_COMMUNITY";
     public static final String KEY_AVATAR = "KEY_AVATAR";
+    public static final String KEY_USER = "KEY_USER";
     //rest returncode
     public static final String RETURNCODE_0000 = "0000";
     public static final String RETURNCODE_0001 = "0001";

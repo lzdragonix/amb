@@ -76,7 +76,6 @@ public class PerInfoPresenter
     public void modifyName(String name)
     {
         appInfo.setName(name);
-        settings.setValue(Const.KEY_USER_NAME, name);
     }
 
     public Uri getUriFile()

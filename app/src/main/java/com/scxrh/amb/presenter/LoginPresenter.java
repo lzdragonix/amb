@@ -2,6 +2,7 @@ package com.scxrh.amb.presenter;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.common.DES;
 import com.scxrh.amb.common.Utils;
@@ -28,6 +29,7 @@ public class LoginPresenter
     RestClient rest;
     @Inject
     AppInfo appInfo;
+    private Gson gson = new Gson();
 
     @Inject
     public LoginPresenter(MvpView view)
@@ -63,9 +65,11 @@ public class LoginPresenter
             return;
         }
         view.showProgress(message.getMessage(Const.MSG_LOGIN));
-        rest.login(user, pwd).observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
+        rest.login(user, pwd).observeOn(AndroidSchedulers.mainThread()).subscribe(userInfo -> {
             settings.setValue(Const.KEY_ACCOUNT, user);
             settings.setValue(Const.KEY_PASSWORD, DES.encrypt(pwd, DES.getKey()));
+            settings.setValue(Const.KEY_USER, gson.toJson(userInfo));
+            appInfo.setUserInfo(userInfo);
             view.finish();
             view.close();
         }, throwable -> {

@@ -8,6 +8,7 @@ import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.rest.RestClient;
 
 import javax.inject.Singleton;
@@ -20,14 +21,14 @@ public class AppModule
 {
     private App mApp;
     private SettingsManager settings;
-    private AppInfo sysInfo;
+    private AppInfo appInfo;
 
     public AppModule(App application)
     {
         mApp = application;
         settings = new SettingsManager(mApp);
-        sysInfo = new AppInfo();
-        initSysInfo(sysInfo);
+        appInfo = new AppInfo();
+        initAppInfo(appInfo);
     }
 
     @Singleton
@@ -69,13 +70,11 @@ public class AppModule
     @Provides
     public AppInfo provideSysInfo()
     {
-        return sysInfo;
+        return appInfo;
     }
 
-    private void initSysInfo(AppInfo info)
+    private void initAppInfo(AppInfo info)
     {
-        String name = settings.getString(Const.KEY_USER_NAME);
-        info.setName(name);
         Gson gson = new Gson();
         City city = gson.fromJson(settings.getString(Const.KEY_CITY), City.class);
         if (city == null)
@@ -88,5 +87,9 @@ public class AppModule
         city = gson.fromJson(settings.getString(Const.KEY_COMMUNITY), City.class);
         info.setCommunity(city == null ? new City() : city);
         info.setAvatar(settings.getString(Const.KEY_AVATAR));
+        UserInfo userInfo = gson.fromJson(settings.getString(Const.KEY_USER), UserInfo.class);
+        info.setUserInfo(userInfo == null ? new UserInfo() : userInfo);
+        String name = info.getUserInfo().getUserName();
+        info.setName(name);
     }
 }

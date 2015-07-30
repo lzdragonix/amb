@@ -3,6 +3,7 @@ package com.scxrh.amb.presenter;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
@@ -20,7 +21,10 @@ public class DetailPresenter
     MessageManager message;
     @Inject
     SettingsManager settings;
+    @Inject
+    AppInfo appInfo;
     private ProgressView view;
+
 
     @Inject
     public DetailPresenter(MvpView view)
@@ -43,7 +47,7 @@ public class DetailPresenter
                 queryFinance(item.getItemId());
                 break;
             case "lottery":
-                view.showData(settings.getString(Const.KEY_USER_ID));
+                view.showData(appInfo.getUserInfo().getUserId());
                 break;
         }
     }

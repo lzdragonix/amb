@@ -75,36 +75,38 @@ public class RestClient
         mAmbApi = restAdapter.create(AmbApi.class);
     }
 
-    public Observable<Response> login(String user, String pwd)
+    public Observable<UserInfo> login(String user, String pwd)
     {
-        return mAmbApi.login(user, pwd).doOnNext(response -> {
-            try
+        return mAmbApi.login(user, pwd).flatMap(this::onLogin);
+    }
+
+    private Observable<UserInfo> onLogin(Response response)
+    {
+        try
+        {
+            JsonObject json = (JsonObject)mConverter.fromBody(response.getBody(), JsonObject.class);
+            if (Const.RETURNCODE_0000.equals(json.get(Const.KEY_CODE).getAsString()))
             {
-                JsonObject json = (JsonObject)mConverter.fromBody(response.getBody(), JsonObject.class);
-                if (Const.RETURNCODE_0000.equals(json.get(Const.KEY_CODE).getAsString()))
+                for (Header header : response.getHeaders())
                 {
-                    String userId = json.getAsJsonObject("data").get("userId").getAsString();
-                    settings.setValue(Const.KEY_USER_ID, userId);
-                    for (Header header : response.getHeaders())
+                    if ("Set-Cookie".equals(header.getName()))
                     {
-                        if ("Set-Cookie".equals(header.getName()))
-                        {
-                            cookie = header.getValue();
-                            settings.setValue(Const.KEY_COOKIE, cookie);
-                            break;
-                        }
+                        cookie = header.getValue();
+                        settings.setValue(Const.KEY_COOKIE, cookie);
+                        break;
                     }
                 }
-                else
-                {
-                    throw new RuntimeException("error-password");
-                }
             }
-            catch (Exception e)
+            else
             {
-                throw new RuntimeException(e);
+                throw new RuntimeException("error-password");
             }
-        });
+            return Observable.just((UserInfo)mConverter.fromBody(response.getBody(), UserInfo.class));
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     public Observable<Response> register(String user, String pwd, String verify)

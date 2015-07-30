@@ -8,8 +8,11 @@ import android.util.TypedValue;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,6 +59,21 @@ public class Utils
         catch (NumberFormatException e)
         {
             result = defaultValue;
+        }
+        return result;
+    }
+
+    public static String tryParse(Date date, String format)
+    {
+        String result = null;
+        try
+        {
+            SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.getDefault());
+            result = formatter.format(date);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
         return result;
     }

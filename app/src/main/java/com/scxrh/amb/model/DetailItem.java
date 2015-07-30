@@ -1,7 +1,16 @@
 package com.scxrh.amb.model;
 
-public class DetailItem
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class DetailItem implements Parcelable
 {
+    public static final Parcelable.Creator<DetailItem> CREATOR = new Parcelable.Creator<DetailItem>()
+    {
+        public DetailItem createFromParcel(Parcel source) {return new DetailItem(source);}
+
+        public DetailItem[] newArray(int size) {return new DetailItem[size];}
+    };
     private String imgUrl;
     private String shopDesc;
     private String shopLogo;
@@ -13,6 +22,23 @@ public class DetailItem
     private String thumbImgUrl;
     private String desc;
     private String itemId;
+
+    public DetailItem() { }
+
+    protected DetailItem(Parcel in)
+    {
+        this.imgUrl = in.readString();
+        this.shopDesc = in.readString();
+        this.shopLogo = in.readString();
+        this.shopName = in.readString();
+        this.telephone = in.readString();
+        this.text = in.readString();
+        this.name = in.readString();
+        this.price = in.readString();
+        this.thumbImgUrl = in.readString();
+        this.desc = in.readString();
+        this.itemId = in.readString();
+    }
 
     public String getName()
     {
@@ -122,5 +148,24 @@ public class DetailItem
     public void setText(String text)
     {
         this.text = text;
+    }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeString(this.imgUrl);
+        dest.writeString(this.shopDesc);
+        dest.writeString(this.shopLogo);
+        dest.writeString(this.shopName);
+        dest.writeString(this.telephone);
+        dest.writeString(this.text);
+        dest.writeString(this.name);
+        dest.writeString(this.price);
+        dest.writeString(this.thumbImgUrl);
+        dest.writeString(this.desc);
+        dest.writeString(this.itemId);
     }
 }
