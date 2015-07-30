@@ -205,6 +205,12 @@ public class RestClient
         return mAmbApi.cancelFavorite(cancelFavoriteId);
     }
 
+    public Observable<Response> addOrder(String userId, String communityId, String telephone, String address,
+            String receiverName, String zipCode, String addItems)
+    {
+        return mAmbApi.addOrder(userId, communityId, telephone, address, receiverName, zipCode, addItems);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override

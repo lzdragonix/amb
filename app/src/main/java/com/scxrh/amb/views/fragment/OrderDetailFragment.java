@@ -125,6 +125,7 @@ public class OrderDetailFragment extends BaseFragment implements OrderDetailView
     void submit(View view)
     {
         view.setEnabled(false);
+        presenter.submit(item);
     }
 
     public void changeDeliveries(int index)

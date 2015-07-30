@@ -90,4 +90,10 @@ public interface AmbApi
 
     @POST("/windforce/m/favorite_cancel.action")
     Observable<Response> cancelFavorite(@Query("cancelFavoriteId") String cancelFavoriteId);
+
+    @POST("/shopxx/m/order_addOrder.action")
+    Observable<Response> addOrder(@Query("userId") String userId, @Query("communityId") String communityId,
+            @Query("telephone") String telephone, @Query("address") String address,
+            @Query("receiverName") String receiverName, @Query("zipCode") String zipCode,
+            @Query("addItems") String addItems);
 }
