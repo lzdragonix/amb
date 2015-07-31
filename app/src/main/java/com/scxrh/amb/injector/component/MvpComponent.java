@@ -19,6 +19,7 @@ import com.scxrh.amb.views.fragment.ModifyPwdFragment;
 import com.scxrh.amb.views.fragment.OrderDetailFragment;
 import com.scxrh.amb.views.fragment.OrderFragment;
 import com.scxrh.amb.views.fragment.PerInfoFragment;
+import com.scxrh.amb.views.fragment.PointsFragment;
 import com.scxrh.amb.views.fragment.RecommendFragment;
 import com.scxrh.amb.views.fragment.RegFragment;
 import com.scxrh.amb.views.fragment.RetrievePwdFragment;
@@ -73,4 +74,6 @@ public interface MvpComponent
     void inject(OrderDetailFragment fragment);
 
     void inject(OrderFragment fragment);
+
+    void inject(PointsFragment fragment);
 }

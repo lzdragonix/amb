@@ -13,6 +13,7 @@ import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.Order;
+import com.scxrh.amb.model.Points;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.model.UserInfo;
@@ -26,6 +27,7 @@ import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
 import com.scxrh.amb.rest.serialiers.JSONObjectDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
 import com.scxrh.amb.rest.serialiers.OrderDeserializer;
+import com.scxrh.amb.rest.serialiers.PointsDeserializer;
 import com.scxrh.amb.rest.serialiers.UIDataDeserializer;
 import com.scxrh.amb.rest.serialiers.UserInfoDeserializer;
 
@@ -66,6 +68,7 @@ public class RestClient
                    .registerTypeAdapter(new TypeToken<List<FavoriteItem>>() { }.getType(),
                                         new FavoriteItemDeserializer())
                    .registerTypeAdapter(new TypeToken<List<Order>>() { }.getType(), new OrderDeserializer())
+                   .registerTypeAdapter(new TypeToken<List<Points>>() { }.getType(), new PointsDeserializer())
                    .registerTypeAdapter(UserInfo.class, new UserInfoDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
@@ -217,6 +220,11 @@ public class RestClient
     public Observable<List<Order>> queryOrder(String userId, String orderId, String orderState)
     {
         return mAmbApi.queryOrder(userId, orderId, orderState);
+    }
+
+    public Observable<List<Points>> queryPoint(String userId)
+    {
+        return mAmbApi.queryPoint(userId);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

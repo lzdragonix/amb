@@ -7,6 +7,7 @@ import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.Order;
+import com.scxrh.amb.model.Points;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.model.UserInfo;
@@ -101,4 +102,7 @@ public interface AmbApi
     @POST("/shopxx/m/order_queryOrder.action")
     Observable<List<Order>> queryOrder(@Query("userId") String userId, @Query("orderId") String orderId,
             @Query("orderState") String orderState);
+
+    @POST("/shopxx/m/point_queryLog.action")
+    Observable<List<Points>> queryPoint(@Query("userId") String userId);
 }
