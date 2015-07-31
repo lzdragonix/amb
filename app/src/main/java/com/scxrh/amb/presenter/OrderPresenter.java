@@ -1,11 +1,14 @@
 package com.scxrh.amb.presenter;
 
+import android.app.Activity;
+
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
+import com.scxrh.amb.manager.WindowNavigator;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
-import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.views.view.OrderView;
 
 import javax.inject.Inject;
 
@@ -19,12 +22,16 @@ public class OrderPresenter
     MessageManager message;
     @Inject
     AppInfo appInfo;
-    private ProgressView view;
+    @Inject
+    WindowNavigator windowNavigator;
+    @Inject
+    Activity activity;
+    private OrderView view;
 
     @Inject
     public OrderPresenter(MvpView view)
     {
-        this.view = (ProgressView)view;
+        this.view = (OrderView)view;
     }
 
     public void loadData()
@@ -35,8 +42,17 @@ public class OrderPresenter
             view.showData(list);
             view.finish();
         }, throwable -> {
-            view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
-            view.finish();
+            if (throwable.getMessage().contains("un-login"))
+            {
+                view.finish();
+                windowNavigator.startLogin(activity);
+                view.close();
+            }
+            else
+            {
+                view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
+                view.finish();
+            }
         });
     }
 }

@@ -16,7 +16,7 @@ import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.Order;
 import com.scxrh.amb.presenter.OrderPresenter;
-import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.views.view.OrderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 // 订单
-public class OrderFragment extends BaseFragment implements ProgressView
+public class OrderFragment extends BaseFragment implements OrderView
 {
     public static final String TAG = OrderFragment.class.getSimpleName();
     @Bind(R.id.txtHeader)
@@ -93,6 +93,12 @@ public class OrderFragment extends BaseFragment implements ProgressView
     public void finish()
     {
         closeProgressDialog();
+    }
+
+    @Override
+    public void close()
+    {
+        getActivity().finish();
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>

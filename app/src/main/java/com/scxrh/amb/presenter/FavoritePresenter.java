@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
-import com.scxrh.amb.manager.WindowManager;
+import com.scxrh.amb.manager.WindowNavigator;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.FavoriteView;
@@ -24,7 +24,7 @@ public class FavoritePresenter
     @Inject
     MessageManager message;
     @Inject
-    WindowManager windowManager;
+    WindowNavigator windowNavigator;
     @Inject
     Activity activity;
     private FavoriteView view;
@@ -49,7 +49,7 @@ public class FavoritePresenter
             if (throwable.getMessage().contains("un-login"))
             {
                 view.finish();
-                windowManager.startLogin(activity);
+                windowNavigator.startLogin(activity);
                 view.close();
             }
             else

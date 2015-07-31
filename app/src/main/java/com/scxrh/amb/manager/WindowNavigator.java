@@ -7,7 +7,7 @@ import com.scxrh.amb.Const;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.fragment.LoginFragment;
 
-public class WindowManager
+public class WindowNavigator
 {
     public void startWindow(Activity context)
     { }

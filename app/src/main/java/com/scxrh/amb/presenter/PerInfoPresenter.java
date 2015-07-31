@@ -7,7 +7,7 @@ import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.DirManager;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
-import com.scxrh.amb.manager.WindowManager;
+import com.scxrh.amb.manager.WindowNavigator;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.rest.RestClient;
@@ -30,7 +30,7 @@ public class PerInfoPresenter
     SettingsManager settings;
     PerInfoView view;
     @Inject
-    WindowManager windowManager;
+    WindowNavigator windowNavigator;
     @Inject
     Activity activity;
     private Uri uriFile;
@@ -68,7 +68,7 @@ public class PerInfoPresenter
             if (throwable.getMessage().contains("un-login"))
             {
                 view.finish();
-                windowManager.startLogin(activity);
+                windowNavigator.startLogin(activity);
                 view.close();
             }
             else

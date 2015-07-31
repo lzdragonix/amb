@@ -6,7 +6,7 @@ import com.scxrh.amb.Const;
 import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
-import com.scxrh.amb.manager.WindowManager;
+import com.scxrh.amb.manager.WindowNavigator;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.UserInfo;
@@ -76,9 +76,9 @@ public class AppModule
 
     @Singleton
     @Provides
-    public WindowManager provideWindowManager()
+    public WindowNavigator provideWindowNavigator()
     {
-        return new WindowManager();
+        return new WindowNavigator();
     }
 
     private void initAppInfo(AppInfo info)

@@ -15,7 +15,7 @@ import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.Points;
 import com.scxrh.amb.presenter.PointsPresenter;
-import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.views.view.PointsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 // 积分
-public class PointsFragment extends BaseFragment implements ProgressView
+public class PointsFragment extends BaseFragment implements PointsView
 {
     public static final String TAG = PointsFragment.class.getSimpleName();
     @Bind(R.id.txtHeader)
@@ -95,6 +95,12 @@ public class PointsFragment extends BaseFragment implements ProgressView
     public void finish()
     {
         closeProgressDialog();
+    }
+
+    @Override
+    public void close()
+    {
+        getActivity().finish();
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
