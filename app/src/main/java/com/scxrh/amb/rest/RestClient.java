@@ -227,6 +227,11 @@ public class RestClient
         return mAmbApi.queryPoint(userId);
     }
 
+    public Observable<Response> logout()
+    {
+        return mAmbApi.logout();
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override

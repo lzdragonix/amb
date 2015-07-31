@@ -24,6 +24,7 @@ import com.scxrh.amb.views.fragment.RecommendFragment;
 import com.scxrh.amb.views.fragment.RegFragment;
 import com.scxrh.amb.views.fragment.RetrievePwdFragment;
 import com.scxrh.amb.views.fragment.SelCityFragment;
+import com.scxrh.amb.views.fragment.SettingsFragment;
 import com.scxrh.amb.views.fragment.SuggestionFragment;
 
 import dagger.Component;
@@ -76,4 +77,6 @@ public interface MvpComponent
     void inject(OrderFragment fragment);
 
     void inject(PointsFragment fragment);
+
+    void inject(SettingsFragment fragment);
 }

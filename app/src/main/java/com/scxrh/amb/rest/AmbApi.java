@@ -105,4 +105,7 @@ public interface AmbApi
 
     @POST("/shopxx/m/point_queryLog.action")
     Observable<List<Points>> queryPoint(@Query("userId") String userId);
+
+    @POST("/windforce/m/mlogout.action")
+    Observable<Response> logout();
 }

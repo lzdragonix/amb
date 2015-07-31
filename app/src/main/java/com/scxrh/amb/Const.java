@@ -37,6 +37,8 @@ public class Const
     public static final String RETURNCODE_0000 = "0000";
     public static final String RETURNCODE_0001 = "0001";
     public static final String RETURNCODE_9999 = "9999";
+    //some actions
+    public static final String ACTION_EXIT = "com.scxrh.amb.action.EXIT";
     //some regex
     public static final Pattern REGEX_EMAIL = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
     public static final Pattern REGEX_MOBILE = Pattern.compile("^(1[8|3|5][0-9]|15[0|3|6|7|8|9]|18[2|5|6|8|9])\\d{8}$");
