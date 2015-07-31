@@ -67,9 +67,12 @@ public class MineFragment extends BaseFragment implements MineView
     @OnClick(R.id.imgAvatar)
     void showLogin()
     {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, LoginFragment.class.getName());
-        startActivity(intent);
+        if ("请登录您的账户".equals(txtAccount.getText().toString()))
+        {
+            Intent intent = new Intent(getActivity(), WindowActivity.class);
+            intent.putExtra(Const.KEY_FRAGMENT, LoginFragment.class.getName());
+            startActivity(intent);
+        }
     }
 
     @Override

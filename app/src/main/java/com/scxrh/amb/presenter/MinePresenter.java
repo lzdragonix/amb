@@ -2,9 +2,9 @@ package com.scxrh.amb.presenter;
 
 import android.text.TextUtils;
 
-import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
+import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.views.view.MineView;
 import com.scxrh.amb.views.view.MvpView;
 
@@ -28,11 +28,16 @@ public class MinePresenter
     {
         view.changeAvatar(appInfo.getAvatar());
         appInfo.observable("avatar", this, String.class).subscribe(view::changeAvatar);
-        String acc = settings.getString(Const.KEY_ACCOUNT);
-        if (!TextUtils.isEmpty(acc))
-        {
-            view.setAccount(acc);
-        }
+        appInfo.observable("userInfo", this, UserInfo.class).subscribe(userInfo -> {
+            if (TextUtils.isEmpty(userInfo.getUserName()))
+            {
+                view.setAccount(userInfo.getTelephone());
+            }
+            else
+            {
+                view.setAccount(userInfo.getUserName());
+            }
+        });
     }
 
     public void onDestroyView()
