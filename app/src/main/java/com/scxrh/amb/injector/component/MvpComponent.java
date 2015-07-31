@@ -17,6 +17,7 @@ import com.scxrh.amb.views.fragment.ManagerFragment;
 import com.scxrh.amb.views.fragment.MineFragment;
 import com.scxrh.amb.views.fragment.ModifyPwdFragment;
 import com.scxrh.amb.views.fragment.OrderDetailFragment;
+import com.scxrh.amb.views.fragment.OrderFragment;
 import com.scxrh.amb.views.fragment.PerInfoFragment;
 import com.scxrh.amb.views.fragment.RecommendFragment;
 import com.scxrh.amb.views.fragment.RegFragment;
@@ -70,4 +71,6 @@ public interface MvpComponent
     void inject(LiveMSFragment fragment);
 
     void inject(OrderDetailFragment fragment);
+
+    void inject(OrderFragment fragment);
 }

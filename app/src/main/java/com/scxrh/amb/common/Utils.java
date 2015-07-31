@@ -77,4 +77,9 @@ public class Utils
         }
         return result;
     }
+
+    public static String replaceNull(String s)
+    {
+        return s == null ? "" : s;
+    }
 }

@@ -1,5 +1,7 @@
 package com.scxrh.amb.model;
 
+import com.scxrh.amb.common.Utils;
+
 public class UserInfo
 {
     private String address;
@@ -12,7 +14,7 @@ public class UserInfo
 
     public String getAddress()
     {
-        return address;
+        return Utils.replaceNull(address);
     }
 
     public void setAddress(String address)
@@ -22,7 +24,7 @@ public class UserInfo
 
     public String getComunityId()
     {
-        return comunityId;
+        return Utils.replaceNull(comunityId);
     }
 
     public void setComunityId(String comunityId)

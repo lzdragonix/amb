@@ -6,6 +6,7 @@ import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.model.FinancialProduct;
+import com.scxrh.amb.model.Order;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.model.UserInfo;
@@ -96,4 +97,8 @@ public interface AmbApi
             @Query("telephone") String telephone, @Query("address") String address,
             @Query("receiverName") String receiverName, @Query("zipCode") String zipCode,
             @Query("addItems") String addItems);
+
+    @POST("/shopxx/m/order_queryOrder.action")
+    Observable<List<Order>> queryOrder(@Query("userId") String userId, @Query("orderId") String orderId,
+            @Query("orderState") String orderState);
 }

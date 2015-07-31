@@ -12,6 +12,7 @@ import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.model.FinancialProduct;
+import com.scxrh.amb.model.Order;
 import com.scxrh.amb.model.SalesManager;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.model.UserInfo;
@@ -24,6 +25,7 @@ import com.scxrh.amb.rest.serialiers.FavoriteItemDeserializer;
 import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
 import com.scxrh.amb.rest.serialiers.JSONObjectDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
+import com.scxrh.amb.rest.serialiers.OrderDeserializer;
 import com.scxrh.amb.rest.serialiers.UIDataDeserializer;
 import com.scxrh.amb.rest.serialiers.UserInfoDeserializer;
 
@@ -63,6 +65,7 @@ public class RestClient
                    .registerTypeAdapter(new TypeToken<List<BankInfo>>() { }.getType(), new BankInfoDeserializer())
                    .registerTypeAdapter(new TypeToken<List<FavoriteItem>>() { }.getType(),
                                         new FavoriteItemDeserializer())
+                   .registerTypeAdapter(new TypeToken<List<Order>>() { }.getType(), new OrderDeserializer())
                    .registerTypeAdapter(UserInfo.class, new UserInfoDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
@@ -209,6 +212,11 @@ public class RestClient
             String receiverName, String zipCode, String addItems)
     {
         return mAmbApi.addOrder(userId, communityId, telephone, address, receiverName, zipCode, addItems);
+    }
+
+    public Observable<List<Order>> queryOrder(String userId, String orderId, String orderState)
+    {
+        return mAmbApi.queryOrder(userId, orderId, orderState);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

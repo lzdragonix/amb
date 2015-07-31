@@ -42,18 +42,28 @@ public class OrderDetailPresenter
         }
     }
 
-    public void submit(DetailItem item)
+    public void submit(DetailItem item, int typeDeliveries, int typePays)
     {
+        if (typeDeliveries < 0)
+        {
+            view.showMessage("请选择配送方式");
+            view.finish();
+            return;
+        }
+        if (typePays < 0)
+        {
+            view.showMessage("请选择付款方式");
+            view.finish();
+            return;
+        }
         view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
-        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
         try
         {
             JSONObject json = new JSONObject();
             json.put("itemId", item.getItemId());
             json.put("amount", 1);
-            JSONArray jsonArray = new JSONArray();
             jsonArray.put(json);
-            jsonObject.put("addItems", jsonArray);
         }
         catch (JSONException e)
         {
@@ -64,12 +74,13 @@ public class OrderDetailPresenter
         String telephone = userInfo.getTelephone();
         String address = userInfo.getAddress();
         String receiverName = userInfo.getUserName();
-        String addItems = jsonObject.toString();
+        String addItems = jsonArray.toString();
         String communityId = appInfo.getCommunity().getId();
         rest.addOrder(userId, communityId, telephone, address, receiverName, "", addItems)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(list -> {
                 view.finish();
+                view.close();
             }, throwable -> {
                 view.showMessage(message.getMessage(Const.MSG_SUBMIT_FAILED));
                 view.finish();
