@@ -10,6 +10,7 @@ import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.manager.WindowNavigator;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.PerInfoView;
@@ -43,13 +44,18 @@ public class PerInfoPresenter
 
     public void initView()
     {
-        view.setName(appInfo.getName());
+        view.setName(appInfo.getUserInfo().getUserName());
         view.changeCity(appInfo.getCity());
         view.changeCommunity(appInfo.getCommunity());
         view.changeAvatar(appInfo.getAvatar());
         appInfo.observable("city", this, City.class).subscribe(view::changeCity);
         appInfo.observable("community", this, City.class).subscribe(view::changeCommunity);
-        appInfo.observable("name", this, String.class).subscribe(view::setName);
+        appInfo.observable("userInfo", this, UserInfo.class).subscribe(userInfo -> {
+            if (userInfo != null)
+            {
+                view.setName(userInfo.getUserName());
+            }
+        });
         appInfo.observable("avatar", this, String.class).subscribe(view::changeAvatar);
     }
 
@@ -79,11 +85,6 @@ public class PerInfoPresenter
         });
     }
 
-    public void modifyName(String name)
-    {
-        appInfo.setName(name);
-    }
-
     public Uri getUriFile()
     {
         if (uriFile == null)
@@ -107,8 +108,12 @@ public class PerInfoPresenter
         view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
         rest.modifyUserInfo("", name, "", "", addr, communityId)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(userInfo -> {
+            .subscribe(response -> {
                 view.showMessage(message.getMessage(Const.MSG_SUBMIT_SUCCESS));
+                UserInfo userInfo = appInfo.getUserInfo();
+                userInfo.setAddress(addr);
+                userInfo.setUserName(name);
+                appInfo.setUserInfo(userInfo);
                 view.finish();
                 view.close();
             }, throwable -> {

@@ -96,8 +96,9 @@ public class AppModule
         info.setCommunity(city == null ? new City() : city);
         info.setAvatar(settings.getString(Const.KEY_AVATAR));
         UserInfo userInfo = gson.fromJson(settings.getString(Const.KEY_USER), UserInfo.class);
-        info.setUserInfo(userInfo == null ? new UserInfo() : userInfo);
-        String name = info.getUserInfo().getUserName();
-        info.setName(name);
+        if (userInfo != null)
+        {
+            info.setUserInfo(userInfo);
+        }
     }
 }

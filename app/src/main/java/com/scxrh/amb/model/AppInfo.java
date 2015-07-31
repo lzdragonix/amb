@@ -19,10 +19,9 @@ public class AppInfo
     private Map<String, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
     private City city = new City();
     private City community = new City();
-    private String name = "";
     private String avatar = "";
     private String tab = MainFragment.TAB_RECOMM;
-    private UserInfo userInfo;
+    private UserInfo userInfo = new UserInfo();
 
     public UserInfo getUserInfo()
     {
@@ -32,6 +31,7 @@ public class AppInfo
     public void setUserInfo(UserInfo userInfo)
     {
         this.userInfo = userInfo;
+        notify("userInfo", userInfo);
     }
 
     public String getAvatar()
@@ -43,17 +43,6 @@ public class AppInfo
     {
         this.avatar = avatar;
         notify("avatar", avatar);
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-        notify("name", name);
     }
 
     public City getCommunity()

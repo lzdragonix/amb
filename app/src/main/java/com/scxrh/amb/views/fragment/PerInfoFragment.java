@@ -185,7 +185,6 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
     @OnClick(R.id.btnSubmit)
     void submit()
     {
-        presenter.modifyName(name.getText().toString());
         presenter.submit(name.getText().toString(), addr.getText().toString());
     }
 
