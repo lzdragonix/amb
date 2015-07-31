@@ -1,5 +1,6 @@
 package com.scxrh.amb.views.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,14 +12,17 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
-import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.FinancialProduct;
+import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.presenter.FinProPresenter;
 import com.scxrh.amb.rest.AmbApi;
+import com.scxrh.amb.views.OnItemClickListener;
+import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
 
 import java.util.ArrayList;
@@ -30,7 +34,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//
+// 理财产品
 public class FinProFragment extends BaseFragment implements ProgressView
 {
     public static final String TAG = FinProFragment.class.getSimpleName();
@@ -101,6 +105,18 @@ public class FinProFragment extends BaseFragment implements ProgressView
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
         private List<FinancialProduct> data;
+        private OnItemClickListener mOnItemClickListener = (view, position) -> {
+            RecyclerViewAdapter adapter = (RecyclerViewAdapter)((RecyclerView)view.getParent()).getAdapter();
+            FinancialProduct fin = adapter.getItem(position);
+            UIData.Item item = new UIData.Item();
+            item.setItemId(fin.getItemId());
+            item.setContentType("finance");
+            item.setImgUrl(fin.getImgUrl());
+            Intent intent = new Intent(getActivity(), WindowActivity.class);
+            intent.putExtra(Const.KEY_FRAGMENT, DetailFragment.class.getName());
+            intent.putExtra(Const.KEY_DATA, item);
+            startActivity(intent);
+        };
 
         public RecyclerViewAdapter(List<FinancialProduct> data)
         {
@@ -117,8 +133,9 @@ public class FinProFragment extends BaseFragment implements ProgressView
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
+            holder.itemView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position));
             ViewHolder vh = (ViewHolder)holder;
-            FinancialProduct fin = data.get(position);
+            FinancialProduct fin = getItem(position);
             vh.name.setText(fin.getName());
             vh.description.setText(fin.getDesc());
             String url = AmbApi.END_POINT + fin.getImgUrl();
@@ -129,6 +146,11 @@ public class FinProFragment extends BaseFragment implements ProgressView
         public int getItemCount()
         {
             return data.size();
+        }
+
+        public FinancialProduct getItem(int position)
+        {
+            return data.get(position);
         }
     }
 

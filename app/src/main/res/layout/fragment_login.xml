@@ -70,6 +70,17 @@
         android:textColor="@color/cffffff"
         android:text="登录"/>
 
+    <TextView
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/login_bt"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/cffffff"
+        android:text="返回"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

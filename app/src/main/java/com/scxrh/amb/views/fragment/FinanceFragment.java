@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
+import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
 import com.scxrh.amb.common.Utils;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
@@ -22,8 +23,10 @@ import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.BankInfo;
 import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.SalesManager;
+import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.presenter.FinancePresenter;
 import com.scxrh.amb.rest.AmbApi;
+import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.FinanceView;
 
 import java.util.ArrayList;
@@ -167,6 +170,16 @@ public class FinanceFragment extends BaseFragment implements FinanceView
             imgProduct.setImageURI(Uri.parse(url));
             name.setText(product.getName());
             description.setText(product.getDesc());
+            view.setOnClickListener(v -> {
+                UIData.Item item = new UIData.Item();
+                item.setItemId(product.getItemId());
+                item.setContentType("finance");
+                item.setImgUrl(product.getImgUrl());
+                Intent intent = new Intent(getActivity(), WindowActivity.class);
+                intent.putExtra(Const.KEY_FRAGMENT, DetailFragment.class.getName());
+                intent.putExtra(Const.KEY_DATA, item);
+                startActivity(intent);
+            });
             productContent.addView(view);
         }
     }

@@ -160,20 +160,11 @@ public class MainFragment extends BaseFragment implements MainView, TabHost.OnTa
         }
     }
 
-    @OnClick(R.id.txtCity)
+    @OnClick({ R.id.txtCity, R.id.txtCommunity })
     void selCity()
     {
         Intent intent = new Intent(getActivity(), WindowActivity.class);
         intent.putExtra(Const.KEY_FRAGMENT, SelCityFragment.class.getName());
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.txtCommunity)
-    void selCommunity()
-    {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, SelCityFragment.class.getName());
-        intent.putExtra("type", "community");
         startActivity(intent);
     }
 

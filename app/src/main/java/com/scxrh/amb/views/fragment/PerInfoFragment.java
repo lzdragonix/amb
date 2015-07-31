@@ -19,6 +19,7 @@ import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.presenter.PerInfoPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.PerInfoView;
@@ -202,7 +203,11 @@ public class PerInfoFragment extends BaseFragment implements PerInfoView
 
     @Override
     public void showData(Object data)
-    { }
+    {
+        UserInfo userInfo = (UserInfo)data;
+        name.setText(userInfo.getUserName());
+        addr.setText(userInfo.getAddress());
+    }
 
     @Override
     public void finish()

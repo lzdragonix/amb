@@ -148,6 +148,12 @@ public class LoginFragment extends BaseFragment implements LoginView, TextView.O
         getActivity().finish();
     }
 
+    @OnClick(R.id.btnBack)
+    void btnBack()
+    {
+        getActivity().finish();
+    }
+
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
     {

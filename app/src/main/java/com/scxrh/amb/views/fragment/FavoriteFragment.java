@@ -181,7 +181,7 @@ public class FavoriteFragment extends BaseFragment implements FavoriteView
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
         private List<FavoriteItem> data;
-        OnItemClickListener mOnItemClickListener = (view, position) -> {
+        private OnItemClickListener mOnItemClickListener = (view, position) -> {
             RecyclerViewAdapter adapter = (RecyclerViewAdapter)((RecyclerView)view.getParent()).getAdapter();
             FavoriteItem item = adapter.getItem(position);
             UIData.Item uit = new UIData.Item();
