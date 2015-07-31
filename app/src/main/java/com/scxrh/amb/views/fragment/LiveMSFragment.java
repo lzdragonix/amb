@@ -3,6 +3,7 @@ package com.scxrh.amb.views.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +46,37 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     @Bind(R.id.rvList)
     RecyclerView mRecyclerView;
     private int mIndex;
+    private int page;
+    private CountDownTimer timer = new CountDownTimer(3000000, 10000)
+    {
+        @Override
+        public void onTick(long millisUntilFinished)
+        {
+            if (page >= vpAD.getAdapter().getCount()) { return; }
+            vpAD.setCurrentItem(page, true);
+            page++;
+        }
+
+        @Override
+        public void onFinish()
+        { }
+    };
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        mIndex = getArguments().getInt("index");
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
+        presenter.loadData(mIndex);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        timer.cancel();
+        super.onDestroy();
+    }
 
     @Override
     protected int getLayoutId()
@@ -61,15 +93,6 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
                           .mvpModule(new MvpModule(this))
                           .build()
                           .inject(this);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        mIndex = getArguments().getInt("index");
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
-        presenter.loadData(mIndex);
     }
 
     @Override
@@ -91,6 +114,7 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
         Map<String, UIData> uis = (Map<String, UIData>)data;
         vpAD.setAdapter(new ADPagerAdapter(getActivity(), uis.get("ad").getItems()));
         mRecyclerView.setAdapter(new RecyclerViewAdapter(uis.get("content").getItems()));
+        timer.start();
     }
 
     @Override
