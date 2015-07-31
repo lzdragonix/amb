@@ -172,6 +172,12 @@ public class FavoriteFragment extends BaseFragment implements FavoriteView
         btnSubmit.setText(text);
     }
 
+    @Override
+    public void close()
+    {
+        getActivity().finish();
+    }
+
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
         private List<FavoriteItem> data;

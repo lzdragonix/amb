@@ -1,11 +1,13 @@
 package com.scxrh.amb.presenter;
 
+import android.app.Activity;
 import android.net.Uri;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.DirManager;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.manager.WindowManager;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.rest.RestClient;
@@ -27,6 +29,10 @@ public class PerInfoPresenter
     @Inject
     SettingsManager settings;
     PerInfoView view;
+    @Inject
+    WindowManager windowManager;
+    @Inject
+    Activity activity;
     private Uri uriFile;
 
     @Inject
@@ -62,12 +68,12 @@ public class PerInfoPresenter
             if (throwable.getMessage().contains("un-login"))
             {
                 view.finish();
-                view.showLogin();
+                windowManager.startLogin(activity);
                 view.close();
             }
             else
             {
-                view.showMessage(message.getMessage(Const.MSG_LOADING));
+                view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
                 view.finish();
             }
         });

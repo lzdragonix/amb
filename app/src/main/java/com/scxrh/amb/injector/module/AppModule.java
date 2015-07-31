@@ -6,6 +6,7 @@ import com.scxrh.amb.Const;
 import com.scxrh.amb.common.RxBus;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
+import com.scxrh.amb.manager.WindowManager;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.UserInfo;
@@ -71,6 +72,13 @@ public class AppModule
     public AppInfo provideSysInfo()
     {
         return appInfo;
+    }
+
+    @Singleton
+    @Provides
+    public WindowManager provideWindowManager()
+    {
+        return new WindowManager();
     }
 
     private void initAppInfo(AppInfo info)
