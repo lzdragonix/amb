@@ -10,6 +10,7 @@ import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
+import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.MvpView;
@@ -30,6 +31,8 @@ public class SettingsFragment extends BaseFragment implements MvpView
     TextView txtCache;
     @Inject
     RestClient rest;
+    @Inject
+    AppInfo appInfo;
 
     @Override
     protected int getLayoutId()
@@ -80,8 +83,8 @@ public class SettingsFragment extends BaseFragment implements MvpView
     void rlLogout()
     {
         rest.logout().observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
-            getActivity().sendBroadcast(new Intent(Const.ACTION_EXIT));
             getActivity().finish();
+            appInfo.changeTab(MainFragment.TAB_RECOMM);
         });
     }
 }

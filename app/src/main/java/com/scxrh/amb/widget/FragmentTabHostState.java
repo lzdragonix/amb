@@ -263,7 +263,8 @@ public class FragmentTabHostState extends TabHost implements TabHost.OnTabChange
             FragmentTransaction ft = doTabChanged(tabId, null);
             if (ft != null)
             {
-                ft.commit();
+                //ft.commit();
+                ft.commitAllowingStateLoss();
             }
         }
         if (mOnTabChangeListener != null)

@@ -77,7 +77,7 @@ public interface AmbApi
     Observable<JSONObject> modifyPassword(@Query("oldPassword") String oldPassword,
             @Query("newPassword") String newPassword);
 
-    @POST("/windforce/m/suggestion_submitSuggest.action")
+    @POST("/shopxx/m/suggestion_submitSuggest.action")
     Observable<JSONObject> submitSuggest(@Query("name") String name, @Query("contactInfo") String contactInfo,
             @Query("content") String content);
 

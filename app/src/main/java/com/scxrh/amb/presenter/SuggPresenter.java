@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
+import com.scxrh.amb.model.AppInfo;
+import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.SuggView;
@@ -18,12 +20,23 @@ public class SuggPresenter
     RestClient rest;
     @Inject
     MessageManager message;
+    @Inject
+    AppInfo appInfo;
     private SuggView view;
 
     @Inject
     public SuggPresenter(MvpView view)
     {
         this.view = (SuggView)view;
+    }
+
+    public void init()
+    {
+        UserInfo userInfo = appInfo.getUserInfo();
+        if (userInfo != null)
+        {
+            view.initView(userInfo);
+        }
     }
 
     public void submit(String name, String contactInfo, String content)

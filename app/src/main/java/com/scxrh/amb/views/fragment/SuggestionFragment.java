@@ -10,6 +10,7 @@ import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
+import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.presenter.SuggPresenter;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.SuggView;
@@ -41,6 +42,7 @@ public class SuggestionFragment extends BaseFragment implements SuggView
     {
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText("投诉建议");
+        presenter.init();
     }
 
     @Override
@@ -86,6 +88,13 @@ public class SuggestionFragment extends BaseFragment implements SuggView
         Intent intent = new Intent(getActivity(), WindowActivity.class);
         intent.putExtra(Const.KEY_FRAGMENT, LoginFragment.class.getName());
         startActivity(intent);
+    }
+
+    @Override
+    public void initView(UserInfo userInfo)
+    {
+        txtUserName.setText(userInfo.getUserName());
+        txtPhone.setText(userInfo.getTelephone());
     }
 
     @Override
