@@ -41,7 +41,6 @@ public class AppInfo
 
     public void setUserInfo(UserInfo userInfo)
     {
-        if (userInfo == null) { return; }
         this.userInfo = userInfo;
         notify("userInfo", userInfo);
     }

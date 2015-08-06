@@ -12,6 +12,7 @@ import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
+import com.scxrh.amb.model.UserInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.MvpView;
@@ -87,8 +88,8 @@ public class SettingsFragment extends BaseFragment implements MvpView
     {
         rest.logout().observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
             getActivity().finish();
-            appInfo.setUserInfo(null);
             appInfo.setLogin(false);
+            appInfo.setUserInfo(new UserInfo());
             settings.setValue(Const.KEY_USER, "");
             appInfo.changeTab(MainFragment.TAB_RECOMM);
         });

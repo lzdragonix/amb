@@ -36,13 +36,20 @@ public class MinePresenter
         view.changeAvatar(appInfo.getAvatar());
         appInfo.observable("avatar", this, String.class).subscribe(view::changeAvatar);
         appInfo.observable("userInfo", this, UserInfo.class).subscribe(userInfo -> {
-            if (TextUtils.isEmpty(userInfo.getUserName()))
+            if(appInfo.isLogin())
             {
-                view.setAccount(userInfo.getTelephone());
+                if (TextUtils.isEmpty(userInfo.getUserName()))
+                {
+                    view.setAccount(userInfo.getTelephone());
+                }
+                else
+                {
+                    view.setAccount(userInfo.getUserName());
+                }
             }
             else
             {
-                view.setAccount(userInfo.getUserName());
+                view.setAccount("请登录您的账户");
             }
         });
     }

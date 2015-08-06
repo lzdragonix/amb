@@ -69,8 +69,8 @@ public class LoginPresenter
             settings.setValue(Const.KEY_ACCOUNT, user);
             settings.setValue(Const.KEY_PASSWORD, DES.encrypt(pwd, DES.getKey()));
             settings.setValue(Const.KEY_USER, gson.toJson(userInfo));
-            appInfo.setUserInfo(userInfo);
             appInfo.setLogin(true);
+            appInfo.setUserInfo(userInfo);
             view.finish();
             view.close();
         }, throwable -> {
