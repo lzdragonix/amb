@@ -1,7 +1,11 @@
 package com.scxrh.amb.presenter;
 
+import android.app.Activity;
+
+import com.scxrh.amb.common.WindowNavigator;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.City;
+import com.scxrh.amb.views.fragment.SettingsFragment;
 import com.scxrh.amb.views.view.MainView;
 import com.scxrh.amb.views.view.MvpView;
 
@@ -11,6 +15,10 @@ public class MainPresenter
 {
     @Inject
     AppInfo appInfo;
+    @Inject
+    WindowNavigator navigator;
+    @Inject
+    Activity activity;
     private MainView view;
 
     @Inject
@@ -31,5 +39,15 @@ public class MainPresenter
     public void onDestroyView()
     {
         appInfo.unobservable(this);
+    }
+
+    public void showSettings()
+    {
+        if (!appInfo.isLogin())
+        {
+            navigator.startLogin(activity);
+            return;
+        }
+        navigator.startWindow(activity, SettingsFragment.class.getName());
     }
 }

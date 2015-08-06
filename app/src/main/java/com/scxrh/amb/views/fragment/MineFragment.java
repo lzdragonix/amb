@@ -91,38 +91,30 @@ public class MineFragment extends BaseFragment implements MineView
     @OnClick(R.id.grxx)
     void showGRXX()
     {
-        presenter.showGRXX();
+        presenter.openWindow(1);
     }
 
     @OnClick(R.id.favorite)
     void favorite()
     {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, FavoriteFragment.class.getName());
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.tsjy)
-    void tsjy()
-    {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, SuggestionFragment.class.getName());
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.jf)
-    void jf()
-    {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, PointsFragment.class.getName());
-        startActivity(intent);
+        presenter.openWindow(2);
     }
 
     @OnClick(R.id.dd)
     void order()
     {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, OrderFragment.class.getName());
-        startActivity(intent);
+        presenter.openWindow(3);
+    }
+
+    @OnClick(R.id.tsjy)
+    void tsjy()
+    {
+        presenter.openWindow(4);
+    }
+
+    @OnClick(R.id.jf)
+    void jf()
+    {
+        presenter.openWindow(5);
     }
 }

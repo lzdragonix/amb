@@ -7,7 +7,11 @@ import com.scxrh.amb.common.WindowNavigator;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.UserInfo;
+import com.scxrh.amb.views.fragment.FavoriteFragment;
+import com.scxrh.amb.views.fragment.OrderFragment;
 import com.scxrh.amb.views.fragment.PerInfoFragment;
+import com.scxrh.amb.views.fragment.PointsFragment;
+import com.scxrh.amb.views.fragment.SuggestionFragment;
 import com.scxrh.amb.views.view.MineView;
 import com.scxrh.amb.views.view.MvpView;
 
@@ -36,7 +40,7 @@ public class MinePresenter
         view.changeAvatar(appInfo.getAvatar());
         appInfo.observable("avatar", this, String.class).subscribe(view::changeAvatar);
         appInfo.observable("userInfo", this, UserInfo.class).subscribe(userInfo -> {
-            if(appInfo.isLogin())
+            if (appInfo.isLogin())
             {
                 if (TextUtils.isEmpty(userInfo.getUserName()))
                 {
@@ -59,13 +63,32 @@ public class MinePresenter
         appInfo.unobservable(this);
     }
 
-    public void showGRXX()
+    public void openWindow(int type)
     {
         if (!appInfo.isLogin())
         {
             navigator.startLogin(activity);
             return;
         }
-        navigator.startWindow(activity, PerInfoFragment.class.getName());
+        String name = "";
+        switch (type)
+        {
+            case 1:
+                name = PerInfoFragment.class.getName();
+                break;
+            case 2:
+                name = FavoriteFragment.class.getName();
+                break;
+            case 3:
+                name = OrderFragment.class.getName();
+                break;
+            case 4:
+                name = SuggestionFragment.class.getName();
+                break;
+            case 5:
+                name = PointsFragment.class.getName();
+                break;
+        }
+        navigator.startWindow(activity, name);
     }
 }
