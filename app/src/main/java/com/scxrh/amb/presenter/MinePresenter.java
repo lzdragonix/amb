@@ -1,10 +1,13 @@
 package com.scxrh.amb.presenter;
 
+import android.app.Activity;
 import android.text.TextUtils;
 
+import com.scxrh.amb.common.WindowNavigator;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.model.UserInfo;
+import com.scxrh.amb.views.fragment.PerInfoFragment;
 import com.scxrh.amb.views.view.MineView;
 import com.scxrh.amb.views.view.MvpView;
 
@@ -16,6 +19,10 @@ public class MinePresenter
     AppInfo appInfo;
     @Inject
     SettingsManager settings;
+    @Inject
+    WindowNavigator navigator;
+    @Inject
+    Activity activity;
     private MineView view;
 
     @Inject
@@ -24,7 +31,7 @@ public class MinePresenter
         this.view = (MineView)view;
     }
 
-    public void initView()
+    public void init()
     {
         view.changeAvatar(appInfo.getAvatar());
         appInfo.observable("avatar", this, String.class).subscribe(view::changeAvatar);
@@ -43,5 +50,15 @@ public class MinePresenter
     public void onDestroyView()
     {
         appInfo.unobservable(this);
+    }
+
+    public void showGRXX()
+    {
+        if (!appInfo.isLogin())
+        {
+            navigator.startLogin(activity);
+            return;
+        }
+        navigator.startWindow(activity, PerInfoFragment.class.getName());
     }
 }

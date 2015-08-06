@@ -10,6 +10,7 @@ import com.scxrh.amb.R;
 import com.scxrh.amb.injector.component.DaggerMvpComponent;
 import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
+import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.activity.WindowActivity;
@@ -33,6 +34,8 @@ public class SettingsFragment extends BaseFragment implements MvpView
     RestClient rest;
     @Inject
     AppInfo appInfo;
+    @Inject
+    SettingsManager settings;
 
     @Override
     protected int getLayoutId()
@@ -84,6 +87,9 @@ public class SettingsFragment extends BaseFragment implements MvpView
     {
         rest.logout().observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
             getActivity().finish();
+            appInfo.setUserInfo(null);
+            appInfo.setLogin(false);
+            settings.setValue(Const.KEY_USER, "");
             appInfo.changeTab(MainFragment.TAB_RECOMM);
         });
     }

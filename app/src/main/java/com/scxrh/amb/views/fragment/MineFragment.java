@@ -54,7 +54,7 @@ public class MineFragment extends BaseFragment implements MineView
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        presenter.initView();
+        presenter.init();
     }
 
     @Override
@@ -91,9 +91,7 @@ public class MineFragment extends BaseFragment implements MineView
     @OnClick(R.id.grxx)
     void showGRXX()
     {
-        Intent intent = new Intent(getActivity(), WindowActivity.class);
-        intent.putExtra(Const.KEY_FRAGMENT, PerInfoFragment.class.getName());
-        startActivity(intent);
+        presenter.showGRXX();
     }
 
     @OnClick(R.id.favorite)

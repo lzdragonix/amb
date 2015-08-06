@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
-import com.scxrh.amb.manager.WindowNavigator;
+import com.scxrh.amb.common.WindowNavigator;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.FavoriteView;

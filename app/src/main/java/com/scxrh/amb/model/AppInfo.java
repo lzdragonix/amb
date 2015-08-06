@@ -22,6 +22,17 @@ public class AppInfo
     private String avatar = "";
     private String tab = MainFragment.TAB_RECOMM;
     private UserInfo userInfo = new UserInfo();
+    private boolean login;
+
+    public boolean isLogin()
+    {
+        return login;
+    }
+
+    public void setLogin(boolean login)
+    {
+        this.login = login;
+    }
 
     public UserInfo getUserInfo()
     {
@@ -30,6 +41,7 @@ public class AppInfo
 
     public void setUserInfo(UserInfo userInfo)
     {
+        if (userInfo == null) { return; }
         this.userInfo = userInfo;
         notify("userInfo", userInfo);
     }
