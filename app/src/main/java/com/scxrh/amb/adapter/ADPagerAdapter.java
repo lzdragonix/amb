@@ -22,12 +22,14 @@ public class ADPagerAdapter extends PagerAdapter
     private List<UIData.Item> data;
     private View[] pages;
     private Activity context;
+    private int resource;
 
-    public ADPagerAdapter(Activity context, List<UIData.Item> data)
+    public ADPagerAdapter(Activity context, List<UIData.Item> data, int res)
     {
         this.context = context;
         this.data = data;
         pages = new View[data.size()];
+        resource = res;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class ADPagerAdapter extends PagerAdapter
         View view = pages[position];
         if (view == null)
         {
-            view = context.getLayoutInflater().inflate(R.layout.layout_image_item_ad, container, false);
+            view = context.getLayoutInflater().inflate(resource, container, false);
             pages[position] = view;
             String url = AmbApi.END_POINT + data.get(position).getImgUrl();
             SimpleDraweeView img = (SimpleDraweeView)view.findViewById(R.id.imgItem);

@@ -131,7 +131,7 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     public void showData(Object data)
     {
         Map<String, UIData> uis = (Map<String, UIData>)data;
-        vpAD.setAdapter(new ADPagerAdapter(getActivity(), uis.get("ad").getItems()));
+        vpAD.setAdapter(new ADPagerAdapter(getActivity(), uis.get("ad").getItems(), R.layout.layout_image_item_ad));
         rvShop.setAdapter(new RecyclerViewAdapter(uis.get("hot").getItems()));
         rvBuy.setAdapter(new RecyclerViewAdapter(uis.get("buy").getItems()));
         rvLottery.setAdapter(new RecyclerViewAdapter(uis.get("lottery").getItems()));

@@ -114,7 +114,7 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     public void showData(Object data)
     {
         Map<String, UIData> uis = (Map<String, UIData>)data;
-        vpAD.setAdapter(new ADPagerAdapter(getActivity(), uis.get("ad").getItems()));
+        vpAD.setAdapter(new ADPagerAdapter(getActivity(), uis.get("ad").getItems(), R.layout.layout_image_item_ad1));
         mRecyclerView.setAdapter(new RecyclerViewAdapter(uis.get("content").getItems()));
         timer.start();
     }
