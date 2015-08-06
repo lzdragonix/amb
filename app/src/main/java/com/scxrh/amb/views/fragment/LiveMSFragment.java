@@ -7,9 +7,11 @@ import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.scxrh.amb.App;
@@ -159,6 +161,10 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
             UIData.Item item = getItem(position);
             String url = AmbApi.END_POINT + item.getImgUrl();
             vh.img.setImageURI(Uri.parse(url));
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)vh.img.getLayoutParams();
+            if ((position % 2) == 1) { params.gravity = Gravity.RIGHT; }
+            else { params.gravity = Gravity.LEFT; }
+            vh.img.setLayoutParams(params);
         }
 
         @Override

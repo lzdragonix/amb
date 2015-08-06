@@ -17,8 +17,8 @@
             android:id="@+id/img"
             android:layout_width="165dp"
             android:layout_height="165dp"
-            fresco:actualImageScaleType="fitXY"
-            fresco:placeholderImageScaleType="fitXY"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImageScaleType="centerCrop"
             fresco:placeholderImage="@mipmap/cp_1"/>
 
         <TextView

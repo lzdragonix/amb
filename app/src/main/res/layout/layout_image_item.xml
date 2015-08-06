@@ -12,8 +12,9 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_gravity="center"
-        fresco:actualImageScaleType="fitXY"
-        fresco:placeholderImageScaleType="fitXY"
-        fresco:placeholderImage="@mipmap/test_img_2"/>
+        fresco:roundedCornerRadius="5dp"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:placeholderImage="@mipmap/test_img_1"/>
 </FrameLayout>
 
