@@ -23,13 +23,20 @@ public class ADPagerAdapter extends PagerAdapter
     private View[] pages;
     private Activity context;
     private int resource;
+    private boolean remove;
 
     public ADPagerAdapter(Activity context, List<UIData.Item> data, int res)
+    {
+        this(context, data, res, true);
+    }
+
+    public ADPagerAdapter(Activity context, List<UIData.Item> data, int res, boolean rmv)
     {
         this.context = context;
         this.data = data;
         pages = new View[data.size()];
         resource = res;
+        remove = rmv;
     }
 
     @Override
@@ -68,7 +75,7 @@ public class ADPagerAdapter extends PagerAdapter
     @Override
     public void destroyItem(ViewGroup container, int position, Object object)
     {
-        container.removeView(pages[position]);
+        if (remove) { container.removeView(pages[position]); }
     }
 
     @Override

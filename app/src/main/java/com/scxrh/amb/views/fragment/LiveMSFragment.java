@@ -27,6 +27,7 @@ import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.OnItemClickListener;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.widget.loopager.LoopViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +45,15 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     @Inject
     LiveMSPresenter presenter;
     @Bind(R.id.vpAD)
-    ViewPager vpAD;
+    LoopViewPager vpAD;
     @Bind(R.id.rvList)
     RecyclerView mRecyclerView;
-    private int mIndex;
     private int page;
     private CountDownTimer timer = new CountDownTimer(3000000, 10000)
     {
         @Override
         public void onTick(long millisUntilFinished)
         {
-            if (page >= vpAD.getAdapter().getCount()) { return; }
             vpAD.setCurrentItem(page, true);
             page++;
         }
@@ -63,12 +62,13 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
         public void onFinish()
         { }
     };
+    private List<UIData.Item> items = new ArrayList<>();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        mIndex = getArguments().getInt("index");
+        int mIndex = getArguments().getInt("index");
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
         presenter.loadData(mIndex);
     }
@@ -114,7 +114,24 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     public void showData(Object data)
     {
         Map<String, UIData> uis = (Map<String, UIData>)data;
-        vpAD.setAdapter(new ADPagerAdapter(getActivity(), uis.get("ad").getItems(), R.layout.layout_image_item_ad1));
+        initPagerData(uis.get("ad").getItems());
+        vpAD.setAdapter(new ADPagerAdapter(getActivity(), items, R.layout.layout_image_item_ad1, false));
+        vpAD.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            { }
+
+            @Override
+            public void onPageSelected(int position)
+            {
+                page = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            { }
+        });
         mRecyclerView.setAdapter(new RecyclerViewAdapter(uis.get("content").getItems()));
         timer.start();
     }
@@ -123,6 +140,13 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     public void finish()
     {
         closeProgressDialog();
+    }
+
+    private void initPagerData(List<UIData.Item> data)
+    {
+        if (data.size() == 0) { return; }
+        items.addAll(data);
+        if (items.size() < 3) { initPagerData(data); }
     }
 
     private void showDetail(UIData.Item item)
