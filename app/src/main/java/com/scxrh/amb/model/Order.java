@@ -9,7 +9,40 @@ public class Order
     private String orderDate;
     private String shopId;
     private String shopName;
+    private String orderName;
+    private String orderThumbnail;
+    private String orderState;
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    public String getOrderName()
+    {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName)
+    {
+        this.orderName = orderName;
+    }
+
+    public String getOrderThumbnail()
+    {
+        return orderThumbnail;
+    }
+
+    public void setOrderThumbnail(String orderThumbnail)
+    {
+        this.orderThumbnail = orderThumbnail;
+    }
+
+    public String getOrderState()
+    {
+        return orderState;
+    }
+
+    public void setOrderState(String orderState)
+    {
+        this.orderState = orderState;
+    }
 
     public String getOrderId()
     {
@@ -66,9 +99,31 @@ public class Order
     {
         private String orderItemId;
         private String productItemId;
+        private String name;
+        private String thumbnail;
         private String amount;
         private String price;
         private String totalPrice;
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public void setName(String name)
+        {
+            this.name = name;
+        }
+
+        public String getThumbnail()
+        {
+            return thumbnail;
+        }
+
+        public void setThumbnail(String thumbnail)
+        {
+            this.thumbnail = thumbnail;
+        }
 
         public String getOrderItemId()
         {

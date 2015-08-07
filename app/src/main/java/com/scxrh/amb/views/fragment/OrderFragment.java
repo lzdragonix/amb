@@ -1,5 +1,6 @@
 package com.scxrh.amb.views.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.R;
 import com.scxrh.amb.common.Utils;
@@ -16,6 +18,7 @@ import com.scxrh.amb.injector.module.ActivityModule;
 import com.scxrh.amb.injector.module.MvpModule;
 import com.scxrh.amb.model.Order;
 import com.scxrh.amb.presenter.OrderPresenter;
+import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.view.OrderView;
 
 import java.util.ArrayList;
@@ -101,6 +104,21 @@ public class OrderFragment extends BaseFragment implements OrderView
         getActivity().finish();
     }
 
+    private String parseState(String state)
+    {
+        switch (state)
+        {
+            case "1":
+                return "已处理";
+            case "2":
+                return "已完成";
+            case "3":
+                return "已作废";
+            default:
+                return "未处理";
+        }
+    }
+
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
         private List<Order> data;
@@ -122,12 +140,14 @@ public class OrderFragment extends BaseFragment implements OrderView
         {
             ViewHolder vh = (ViewHolder)holder;
             Order order = data.get(position);
-            vh.name.setText(order.getShopName());
-            vh.desc.setText(order.getShopName());
-            vh.state.setText("未处理");
             Order.OrderItem orderItem = order.getOrderItems().get(0);
+            vh.name.setText(order.getShopName());
+            vh.desc.setText(order.getOrderName());
+            vh.state.setText(parseState(order.getOrderState()));
             vh.price.setText("￥ " + String.format("%.2f", Utils.tryParse(orderItem.getPrice(), 0f)));
-            vh.amount.setText(orderItem.getAmount());
+            vh.amount.setText("× " + orderItem.getAmount());
+            String url = AmbApi.END_POINT + order.getOrderThumbnail();
+            vh.img.setImageURI(Uri.parse(url));
         }
 
         @Override
@@ -149,6 +169,8 @@ public class OrderFragment extends BaseFragment implements OrderView
         TextView price;
         @Bind(R.id.amount)
         TextView amount;
+        @Bind(R.id.img)
+        SimpleDraweeView img;
 
         public ViewHolder(View view)
         {
