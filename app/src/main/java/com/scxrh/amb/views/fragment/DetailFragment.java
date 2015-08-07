@@ -1,7 +1,6 @@
 package com.scxrh.amb.views.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.presenter.DetailPresenter;
 import com.scxrh.amb.rest.AmbApi;
-import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
 
 import java.util.List;
@@ -177,12 +175,7 @@ public class DetailFragment extends BaseFragment implements ProgressView
         TextView price = ButterKnife.findById(view, R.id.price);
         price.setText("￥" + String.format("%.2f", Utils.tryParse(di.getPrice(), 0f)));
         detailContent.addView(view);
-        ButterKnife.findById(view, R.id.btnBuy).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WindowActivity.class);
-            intent.putExtra(Const.KEY_FRAGMENT, OrderDetailFragment.class.getName());
-            intent.putExtra(Const.KEY_DATA, di);
-            startActivity(intent);
-        });
+        ButterKnife.findById(view, R.id.btnBuy).setOnClickListener(v -> presenter.buy(di));
     }
 
     @SuppressWarnings("unchecked")

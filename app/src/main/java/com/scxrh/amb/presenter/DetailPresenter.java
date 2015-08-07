@@ -1,11 +1,16 @@
 package com.scxrh.amb.presenter;
 
+import android.app.Activity;
+
 import com.scxrh.amb.Const;
+import com.scxrh.amb.common.WindowNavigator;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.AppInfo;
+import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.rest.RestClient;
+import com.scxrh.amb.views.fragment.OrderDetailFragment;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.ProgressView;
 
@@ -23,8 +28,11 @@ public class DetailPresenter
     SettingsManager settings;
     @Inject
     AppInfo appInfo;
+    @Inject
+    WindowNavigator navigator;
+    @Inject
+    Activity activity;
     private ProgressView view;
-
 
     @Inject
     public DetailPresenter(MvpView view)
@@ -95,5 +103,15 @@ public class DetailPresenter
             view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
             view.finish();
         });
+    }
+
+    public void buy(DetailItem di)
+    {
+        if (!appInfo.isLogin())
+        {
+            navigator.startLogin(activity);
+            return;
+        }
+        navigator.startWindow(activity, OrderDetailFragment.class.getName(), di);
     }
 }
