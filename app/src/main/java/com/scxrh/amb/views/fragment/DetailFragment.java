@@ -200,15 +200,7 @@ public class DetailFragment extends BaseFragment implements ProgressView
         String url = AmbApi.END_POINT + item.getItemId() + userId;
         WebView webView = new WebView(getActivity());
         WebSettings ws = webView.getSettings();
-        ws.setSupportZoom(false);
-        ws.setBuiltInZoomControls(false);
         ws.setJavaScriptEnabled(true);
-        ws.setLoadWithOverviewMode(true);
-        ws.setBlockNetworkImage(true);
-        webView.setHorizontalScrollbarOverlay(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.setVerticalScrollbarOverlay(false);
-        webView.setVerticalScrollBarEnabled(false);
         webView.loadUrl(url);
         detailContent.addView(webView);
     }
