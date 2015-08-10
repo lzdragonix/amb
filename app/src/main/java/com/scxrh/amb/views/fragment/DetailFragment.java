@@ -46,6 +46,7 @@ public class DetailFragment extends BaseFragment implements ProgressView
     @Bind(R.id.shouc)
     ImageView shouc;
     private UIData.Item item;
+    private double mPrice;
 
     protected int getLayoutId()
     {
@@ -176,6 +177,29 @@ public class DetailFragment extends BaseFragment implements ProgressView
         price.setText("￥" + String.format("%.2f", Utils.tryParse(di.getPrice(), 0f)));
         detailContent.addView(view);
         ButterKnife.findById(view, R.id.btnBuy).setOnClickListener(v -> presenter.buy(di));
+        TextView txt_num = ButterKnife.findById(view, R.id.txt_num);
+        TextView txt_price = ButterKnife.findById(view, R.id.txt_price);
+        txt_price.setText("￥ " + String.format("%.2f", Utils.tryParse(di.getPrice(), 0f)));
+        mPrice = Utils.tryParse(txt_price.getText().toString().replace("￥ ", ""), 0d);
+        ButterKnife.findById(view, R.id.btn_add).setOnClickListener(v -> {
+            int i = Utils.tryParse(txt_num.getText().toString(), 0);
+            i++;
+            String s = String.valueOf(i);
+            txt_num.setText(s);
+            txt_price.setText("￥ " + String.format("%.2f", mPrice * i));
+            di.setAmount(s);
+        });
+        ButterKnife.findById(view, R.id.btn_sub).setOnClickListener(v -> {
+            int i = Utils.tryParse(txt_num.getText().toString(), 0);
+            if (i > 1)
+            {
+                i--;
+                String s = String.valueOf(i);
+                txt_num.setText(s);
+                txt_price.setText("￥ " + String.format("%.2f", mPrice * i));
+                di.setAmount(s);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")

@@ -62,7 +62,7 @@ public class OrderDetailPresenter
         {
             JSONObject json = new JSONObject();
             json.put("itemId", item.getItemId());
-            json.put("amount", 1);
+            json.put("amount", item.getAmount());
             jsonArray.put(json);
         }
         catch (JSONException e)

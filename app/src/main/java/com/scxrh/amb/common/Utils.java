@@ -63,6 +63,21 @@ public class Utils
         return result;
     }
 
+    public static double tryParse(String value, double defaultValue)
+    {
+        if (TextUtils.isEmpty(value)) { return defaultValue; }
+        double result;
+        try
+        {
+            result = Double.parseDouble(value);
+        }
+        catch (NumberFormatException e)
+        {
+            result = defaultValue;
+        }
+        return result;
+    }
+
     public static String tryParse(Date date, String format)
     {
         String result = null;
@@ -74,6 +89,21 @@ public class Utils
         catch (Exception e)
         {
             e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static int tryParse(String value, int defaultValue)
+    {
+        if (TextUtils.isEmpty(value)) { return defaultValue; }
+        int result;
+        try
+        {
+            result = Integer.parseInt(value);
+        }
+        catch (NumberFormatException e)
+        {
+            result = defaultValue;
         }
         return result;
     }

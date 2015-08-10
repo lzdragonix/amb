@@ -22,6 +22,7 @@ public class DetailItem implements Parcelable
     private String thumbImgUrl;
     private String desc;
     private String itemId;
+    private String amount;
 
     public DetailItem() { }
 
@@ -38,6 +39,17 @@ public class DetailItem implements Parcelable
         this.thumbImgUrl = in.readString();
         this.desc = in.readString();
         this.itemId = in.readString();
+        this.amount = in.readString();
+    }
+
+    public String getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount(String amount)
+    {
+        this.amount = amount;
     }
 
     public String getName()
@@ -167,5 +179,6 @@ public class DetailItem implements Parcelable
         dest.writeString(this.thumbImgUrl);
         dest.writeString(this.desc);
         dest.writeString(this.itemId);
+        dest.writeString(this.amount);
     }
 }
