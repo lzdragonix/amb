@@ -30,7 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-// 订单
+// 订单中心
 public class OrderFragment extends BaseFragment implements OrderView
 {
     public static final String TAG = OrderFragment.class.getSimpleName();
@@ -148,6 +148,15 @@ public class OrderFragment extends BaseFragment implements OrderView
             vh.amount.setText("× " + orderItem.getAmount());
             String url = AmbApi.END_POINT + order.getOrderThumbnail();
             vh.img.setImageURI(Uri.parse(url));
+            vh.confirm.setOnClickListener(v -> presenter.confirm(order.getOrderId()));
+            if ("0".equals(order.getOrderState()))
+            {
+                vh.confirm.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                vh.confirm.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -169,6 +178,8 @@ public class OrderFragment extends BaseFragment implements OrderView
         TextView price;
         @Bind(R.id.amount)
         TextView amount;
+        @Bind(R.id.confirm)
+        TextView confirm;
         @Bind(R.id.img)
         SimpleDraweeView img;
 

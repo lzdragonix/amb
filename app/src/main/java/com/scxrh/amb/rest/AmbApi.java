@@ -108,4 +108,7 @@ public interface AmbApi
 
     @POST("/windforce/m/mlogout.action")
     Observable<Response> logout();
+
+    @POST("/shopxx/m/order_confirmReceiving.action")
+    Observable<Response> confirmReceiving(@Query("receivingItems") String receivingItems);
 }

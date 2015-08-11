@@ -3,12 +3,14 @@ package com.scxrh.amb.presenter;
 import android.app.Activity;
 
 import com.scxrh.amb.Const;
-import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.common.WindowNavigator;
+import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.AppInfo;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.OrderView;
+
+import org.json.JSONArray;
 
 import javax.inject.Inject;
 
@@ -38,7 +40,7 @@ public class OrderPresenter
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
         String userId = appInfo.getUserInfo().getUserId();
-        rest.queryOrder(userId, "", "0").observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
+        rest.queryOrder(userId, "", "").observeOn(AndroidSchedulers.mainThread()).subscribe(list -> {
             view.showData(list);
             view.finish();
         }, throwable -> {
@@ -54,5 +56,18 @@ public class OrderPresenter
                 view.finish();
             }
         });
+    }
+
+    public void confirm(String orderId)
+    {
+        JSONArray array = new JSONArray();
+        array.put(orderId);
+        view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
+        rest.confirmReceiving(array.toString())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(response -> loadData(), throwable -> {
+                view.showMessage(message.getMessage(Const.MSG_SUBMIT_FAILED));
+                view.finish();
+            });
     }
 }

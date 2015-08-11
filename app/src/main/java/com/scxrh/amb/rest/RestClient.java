@@ -232,6 +232,11 @@ public class RestClient
         return mAmbApi.logout();
     }
 
+    public Observable<Response> confirmReceiving(String receivingItems)
+    {
+        return mAmbApi.confirmReceiving(receivingItems);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override
