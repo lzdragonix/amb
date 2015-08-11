@@ -1,5 +1,7 @@
 package com.scxrh.amb.presenter;
 
+import android.text.TextUtils;
+
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.AppInfo;
@@ -42,7 +44,7 @@ public class OrderDetailPresenter
         }
     }
 
-    public void submit(DetailItem item, int typeDeliveries, int typePays)
+    public void submit(DetailItem item, int typeDeliveries, int typePays, String user, String phone, String addr)
     {
         if (typeDeliveries < 0)
         {
@@ -53,6 +55,24 @@ public class OrderDetailPresenter
         if (typePays < 0)
         {
             view.showMessage("请选择付款方式");
+            view.finish();
+            return;
+        }
+        if (TextUtils.isEmpty(user))
+        {
+            view.showMessage("请输入收货人");
+            view.finish();
+            return;
+        }
+        if (TextUtils.isEmpty(phone))
+        {
+            view.showMessage("请输入电话");
+            view.finish();
+            return;
+        }
+        if (TextUtils.isEmpty(addr))
+        {
+            view.showMessage("请输入收货地址");
             view.finish();
             return;
         }
@@ -71,12 +91,9 @@ public class OrderDetailPresenter
         }
         UserInfo userInfo = appInfo.getUserInfo();
         String userId = userInfo.getUserId();
-        String telephone = userInfo.getTelephone();
-        String address = userInfo.getAddress();
-        String receiverName = userInfo.getUserName();
         String addItems = jsonArray.toString();
         String communityId = appInfo.getCommunity().getId();
-        rest.addOrder(userId, communityId, telephone, address, receiverName, "", addItems)
+        rest.addOrder(userId, communityId, phone, addr, user, "", addItems)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(list -> {
                 view.finish();

@@ -125,7 +125,8 @@ public class OrderDetailFragment extends BaseFragment implements OrderDetailView
     void submit(View view)
     {
         view.setEnabled(false);
-        presenter.submit(item, typeDeliveries, typePays);
+        presenter.submit(item, typeDeliveries, typePays, txt_shr.getText().toString(), txt_dh.getText().toString(),
+                         txt_addr.getText().toString());
     }
 
     public void changeDeliveries(int index)
@@ -174,7 +175,7 @@ public class OrderDetailFragment extends BaseFragment implements OrderDetailView
     {
         txt_shr.setText(userInfo.getUserName());
         txt_dh.setText(userInfo.getTelephone());
-        txt_addr.setText("收货地址：" + userInfo.getAddress());
+        txt_addr.setText(userInfo.getAddress());
     }
 
     @Override
