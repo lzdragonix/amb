@@ -74,6 +74,7 @@ public class RetPresenter
         rest.restorePwd(user, pwd, "111111").observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
             view.finish();
             view.success();
+            view.showMessage("重设密码成功");
         }, throwable -> {
             view.showMessage(message.getMessage(Const.MSG_SERVER_ERROR));
         });
