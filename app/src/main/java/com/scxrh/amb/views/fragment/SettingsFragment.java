@@ -91,7 +91,6 @@ public class SettingsFragment extends BaseFragment implements MvpView
             appInfo.setLogin(false);
             appInfo.setUserInfo(new UserInfo());
             settings.setValue(Const.KEY_USER, "");
-            appInfo.changeTab(MainFragment.TAB_RECOMM);
         });
     }
 }

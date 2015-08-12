@@ -62,6 +62,11 @@ public class DetailPresenter
 
     public void favorite(String itemId, String contentType)
     {
+        if (!appInfo.isLogin())
+        {
+            navigator.startLogin(activity);
+            return;
+        }
         rest.addFavorite(itemId, contentType).observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
             view.showMessage("收藏成功");
         }, throwable -> {

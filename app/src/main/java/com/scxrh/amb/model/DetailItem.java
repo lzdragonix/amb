@@ -22,7 +22,7 @@ public class DetailItem implements Parcelable
     private String thumbImgUrl;
     private String desc;
     private String itemId;
-    private String amount;
+    private String amount = "1";
 
     public DetailItem() { }
 
