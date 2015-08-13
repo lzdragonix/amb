@@ -87,10 +87,10 @@ public class LiveSEHFragment extends BaseFragment
                 url = "https://ebppprod.alipay.com/estate.htm?_pdType=accibafdfbdebceidcae";
                 break;
             case "fjyd":
-                url = "http://www.alitrip.com/";
+                url = "http://h5.m.taobao.com/trip/flight/search/index.html";
                 break;
             case "hcyd":
-                url = "http://www.alitrip.com/";
+                url = "http://h5.m.taobao.com/trip/train/search/index.html";
                 break;
             case "ylfw":
                 url = "http://app.alipay.com/home/appGateway.htm?appId=1000000113";

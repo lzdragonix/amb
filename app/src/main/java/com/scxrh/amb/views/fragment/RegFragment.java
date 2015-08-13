@@ -114,7 +114,6 @@ public class RegFragment extends BaseFragment implements RegView
     {
         btnGetVerify.setEnabled(false);
         presenter.getSMS(txtUser.getText().toString());
-        timer.start();
     }
 
     @OnClick(R.id.txtAgreement)
@@ -146,11 +145,18 @@ public class RegFragment extends BaseFragment implements RegView
     {
         closeProgressDialog();
         btnReg.setEnabled(true);
+        btnGetVerify.setEnabled(true);
     }
 
     @Override
     public void regSuccess()
     {
         getActivity().finish();
+    }
+
+    @Override
+    public void startTimer()
+    {
+        timer.start();
     }
 }

@@ -79,4 +79,15 @@ public class RetPresenter
             view.showMessage(message.getMessage(Const.MSG_SERVER_ERROR));
         });
     }
+
+    public void getSMS(String moblie)
+    {
+        if (!Utils.regex(moblie, Const.REGEX_MOBILE))
+        {
+            view.showMessage(message.getMessage(Const.MSG_MOBILE_ILLEGAL));
+            view.finish();
+            return;
+        }
+        view.startTimer();
+    }
 }

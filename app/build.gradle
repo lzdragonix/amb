@@ -61,3 +61,8 @@ dependencies {
     //fresco
     compile 'com.facebook.fresco:fresco:0.6.0+'
 }
+
+retrolambda {
+    defaultMethods false
+    incremental false
+}

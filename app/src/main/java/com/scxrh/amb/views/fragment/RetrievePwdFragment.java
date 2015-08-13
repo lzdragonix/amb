@@ -109,7 +109,7 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     void getVerify()
     {
         btnGetVerify.setEnabled(false);
-        timer.start();
+        presenter.getSMS(txtUser.getText().toString());
     }
 
     @OnClick(R.id.txtAgreement)
@@ -148,6 +148,7 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     {
         closeProgressDialog();
         btnSubmit.setEnabled(true);
+        btnGetVerify.setEnabled(true);
     }
 
     @Override
@@ -161,5 +162,11 @@ public class RetrievePwdFragment extends BaseFragment implements RetView
     public void success()
     {
         getActivity().finish();
+    }
+
+    @Override
+    public void startTimer()
+    {
+        timer.start();
     }
 }
