@@ -52,8 +52,8 @@ dependencies {
     //compile 'com.loopj.android:android-async-http:1.4.7'
     
     //rx java
-    compile 'io.reactivex:rxjava:1.0.0'
-    compile 'io.reactivex:rxandroid:0.24.0'
+    //compile 'io.reactivex:rxjava:1.0.0'
+    compile 'io.reactivex:rxandroid:1.0.1'
 
     //retrofit
     compile 'com.squareup.retrofit:retrofit:1.9.0'

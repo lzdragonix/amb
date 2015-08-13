@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit.client.Response;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.POST;
 import retrofit.http.Query;
 import rx.Observable;
@@ -68,10 +70,11 @@ public interface AmbApi
     @POST("/windforce/m/user_queryCurUserInfo.action")
     Observable<UserInfo> queryCurUserInfo();
 
+    @FormUrlEncoded
     @POST("/windforce/m/user_modifyUserInfo.action")
-    Observable<Response> modifyUserInfo(@Query("userId") String userId, @Query("userName") String userName,
-            @Query("telephone") String telephone, @Query("email") String email, @Query("address") String address,
-            @Query("communityId") String communityId);
+    Observable<Response> modifyUserInfo(@Field("userId") String userId, @Field("userName") String userName,
+            @Field("telephone") String telephone, @Field("email") String email, @Field("address") String address,
+            @Field("communityId") String communityId);
 
     @POST("/windforce/m/user_modifyPassword.action")
     Observable<JSONObject> modifyPassword(@Query("oldPassword") String oldPassword,
