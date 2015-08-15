@@ -3,6 +3,7 @@ package com.scxrh.amb.views.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -37,6 +38,12 @@ public class LiveFJFragment extends BaseFragment
     public static final String TAG = LiveFJFragment.class.getSimpleName();
     @Bind(R.id.map_container)
     FrameLayout container;
+    @Bind(R.id.txt_sj)
+    TextView txt_sj;
+    @Bind(R.id.txt_cy)
+    TextView txt_cy;
+    @Bind(R.id.txt_yh)
+    TextView txt_yh;
     private MapView mapView;
     private BaiduMap mBaiduMap;
     private LocationClient mLocationClient;
@@ -138,20 +145,31 @@ public class LiveFJFragment extends BaseFragment
     @OnClick({ R.id.sj, R.id.cy, R.id.yh })
     void nearBy(View v)
     {
-        String keyword = "";
+        String keyword;
+        reset();
         switch (v.getId())
         {
             case R.id.cy:
                 keyword = "餐饮";
+                txt_cy.setTextColor(getResources().getColor(R.color.cfbc000));
                 break;
             case R.id.yh:
                 keyword = "银行";
+                txt_yh.setTextColor(getResources().getColor(R.color.cfbc000));
                 break;
             default:
                 keyword = "商家";
+                txt_sj.setTextColor(getResources().getColor(R.color.cfbc000));
                 break;
         }
         mPoiSearch.searchNearby(searchOption.keyword(keyword));
+    }
+
+    private void reset()
+    {
+        txt_sj.setTextColor(getResources().getColor(R.color.c929292));
+        txt_cy.setTextColor(getResources().getColor(R.color.c929292));
+        txt_yh.setTextColor(getResources().getColor(R.color.c929292));
     }
 
     private void initLocation()

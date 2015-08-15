@@ -39,9 +39,11 @@
                     android:src="@mipmap/life_1"/>
 
                 <TextView
+                    android:id="@+id/txt_sj"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:textColor="@color/c929292"
                     android:text="商家"/>
             </LinearLayout>
         </FrameLayout>
@@ -65,9 +67,11 @@
                     android:src="@mipmap/life_2"/>
 
                 <TextView
+                    android:id="@+id/txt_cy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:textColor="@color/c929292"
                     android:text="餐饮"/>
             </LinearLayout>
         </FrameLayout>
@@ -91,9 +95,11 @@
                     android:src="@mipmap/icon_4"/>
 
                 <TextView
+                    android:id="@+id/txt_yh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:textColor="@color/c929292"
                     android:text="银行"/>
             </LinearLayout>
         </FrameLayout>
