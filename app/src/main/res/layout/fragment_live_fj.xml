@@ -21,6 +21,7 @@
         android:orientation="horizontal">
 
         <FrameLayout
+            android:id="@+id/sj"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -46,6 +47,7 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/cy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -71,6 +73,7 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/yh"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -180,9 +183,8 @@
         android:background="@color/ccccccc"/>
 
     <!-- baidu map -->
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/mapView"
+    <FrameLayout
+        android:id="@+id/map_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.scxrh.amb;
 import android.app.Application;
 import android.content.Context;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.scxrh.amb.common.CrashHandler;
 import com.scxrh.amb.injector.component.AppComponent;
@@ -30,6 +31,7 @@ public class App extends Application
         initializeInjector();
         Fresco.initialize(this);
         CrashHandler.initInstance(this);
+        SDKInitializer.initialize(this);
     }
 
     private void initializeInjector()
