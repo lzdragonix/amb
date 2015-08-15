@@ -184,16 +184,27 @@ public class FavoriteFragment extends BaseFragment implements FavoriteView
         private OnItemClickListener mOnItemClickListener = (view, position) -> {
             RecyclerViewAdapter adapter = (RecyclerViewAdapter)((RecyclerView)view.getParent()).getAdapter();
             FavoriteItem item = adapter.getItem(position);
-            UIData.Item uit = new UIData.Item();
-            uit.setContentType(item.getContentType());
-            uit.setImgUrl(item.getImgUrl());
-            uit.setItemId(item.getItemId());
-            uit.setItemType(item.getItemType());
-            Intent intent = new Intent(getActivity(), WindowActivity.class);
-            intent.putExtra(Const.KEY_FRAGMENT, DetailFragment.class.getName());
-            intent.putExtra(Const.KEY_DATA, uit);
-            intent.putExtra("un-show", true);
-            startActivity(intent);
+            if (!"编辑".equals(btnSubmit.getText().toString()))
+            {
+                if ("1".equals(item.getShowCheck()))
+                {
+                    CheckBox box = (CheckBox)view.findViewById(R.id.checkbox);
+                    box.setChecked(!box.isChecked());
+                }
+            }
+            else
+            {
+                UIData.Item uit = new UIData.Item();
+                uit.setContentType(item.getContentType());
+                uit.setImgUrl(item.getImgUrl());
+                uit.setItemId(item.getItemId());
+                uit.setItemType(item.getItemType());
+                Intent intent = new Intent(getActivity(), WindowActivity.class);
+                intent.putExtra(Const.KEY_FRAGMENT, DetailFragment.class.getName());
+                intent.putExtra(Const.KEY_DATA, uit);
+                intent.putExtra("un-show", true);
+                startActivity(intent);
+            }
         };
 
         public RecyclerViewAdapter(List<FavoriteItem> data)
