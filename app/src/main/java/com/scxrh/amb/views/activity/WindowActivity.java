@@ -20,7 +20,7 @@ public class WindowActivity extends BaseActivity
         }
         try
         {
-            Fragment fragment = (Fragment)Class.forName(clz).newInstance();
+            Fragment fragment = Fragment.instantiate(this, clz);
             Bundle data = getIntent().getExtras();
             Bundle bundle = data == null ? new Bundle() : new Bundle(data);
             fragment.setArguments(bundle);

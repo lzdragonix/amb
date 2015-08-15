@@ -12,6 +12,7 @@ import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.model.FinancialProduct;
+import com.scxrh.amb.model.Homemaking;
 import com.scxrh.amb.model.Order;
 import com.scxrh.amb.model.Points;
 import com.scxrh.amb.model.SalesManager;
@@ -24,6 +25,7 @@ import com.scxrh.amb.rest.serialiers.CityListDeserializer;
 import com.scxrh.amb.rest.serialiers.DetailItemDeserializer;
 import com.scxrh.amb.rest.serialiers.FavoriteItemDeserializer;
 import com.scxrh.amb.rest.serialiers.FinProductDeserializer;
+import com.scxrh.amb.rest.serialiers.HomemakingDeserializer;
 import com.scxrh.amb.rest.serialiers.JSONObjectDeserializer;
 import com.scxrh.amb.rest.serialiers.ManagerDeserializer;
 import com.scxrh.amb.rest.serialiers.OrderDeserializer;
@@ -69,6 +71,7 @@ public class RestClient
                                         new FavoriteItemDeserializer())
                    .registerTypeAdapter(new TypeToken<List<Order>>() { }.getType(), new OrderDeserializer())
                    .registerTypeAdapter(new TypeToken<List<Points>>() { }.getType(), new PointsDeserializer())
+                   .registerTypeAdapter(new TypeToken<List<Homemaking>>() { }.getType(), new HomemakingDeserializer())
                    .registerTypeAdapter(UserInfo.class, new UserInfoDeserializer());
         mConverter = new GsonConverter(gsonBuilder.create());
         RestAdapter.Builder builder = new RestAdapter.Builder();
@@ -235,6 +238,11 @@ public class RestClient
     public Observable<Response> confirmReceiving(String receivingItems)
     {
         return mAmbApi.confirmReceiving(receivingItems);
+    }
+
+    public Observable<List<Homemaking>> queryHomemaking(String communityId)
+    {
+        return mAmbApi.queryHomemaking(communityId);
     }
 
     public class RetrofitErrorHandler implements retrofit.ErrorHandler

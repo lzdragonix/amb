@@ -6,6 +6,7 @@ import com.scxrh.amb.model.City;
 import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.model.FinancialProduct;
+import com.scxrh.amb.model.Homemaking;
 import com.scxrh.amb.model.Order;
 import com.scxrh.amb.model.Points;
 import com.scxrh.amb.model.SalesManager;
@@ -114,4 +115,8 @@ public interface AmbApi
 
     @POST("/shopxx/m/order_confirmReceiving.action")
     Observable<Response> confirmReceiving(@Query("receivingItems") String receivingItems);
+
+    @FormUrlEncoded
+    @POST("/windforce/m/homemaking_queryByCommunity.action")
+    Observable<List<Homemaking>> queryHomemaking(@Field("communityId") String communityId);
 }

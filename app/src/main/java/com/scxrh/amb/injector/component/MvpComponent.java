@@ -9,6 +9,7 @@ import com.scxrh.amb.views.fragment.DetailFragment;
 import com.scxrh.amb.views.fragment.FavoriteFragment;
 import com.scxrh.amb.views.fragment.FinProFragment;
 import com.scxrh.amb.views.fragment.FinanceFragment;
+import com.scxrh.amb.views.fragment.HomemakingFragment;
 import com.scxrh.amb.views.fragment.LiveFragment;
 import com.scxrh.amb.views.fragment.LiveMSFragment;
 import com.scxrh.amb.views.fragment.LoginFragment;
@@ -79,4 +80,6 @@ public interface MvpComponent
     void inject(PointsFragment fragment);
 
     void inject(SettingsFragment fragment);
+
+    void inject(HomemakingFragment fragment);
 }
