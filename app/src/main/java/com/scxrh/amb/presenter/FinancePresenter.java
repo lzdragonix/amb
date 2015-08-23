@@ -1,8 +1,11 @@
 package com.scxrh.amb.presenter;
 
+import android.text.TextUtils;
+
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.AppInfo;
+import com.scxrh.amb.model.City;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.FinanceView;
 import com.scxrh.amb.views.view.MvpView;
@@ -27,7 +30,17 @@ public class FinancePresenter
         this.view = (FinanceView)view;
     }
 
-    public void loadData()
+    public void init()
+    {
+        appInfo.observable("community", this, City.class).subscribe(city -> {
+            if (TextUtils.isEmpty(city.getId())) { return; }
+            loadBank();
+            loadManager();
+            loadProduct();
+        });
+    }
+
+    public void loadBank()
     {
         view.showProgress(message.getMessage(Const.MSG_LOADING));
         String cityCode = appInfo.getCity().getId();

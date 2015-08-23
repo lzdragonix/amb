@@ -64,7 +64,6 @@ public class ManagerFragment extends BaseFragment implements ProgressView
         super.onActivityCreated(savedInstanceState);
         txtHeader.setText(getString(R.string.txt_manager));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        presenter.init();
         presenter.loadData();
     }
 

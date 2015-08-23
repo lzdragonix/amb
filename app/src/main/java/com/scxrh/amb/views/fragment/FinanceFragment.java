@@ -95,7 +95,8 @@ public class FinanceFragment extends BaseFragment implements FinanceView
             public void onPageScrollStateChanged(int state)
             { }
         });
-        presenter.loadData();
+        presenter.init();
+        presenter.loadBank();
         presenter.loadManager();
         presenter.loadProduct();
     }
