@@ -3,6 +3,7 @@ package com.scxrh.amb.presenter;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.model.AppInfo;
+import com.scxrh.amb.model.City;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.MvpView;
 import com.scxrh.amb.views.view.ProgressView;
@@ -25,6 +26,13 @@ public class ManagerPresenter
     public ManagerPresenter(MvpView view)
     {
         this.view = (ProgressView)view;
+    }
+
+    public void init()
+    {
+        appInfo.observable("community", this, City.class).subscribe(city -> {
+            loadData();
+        });
     }
 
     public void loadData()

@@ -70,7 +70,7 @@ public class DetailFragment extends BaseFragment implements ProgressView
         super.onActivityCreated(savedInstanceState);
         item = getArguments().getParcelable(Const.KEY_DATA);
         boolean unshow = getArguments().getBoolean("un-show", false);
-        if (unshow) { shouc.setVisibility(View.GONE); }
+        if (unshow || "finance".equals(item.getContentType())) { shouc.setVisibility(View.GONE); }
         presenter.loadData(item);
         switch (item.getContentType())
         {
@@ -185,8 +185,10 @@ public class DetailFragment extends BaseFragment implements ProgressView
             int i = Utils.tryParse(txt_num.getText().toString(), 0);
             i++;
             String s = String.valueOf(i);
+            String p = String.format("%.2f", mPrice * i);
             txt_num.setText(s);
-            txt_price.setText("￥ " + String.format("%.2f", mPrice * i));
+            txt_price.setText("￥ " + p);
+            di.setPrice(p);
             di.setAmount(s);
         });
         ButterKnife.findById(view, R.id.btn_sub).setOnClickListener(v -> {
@@ -195,8 +197,10 @@ public class DetailFragment extends BaseFragment implements ProgressView
             {
                 i--;
                 String s = String.valueOf(i);
+                String p = String.format("%.2f", mPrice * i);
                 txt_num.setText(s);
-                txt_price.setText("￥ " + String.format("%.2f", mPrice * i));
+                txt_price.setText("￥ " + p);
+                di.setPrice(p);
                 di.setAmount(s);
             }
         });
@@ -214,6 +218,8 @@ public class DetailFragment extends BaseFragment implements ProgressView
         name.setText(di.getName());
         TextView desc = ButterKnife.findById(view, R.id.desc);
         desc.setText(di.getDesc());
+        TextView detail = ButterKnife.findById(view, R.id.detail);
+        detail.setText(di.getDetail());
         detailContent.addView(view);
     }
 

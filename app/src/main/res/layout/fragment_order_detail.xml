@@ -54,7 +54,7 @@
                     android:text="1 个"/>
 
                 <TextView
-                    android:id="@+id/lbl_amount"
+                    android:id="@+id/lbl_total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/lbl_quantity"
@@ -63,9 +63,9 @@
                     android:text="金额总计："/>
 
                 <TextView
-                    android:id="@+id/txt_amount"
-                    android:layout_alignTop="@+id/lbl_amount"
-                    android:layout_toRightOf="@+id/lbl_amount"
+                    android:id="@+id/txt_total_price"
+                    android:layout_alignTop="@+id/lbl_total_price"
+                    android:layout_toRightOf="@+id/lbl_total_price"
                     android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -207,8 +207,9 @@
 
                     <EditText
                         android:id="@+id/txt_shr"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:text="小张"/>
                 </LinearLayout>
@@ -228,8 +229,9 @@
 
                     <EditText
                         android:id="@+id/txt_dh"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:text="13568881000"/>
                 </LinearLayout>
@@ -249,8 +251,9 @@
 
                     <EditText
                         android:id="@+id/txt_addr"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:maxLines="2"
                         android:minLines="2"
                         android:ellipsize="end"

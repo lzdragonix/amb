@@ -43,8 +43,8 @@ public class OrderDetailFragment extends BaseFragment implements OrderDetailView
     TextView name;
     @Bind(R.id.txt_quantity)
     TextView txt_quantity;
-    @Bind(R.id.txt_amount)
-    TextView txt_amount;
+    @Bind(R.id.txt_total_price)
+    TextView txt_total_price;
     @Bind(R.id.txt_delivery)
     TextView txt_delivery;
     @Bind(R.id.txt_delivery1)
@@ -93,8 +93,9 @@ public class OrderDetailFragment extends BaseFragment implements OrderDetailView
         txt_date.setText(date);
         txt_date.setSelection(date.length());
         name.setText(item.getName());
+        txt_quantity.setText(item.getAmount());
         String price = String.format("%.2f", Utils.tryParse(item.getPrice(), 0f)) + " 元";
-        txt_amount.setText(price);
+        txt_total_price.setText(price);
         presenter.init();
     }
 

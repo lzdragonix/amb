@@ -97,6 +97,7 @@ public class OrderDetailPresenter
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(list -> {
                 view.finish();
+                view.showMessage("购买成功");
                 view.close();
             }, throwable -> {
                 view.showMessage(message.getMessage(Const.MSG_SUBMIT_FAILED));
