@@ -109,13 +109,21 @@ public class OrderFragment extends BaseFragment implements OrderView
         switch (state)
         {
             case "1":
-                return "已处理";
+                return "未发货";
             case "2":
-                return "已完成";
+                return "已发货";
             case "3":
-                return "已作废";
+                return "已完成";
+            case "4":
+                return "已取消";
+            case "5":
+                return "已过期";
+            case "6":
+                return "已退款";
+            case "7":
+                return "已退货";
             default:
-                return "未处理";
+                return "未支付";
         }
     }
 
@@ -152,10 +160,12 @@ public class OrderFragment extends BaseFragment implements OrderView
             if ("0".equals(order.getOrderState()))
             {
                 vh.confirm.setVisibility(View.VISIBLE);
+                vh.line.setVisibility(View.VISIBLE);
             }
             else
             {
                 vh.confirm.setVisibility(View.GONE);
+                vh.line.setVisibility(View.GONE);
             }
         }
 
@@ -180,6 +190,8 @@ public class OrderFragment extends BaseFragment implements OrderView
         TextView amount;
         @Bind(R.id.confirm)
         TextView confirm;
+        @Bind(R.id.line)
+        View line;
         @Bind(R.id.img)
         SimpleDraweeView img;
 

@@ -1,10 +1,12 @@
 package com.scxrh.amb.presenter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.scxrh.amb.Const;
-import com.scxrh.amb.manager.MessageManager;
 import com.scxrh.amb.common.WindowNavigator;
+import com.scxrh.amb.manager.MessageManager;
+import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.model.FavoriteItem;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.view.FavoriteView;
@@ -27,6 +29,8 @@ public class FavoritePresenter
     WindowNavigator windowNavigator;
     @Inject
     Activity activity;
+    @Inject
+    SettingsManager settings;
     private FavoriteView view;
     private List<FavoriteItem> mData = new ArrayList<>();
     private FavoriteItem delItem;
@@ -74,6 +78,12 @@ public class FavoritePresenter
         view.showProgress(message.getMessage(Const.MSG_SUBMITTING));
         rest.cancelFavorite(delItem.getFavoriteId()).observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
             mData.remove(delItem);
+            String fav = settings.getString(Const.KEY_FAV);
+            if (!TextUtils.isEmpty(fav))
+            {
+                fav = fav.replace("," + delItem.getItemId() + "-" + delItem.getContentType(), "");
+                settings.setValue(Const.KEY_FAV, fav);
+            }
             delItem = null;
             view.showMessage(message.getMessage(Const.MSG_SUBMIT_SUCCESS));
             view.showData(mData);

@@ -23,7 +23,7 @@ import com.scxrh.amb.model.FinancialProduct;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.presenter.DetailPresenter;
 import com.scxrh.amb.rest.AmbApi;
-import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.views.view.DetailView;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 // 详细信息
-public class DetailFragment extends BaseFragment implements ProgressView
+public class DetailFragment extends BaseFragment implements DetailView
 {
     public static final String TAG = DetailFragment.class.getSimpleName();
     @Inject
@@ -70,7 +70,10 @@ public class DetailFragment extends BaseFragment implements ProgressView
         super.onActivityCreated(savedInstanceState);
         item = getArguments().getParcelable(Const.KEY_DATA);
         boolean unshow = getArguments().getBoolean("un-show", false);
-        if (unshow || "finance".equals(item.getContentType())) { shouc.setVisibility(View.GONE); }
+        if (unshow || "finance".equals(item.getContentType()) || presenter.hasFav(item))
+        {
+            shouc.setVisibility(View.GONE);
+        }
         presenter.loadData(item);
         switch (item.getContentType())
         {
@@ -233,5 +236,11 @@ public class DetailFragment extends BaseFragment implements ProgressView
         ws.setJavaScriptEnabled(true);
         webView.loadUrl(url);
         detailContent.addView(webView);
+    }
+
+    @Override
+    public void hideFavButton()
+    {
+        shouc.setVisibility(View.GONE);
     }
 }

@@ -33,6 +33,7 @@ public class Const
     public static final String KEY_COMMUNITY = "KEY_COMMUNITY";
     public static final String KEY_AVATAR = "KEY_AVATAR";
     public static final String KEY_USER = "KEY_USER";
+    public static final String KEY_FAV = "KEY_FAV";
     //rest returncode
     public static final String RETURNCODE_0000 = "0000";
     public static final String RETURNCODE_0001 = "0001";

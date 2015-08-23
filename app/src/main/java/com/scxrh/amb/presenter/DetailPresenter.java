@@ -1,6 +1,7 @@
 package com.scxrh.amb.presenter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.common.WindowNavigator;
@@ -11,8 +12,8 @@ import com.scxrh.amb.model.DetailItem;
 import com.scxrh.amb.model.UIData;
 import com.scxrh.amb.rest.RestClient;
 import com.scxrh.amb.views.fragment.OrderDetailFragment;
+import com.scxrh.amb.views.view.DetailView;
 import com.scxrh.amb.views.view.MvpView;
-import com.scxrh.amb.views.view.ProgressView;
 
 import javax.inject.Inject;
 
@@ -32,12 +33,12 @@ public class DetailPresenter
     WindowNavigator navigator;
     @Inject
     Activity activity;
-    private ProgressView view;
+    private DetailView view;
 
     @Inject
     public DetailPresenter(MvpView view)
     {
-        this.view = (ProgressView)view;
+        this.view = (DetailView)view;
     }
 
     public void loadData(UIData.Item item)
@@ -68,10 +69,19 @@ public class DetailPresenter
             return;
         }
         rest.addFavorite(itemId, contentType).observeOn(AndroidSchedulers.mainThread()).subscribe(response -> {
+            String fav = settings.getString(Const.KEY_FAV);
+            settings.setValue(Const.KEY_FAV, fav + "," + itemId + "-" + contentType);
+            view.hideFavButton();
             view.showMessage("收藏成功");
         }, throwable -> {
             view.showMessage("收藏失败");
         });
+    }
+
+    public boolean hasFav(UIData.Item item)
+    {
+        String fav = settings.getString(Const.KEY_FAV);
+        return !TextUtils.isEmpty(fav) && fav.contains(item.getItemId() + "-" + item.getContentType());
     }
 
     private void queryAd(String itemId)
