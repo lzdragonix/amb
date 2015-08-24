@@ -18,8 +18,8 @@ public class PointsDeserializer implements JsonDeserializer<List<Points>>
             throws JsonParseException
     {
         Gson gson = new Gson();
-        String code= json.getAsJsonObject().get(Const.KEY_CODE).getAsString();
-        if(Const.RETURNCODE_0001.equals(code))
+        String code = json.getAsJsonObject().get(Const.KEY_CODE).getAsString();
+        if (Const.RETURNCODE_0001.equals(code))
         {
             throw new RuntimeException("un-login");
         }
