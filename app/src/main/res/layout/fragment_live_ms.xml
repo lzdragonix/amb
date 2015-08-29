@@ -6,10 +6,16 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <com.scxrh.amb.widget.loopager.LoopViewPager
-        android:id="@+id/vpAD"
+    <FrameLayout
+        android:id="@+id/fl_layout"
         android:layout_width="match_parent"
-        android:layout_height="140dp"/>
+        android:layout_height="wrap_content">
+
+        <com.scxrh.amb.widget.loopager.LoopViewPager
+            android:id="@+id/vpAD"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"/>
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvList"

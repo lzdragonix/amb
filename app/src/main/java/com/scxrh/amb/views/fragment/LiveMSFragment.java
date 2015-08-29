@@ -27,6 +27,7 @@ import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.OnItemClickListener;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.widget.Dots;
 import com.scxrh.amb.widget.loopager.LoopViewPager;
 
 import java.util.ArrayList;
@@ -48,6 +49,9 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     LoopViewPager vpAD;
     @Bind(R.id.rvList)
     RecyclerView mRecyclerView;
+    @Bind(R.id.fl_layout)
+    FrameLayout fl_layout;
+    private Dots dots;
     private int page;
     private CountDownTimer timer = new CountDownTimer(3000000, 10000)
     {
@@ -70,6 +74,11 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
         super.onActivityCreated(savedInstanceState);
         int mIndex = getArguments().getInt("index");
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
+        dots = new Dots(getActivity());
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                                                       ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.BOTTOM;
+        fl_layout.addView(dots, params);
         presenter.loadData(mIndex);
     }
 
@@ -115,6 +124,8 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     {
         Map<String, UIData> uis = (Map<String, UIData>)data;
         initPagerData(uis.get("ad").getItems());
+        dots.init(uis.get("ad").getItems().size());
+        dots.changeDot(0);
         vpAD.setAdapter(new ADPagerAdapter(getActivity(), items, R.layout.layout_image_item_ad1, false));
         vpAD.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
@@ -126,6 +137,7 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
             public void onPageSelected(int position)
             {
                 page = position;
+                dots.changeDot(position);
             }
 
             @Override

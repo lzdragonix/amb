@@ -7,9 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.scxrh.amb.App;
@@ -25,6 +27,7 @@ import com.scxrh.amb.rest.AmbApi;
 import com.scxrh.amb.views.OnItemClickListener;
 import com.scxrh.amb.views.activity.WindowActivity;
 import com.scxrh.amb.views.view.ProgressView;
+import com.scxrh.amb.widget.Dots;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,9 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     RecyclerView rvDiscount;
     @Bind(R.id.rvFinance)
     RecyclerView rvFinance;
+    @Bind(R.id.fl_layout)
+    FrameLayout fl_layout;
+    private Dots dots;
 
     @Override
     protected int getLayoutId()
@@ -81,6 +87,27 @@ public class RecommendFragment extends BaseFragment implements ProgressView
         rvLottery.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvDiscount.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvFinance.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        dots = new Dots(getActivity());
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                                                       ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.BOTTOM;
+        fl_layout.addView(dots, params);
+        vpAD.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            { }
+
+            @Override
+            public void onPageSelected(int position)
+            {
+                dots.changeDot(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            { }
+        });
         presenter.loadData();
     }
 
@@ -132,6 +159,8 @@ public class RecommendFragment extends BaseFragment implements ProgressView
     {
         Map<String, UIData> uis = (Map<String, UIData>)data;
         vpAD.setAdapter(new ADPagerAdapter(getActivity(), uis.get("ad").getItems(), R.layout.layout_image_item_ad));
+        dots.init(uis.get("ad").getItems().size());
+        dots.changeDot(0);
         rvShop.setAdapter(new RecyclerViewAdapter(uis.get("hot").getItems()));
         rvBuy.setAdapter(new RecyclerViewAdapter(uis.get("buy").getItems()));
         rvLottery.setAdapter(new RecyclerViewAdapter(uis.get("lottery").getItems()));
