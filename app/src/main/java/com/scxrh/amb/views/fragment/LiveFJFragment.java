@@ -1,6 +1,7 @@
 package com.scxrh.amb.views.fragment;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -13,8 +14,11 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMapOptions;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
@@ -49,19 +53,21 @@ public class LiveFJFragment extends BaseFragment
     private LocationClient mLocationClient;
     private PoiNearbySearchOption searchOption = new PoiNearbySearchOption();
     private PoiSearch mPoiSearch = PoiSearch.newInstance();
+    private PoiResult mPoiResult;
     private OnGetPoiSearchResultListener onGetPoiSearchResultListener = new OnGetPoiSearchResultListener()
     {
         @Override
         public void onGetPoiResult(PoiResult poiResult)
         {
-            if (poiResult.getAllPoi() == null)
+            mPoiResult = poiResult;
+            if (mPoiResult.getAllPoi() == null)
             {
                 Logger.i(TAG, "poi is null.");
                 return;
             }
             mBaiduMap.clear();
-            PoiOverlay overlay = new PoiOverlay(mBaiduMap);
-            overlay.setData(poiResult);
+            MyPoiOverlay overlay = new MyPoiOverlay(mBaiduMap);
+            overlay.setData(mPoiResult);
             overlay.addToMap();
             overlay.zoomToSpan();
         }
@@ -84,6 +90,28 @@ public class LiveFJFragment extends BaseFragment
             mBaiduMap.setMyLocationData(locData);
             //
             searchOption.location(new LatLng(latitude, longitude)).pageNum(10).radius(5000);
+        }
+    };
+    private BaiduMap.OnMarkerClickListener mOnMarkerClickListener = new BaiduMap.OnMarkerClickListener()
+    {
+        @Override
+        public boolean onMarkerClick(Marker marker)
+        {
+            //创建InfoWindow展示的view
+            TextView text = new TextView(getActivity());
+            text.setBackgroundResource(R.mipmap.input_m);
+            text.setGravity(Gravity.CENTER);
+            text.setPadding(30, 0, 30, 0);
+            int index = marker.getExtraInfo().getInt("index", -1);
+            if (index >= 0 && mPoiResult.getAllPoi() != null && mPoiResult.getAllPoi().size() > 0)
+            {
+                text.setText(mPoiResult.getAllPoi().get(index).name);
+            }
+            //创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
+            InfoWindow infoWindow = new InfoWindow(text, marker.getPosition(), -47);
+            //显示InfoWindow
+            mBaiduMap.showInfoWindow(infoWindow);
+            return true;
         }
     };
 
@@ -117,6 +145,21 @@ public class LiveFJFragment extends BaseFragment
         mBaiduMap.setMyLocationConfigeration(config);
         //
         mPoiSearch.setOnGetPoiSearchResultListener(onGetPoiSearchResultListener);
+        mBaiduMap.setOnMarkerClickListener(mOnMarkerClickListener);
+        mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener()
+        {
+            @Override
+            public void onMapClick(LatLng latLng)
+            {
+                mBaiduMap.hideInfoWindow();
+            }
+
+            @Override
+            public boolean onMapPoiClick(MapPoi mapPoi)
+            {
+                return false;
+            }
+        });
         initLocation();
         mLocationClient.start();
     }
@@ -158,7 +201,7 @@ public class LiveFJFragment extends BaseFragment
                 txt_yh.setTextColor(getResources().getColor(R.color.cfbc000));
                 break;
             default:
-                keyword = "商家";
+                keyword = "商铺";
                 txt_sj.setTextColor(getResources().getColor(R.color.cfbc000));
                 break;
         }
@@ -197,5 +240,20 @@ public class LiveFJFragment extends BaseFragment
         option.setIsNeedLocationPoiList(true);
         mLocationClient.setLocOption(option);
         mLocationClient.registerLocationListener(locationListener);
+    }
+
+    class MyPoiOverlay extends PoiOverlay
+    {
+        public MyPoiOverlay(BaiduMap baiduMap)
+        {
+            super(baiduMap);
+        }
+
+        @Override
+        public boolean onPoiClick(int index)
+        {
+            super.onPoiClick(index);
+            return true;
+        }
     }
 }

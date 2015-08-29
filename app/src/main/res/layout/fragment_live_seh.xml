@@ -38,6 +38,7 @@
                 android:background="@color/cadadae"/>
 
             <ImageView
+                android:id="@+id/life_sjcz"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@mipmap/life_sjcz"/>

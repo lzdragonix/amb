@@ -82,7 +82,7 @@ public class DetailFragment extends BaseFragment implements DetailView
                 txtHeader.setText("广告详情");
                 break;
             case "shop":
-                txtHeader.setText("活动");
+                txtHeader.setText("商户");
                 break;
             case "product":
                 txtHeader.setText("商品详情");
@@ -125,6 +125,8 @@ public class DetailFragment extends BaseFragment implements DetailView
                 break;
             case "lottery":
                 showLottery(data);
+                break;
+            case "shop":
                 break;
         }
     }
@@ -236,6 +238,11 @@ public class DetailFragment extends BaseFragment implements DetailView
         ws.setJavaScriptEnabled(true);
         webView.loadUrl(url);
         detailContent.addView(webView);
+    }
+
+    private void showShop()
+    {
+
     }
 
     @Override

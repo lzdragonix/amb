@@ -1,13 +1,12 @@
 package com.scxrh.amb.views.fragment;
 
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
-import com.scxrh.amb.common.WindowNavigator;
+import com.scxrh.amb.manager.SettingsManager;
 import com.scxrh.amb.views.activity.WindowActivity;
-
-import javax.inject.Inject;
 
 import butterknife.OnClick;
 
@@ -15,8 +14,6 @@ import butterknife.OnClick;
 public class LiveSEHFragment extends BaseFragment
 {
     public static final String TAG = LiveSEHFragment.class.getSimpleName();
-    @Inject
-    WindowNavigator navigator;
 
     @Override
     protected int getLayoutId()
@@ -78,6 +75,12 @@ public class LiveSEHFragment extends BaseFragment
         open("jzfw");
     }
 
+    @OnClick(R.id.life_sjcz)
+    void life_sjcz()
+    {
+        open("sjcz");
+    }
+
     void open(String type)
     {
         Intent intent = new Intent(getActivity(), WindowActivity.class);
@@ -114,8 +117,26 @@ public class LiveSEHFragment extends BaseFragment
                 it.putExtra(Const.KEY_FRAGMENT, HomemakingFragment.class.getName());
                 startActivity(it);
                 return;
+            case "sjcz":
+                SettingsManager settings = new SettingsManager(getActivity());
+                String mobile = settings.getString(Const.KEY_ACCOUNT);
+                if (!TextUtils.isEmpty(mobile) && isUnicom(mobile))
+                {
+                    url = "http://upay.10010.com/npfwap/npfMobWap/bankcharge/index.html";
+                }
+                else
+                {
+                    url = "http://shop.10086.cn/i/mobile/rechargecredit.html";
+                }
+                break;
         }
         intent.putExtra("url", url);
         startActivity(intent);
+    }
+
+    private boolean isUnicom(String mobile)
+    {
+        return mobile.startsWith("130") || mobile.startsWith("131") || mobile.startsWith("132") ||
+               mobile.startsWith("155") || mobile.startsWith("156") || mobile.startsWith("186");
     }
 }
