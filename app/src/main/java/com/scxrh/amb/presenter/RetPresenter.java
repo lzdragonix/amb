@@ -88,6 +88,16 @@ public class RetPresenter
             view.finish();
             return;
         }
+        rest.smsVerify(moblie, "restorePwd").observeOn(AndroidSchedulers.mainThread()).subscribe(json -> {
+            if (Const.RETURNCODE_9999.equals(json.optString(Const.KEY_CODE)))
+            {
+                String msg = json.optString("message");
+                if (!TextUtils.isEmpty(msg))
+                {
+                    view.showMessage(msg);
+                }
+            }
+        }, throwable -> { });
         view.startTimer();
     }
 }

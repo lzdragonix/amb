@@ -245,6 +245,11 @@ public class RestClient
         return mAmbApi.queryHomemaking(communityId);
     }
 
+    public Observable<JSONObject> smsVerify(String telephone, String scene)
+    {
+        return mAmbApi.smsVerify(telephone, scene);
+    }
+
     public class RetrofitErrorHandler implements retrofit.ErrorHandler
     {
         @Override

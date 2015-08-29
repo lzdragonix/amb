@@ -74,6 +74,16 @@ public class RegPresenter
             view.finish();
             return;
         }
+        rest.smsVerify(moblie, "register").observeOn(AndroidSchedulers.mainThread()).subscribe(json -> {
+            if (Const.RETURNCODE_9999.equals(json.optString(Const.KEY_CODE)))
+            {
+                String msg = json.optString("message");
+                if (!TextUtils.isEmpty(msg))
+                {
+                    view.showMessage(msg);
+                }
+            }
+        }, throwable -> { });
         view.startTimer();
     }
 }

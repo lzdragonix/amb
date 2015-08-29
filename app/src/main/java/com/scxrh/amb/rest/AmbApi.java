@@ -120,4 +120,8 @@ public interface AmbApi
     @FormUrlEncoded
     @POST("/windforce/m/homemaking_queryByCommunity.action")
     Observable<List<Homemaking>> queryHomemaking(@Field("communityId") String communityId);
+
+    @FormUrlEncoded
+    @POST("/windforce/m/sms_send.action")
+    Observable<JSONObject> smsVerify(@Field("telephone") String telephone, @Field("scene") String scene);
 }
