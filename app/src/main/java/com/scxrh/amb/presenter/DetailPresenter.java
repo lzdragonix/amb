@@ -58,7 +58,22 @@ public class DetailPresenter
             case "lottery":
                 view.showData(appInfo.getUserInfo().getUserId());
                 break;
+            case "shop":
+                queryShop(item.getItemId());
+                break;
         }
+    }
+
+    private void queryShop(String itemId)
+    {
+        view.showProgress(message.getMessage(Const.MSG_LOADING));
+        rest.queryShop(itemId).observeOn(AndroidSchedulers.mainThread()).subscribe(detailItem -> {
+            view.showData(detailItem);
+            view.finish();
+        }, throwable -> {
+            view.showMessage(message.getMessage(Const.MSG_LOADING_FAILED));
+            view.finish();
+        });
     }
 
     public void favorite(String itemId, String contentType)

@@ -14,6 +14,6 @@
         fresco:roundedCornerRadius="5dp"
         fresco:actualImageScaleType="centerCrop"
         fresco:placeholderImageScaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/test_img_2"/>
+        fresco:placeholderImage="@mipmap/r_4"/>
 </FrameLayout>
 

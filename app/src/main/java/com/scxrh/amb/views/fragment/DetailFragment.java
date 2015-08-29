@@ -127,6 +127,7 @@ public class DetailFragment extends BaseFragment implements DetailView
                 showLottery(data);
                 break;
             case "shop":
+                showShop(data);
                 break;
         }
     }
@@ -159,12 +160,6 @@ public class DetailFragment extends BaseFragment implements DetailView
         TextView txtAdContent = ButterKnife.findById(view, R.id.txtAdContent);
         txtAdContent.setText(di.getText());
         detailContent.addView(view);
-    }
-
-    //活动
-    private void showShop(Object data)
-    {
-        DetailItem di = (DetailItem)data;
     }
 
     private void showProduct(Object data)
@@ -240,9 +235,18 @@ public class DetailFragment extends BaseFragment implements DetailView
         detailContent.addView(webView);
     }
 
-    private void showShop()
+    private void showShop(Object data)
     {
-
+        DetailItem di = (DetailItem)data;
+        View view = getActivity().getLayoutInflater().inflate(R.layout.layout_detail_shop, detailContent, false);
+        SimpleDraweeView img = ButterKnife.findById(view, R.id.img);
+        String url = AmbApi.END_POINT + di.getImgUrl();
+        img.setImageURI(Uri.parse(url));
+        TextView name = ButterKnife.findById(view, R.id.name);
+        name.setText(di.getName());
+        TextView desc = ButterKnife.findById(view, R.id.desc);
+        desc.setText(di.getDesc());
+        detailContent.addView(view);
     }
 
     @Override
