@@ -5,15 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scxrh.amb.App;
 import com.scxrh.amb.Const;
 import com.scxrh.amb.R;
@@ -47,8 +48,8 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     LiveMSPresenter presenter;
     @Bind(R.id.vpAD)
     LoopViewPager vpAD;
-    @Bind(R.id.rvList)
-    RecyclerView mRecyclerView;
+    @Bind(R.id.gl_content)
+    GridLayout gl_content;
     @Bind(R.id.fl_layout)
     FrameLayout fl_layout;
     private Dots dots;
@@ -73,7 +74,6 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
     {
         super.onActivityCreated(savedInstanceState);
         int mIndex = getArguments().getInt("index");
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
         dots = new Dots(getActivity());
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                                        ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -144,7 +144,30 @@ public class LiveMSFragment extends BaseFragment implements ProgressView
             public void onPageScrollStateChanged(int state)
             { }
         });
-        mRecyclerView.setAdapter(new RecyclerViewAdapter(uis.get("content").getItems()));
+        //mRecyclerView.setAdapter(new RecyclerViewAdapter(uis.get("content").getItems()));
+        List<UIData.Item> content = uis.get("content").getItems();
+        if (content != null)
+        {
+            int position = 0;
+            for (UIData.Item item : content)
+            {
+                View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_image_item1, gl_content, false);
+                view.setTag(item);
+                String url = AmbApi.END_POINT + item.getImgUrl();
+                ((SimpleDraweeView)view.findViewById(R.id.img)).setImageURI(Uri.parse(url));
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                if ((position % 2) == 1) { params.setGravity(Gravity.RIGHT); }
+                else { params.setGravity(Gravity.LEFT); }
+                gl_content.addView(view, params);
+                view.setOnClickListener(v -> {
+                    if (v.getTag() instanceof UIData.Item)
+                    {
+                        showDetail((UIData.Item)v.getTag());
+                    }
+                });
+                position++;
+            }
+        }
         timer.start();
     }
 

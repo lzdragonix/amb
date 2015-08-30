@@ -70,7 +70,8 @@ public class DetailFragment extends BaseFragment implements DetailView
         super.onActivityCreated(savedInstanceState);
         item = getArguments().getParcelable(Const.KEY_DATA);
         boolean unshow = getArguments().getBoolean("un-show", false);
-        if (unshow || "finance".equals(item.getContentType()) || presenter.hasFav(item))
+        if (unshow || "finance".equals(item.getContentType()) || "shop".equals(item.getContentType()) ||
+            presenter.hasFav(item))
         {
             shouc.setVisibility(View.GONE);
         }
