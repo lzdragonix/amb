@@ -141,6 +141,7 @@ public class FinanceFragment extends BaseFragment implements FinanceView
         List<SalesManager> list = (List<SalesManager>)data;
         vpManager.setAdapter(new ManagerPagerAdapter(list));
         //dots
+        llDots.removeAllViews();
         int count = vpManager.getAdapter().getCount();
         for (int i = 0; i < count; i++)
         {
@@ -161,6 +162,7 @@ public class FinanceFragment extends BaseFragment implements FinanceView
     {
         List<FinancialProduct> list = (List<FinancialProduct>)data;
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        productContent.removeAllViews();
         for (FinancialProduct product : list)
         {
             View view = inflater.inflate(R.layout.layout_fin_product_item, productContent, false);

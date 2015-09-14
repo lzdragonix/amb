@@ -82,10 +82,6 @@ public interface AmbApi
     Observable<JSONObject> modifyPassword(@Query("oldPassword") String oldPassword,
             @Query("newPassword") String newPassword);
 
-    @POST("/shopxx/m/suggestion_submitSuggest.action")
-    Observable<JSONObject> submitSuggest(@Query("name") String name, @Query("contactInfo") String contactInfo,
-            @Query("content") String content);
-
     @POST("/windforce/m/bank_queryBank.action")
     Observable<List<BankInfo>> queryBank(@Query("cityCode") String cityCode, @Query("communityId") String communityId);
 
@@ -97,12 +93,6 @@ public interface AmbApi
 
     @POST("/windforce/m/favorite_cancel.action")
     Observable<Response> cancelFavorite(@Query("cancelFavoriteId") String cancelFavoriteId);
-
-    @POST("/shopxx/m/order_addOrder.action")
-    Observable<Response> addOrder(@Query("userId") String userId, @Query("communityId") String communityId,
-            @Query("telephone") String telephone, @Query("address") String address,
-            @Query("receiverName") String receiverName, @Query("zipCode") String zipCode,
-            @Query("addItems") String addItems);
 
     @POST("/shopxx/m/order_queryOrder.action")
     Observable<List<Order>> queryOrder(@Query("userId") String userId, @Query("orderId") String orderId,
@@ -124,4 +114,16 @@ public interface AmbApi
     @FormUrlEncoded
     @POST("/windforce/m/sms_send.action")
     Observable<JSONObject> smsVerify(@Field("telephone") String telephone, @Field("scene") String scene);
+
+    @FormUrlEncoded
+    @POST("/shopxx/m/suggestion_submitSuggest.action")
+    Observable<JSONObject> submitSuggest(@Field("name") String name, @Field("contactInfo") String contactInfo,
+            @Field("content") String content);
+
+    @FormUrlEncoded
+    @POST("/shopxx/m/order_addOrder.action")
+    Observable<Response> addOrder(@Field("userId") String userId, @Field("communityId") String communityId,
+            @Field("telephone") String telephone, @Field("address") String address,
+            @Field("receiverName") String receiverName, @Field("zipCode") String zipCode,
+            @Field("addItems") String addItems);
 }

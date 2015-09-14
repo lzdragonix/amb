@@ -19,7 +19,7 @@
             android:layout_height="165dp"
             fresco:actualImageScaleType="centerCrop"
             fresco:placeholderImageScaleType="centerCrop"
-            fresco:placeholderImage="@mipmap/cp_1"/>
+            fresco:placeholderImage="@mipmap/r_4"/>
 
         <TextView
             android:id="@+id/name"
