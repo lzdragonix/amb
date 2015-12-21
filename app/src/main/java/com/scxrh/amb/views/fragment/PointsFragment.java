@@ -115,6 +115,7 @@ public class PointsFragment extends BaseFragment implements PointsView
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
+
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_points_item, parent, false);
             return new ViewHolder(view);
         }
